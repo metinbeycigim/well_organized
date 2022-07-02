@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "244235600424",
+    "firebase_url": "https://well-organized-1ab1d-default-rtdb.firebaseio.com",
+    "project_id": "well-organized-1ab1d",
+    "storage_bucket": "well-organized-1ab1d.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:244235600424:android:31cf755be8acd0b4fa2b1d",
+        "android_client_info": {
+          "package_name": "com.vital.well_organized"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "244235600424-u0grkb37vpqu2vfca2dm8pfte5jndfou.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBOU0zUo9PIog1cEo1oSSiRZ6WG6Y4y3Hk"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "244235600424-u0grkb37vpqu2vfca2dm8pfte5jndfou.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
