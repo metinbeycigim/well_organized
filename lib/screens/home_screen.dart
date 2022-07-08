@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:well_organized/services/riverpod_service.dart';
 
+import '../widgets/create_elevated_button.dart';
+
 class HomeScreen extends ConsumerWidget {
   const HomeScreen({super.key});
 
@@ -18,7 +20,19 @@ class HomeScreen extends ConsumerWidget {
           )
         ],
       ),
-      body: const Center(child: Text('You logged in')),
+      body: Padding(
+        padding: const EdgeInsets.all(100.0),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.spaceAround,
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: [
+            const CreateElevatedButton(null),
+            ElevatedButton(onPressed: () {}, child: const Text('PlaceHolderText')),
+            ElevatedButton(onPressed: () {}, child: const Text('PlaceHolderText')),
+            ElevatedButton(onPressed: () {}, child: const Text('PlaceHolderText')),
+          ],
+        ),
+      ),
     );
   }
 }

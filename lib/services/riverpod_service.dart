@@ -7,8 +7,8 @@ import 'package:well_organized/services/firebase_database_service.dart';
 
 class RiverpodService {
   static final firebaseAuthProvider = Provider<FirebaseAuthService>((ref) => FirebaseAuthService());
-  static final authStateProvider = StreamProvider<User?>((ref) => ref.watch(firebaseAuthProvider).authStateChange);
   static final firebaseDatabaseProvider = Provider<FirebaseDatabaseService>((ref) => FirebaseDatabaseService());
+  static final authStateProvider = StreamProvider<User?>((ref) => ref.watch(firebaseAuthProvider).authStateChange);
   static final routeProvider = Provider<GoRouter>((ref) {
     final authState = ref.watch(authStateProvider);
     final router = Routes();

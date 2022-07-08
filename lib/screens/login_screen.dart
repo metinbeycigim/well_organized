@@ -1,12 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:well_organized/services/riverpod_service.dart';
 
 class LoginScreen extends ConsumerWidget {
   const LoginScreen({super.key});
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final TextEditingController _emailController = TextEditingController();
-    final TextEditingController _passwordController = TextEditingController();
+    final TextEditingController emailController = TextEditingController();
+    final TextEditingController passwordController = TextEditingController();
+    final signInInstance = ref.read(RiverpodService.firebaseAuthProvider);
+
     return GestureDetector(
       onTap: () => FocusManager.instance.primaryFocus?.unfocus(),
       child: Scaffold(
@@ -25,7 +28,7 @@ class LoginScreen extends ConsumerWidget {
               Padding(
                 padding: const EdgeInsets.all(10),
                 child: TextField(
-                  controller: _emailController,
+                  controller: emailController,
                   keyboardType: TextInputType.emailAddress,
                   decoration: const InputDecoration(
                     border: OutlineInputBorder(),
@@ -37,7 +40,7 @@ class LoginScreen extends ConsumerWidget {
               Padding(
                 padding: const EdgeInsets.all(10),
                 child: TextField(
-                  controller: _passwordController,
+                  controller: passwordController,
                   obscureText: true,
                   decoration: const InputDecoration(
                     border: OutlineInputBorder(),
@@ -51,7 +54,8 @@ class LoginScreen extends ConsumerWidget {
                 width: 250,
                 decoration: BoxDecoration(color: Colors.blue, borderRadius: BorderRadius.circular(20)),
                 child: TextButton(
-                  onPressed: () {},
+                  onPressed: () async =>
+                      await signInInstance.signIn(emailController.text.trim(), passwordController.text.trim(), context),
                   child: const Text(
                     'Login',
                     style: TextStyle(color: Colors.white, fontSize: 25),
