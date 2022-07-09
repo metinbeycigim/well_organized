@@ -13,7 +13,7 @@ class RiverpodService {
     final authState = ref.watch(authStateProvider);
     final router = Routes();
     return GoRouter(
-      initialLocation: authState.value == null ? '/login' : '/home',
+      initialLocation: authState.value == null ? '/login' : '/',
       debugLogDiagnostics: true,
       refreshListenable: router,
       routes: router.routes,
