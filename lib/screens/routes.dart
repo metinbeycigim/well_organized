@@ -12,8 +12,8 @@ class Routes extends ChangeNotifier {
         ),
         GoRoute(
           name: 'home',
-          path: '/',
+          path: '/', 
           builder: (context, state) => const HomeScreen(),
-        )
+        ),
       ];
 }
