@@ -3,13 +3,14 @@ import 'package:flutter/material.dart';
 
 class FirebaseAuthService {
   late final context;
-  static final _firebaseAuth = FirebaseAuth.instance;
+  // static final firebaseAuth = FirebaseAuth.instance;
+  FirebaseAuth get firebaseAuth => FirebaseAuth.instance;
 
-  Stream<User?> get authStateChange => _firebaseAuth.authStateChanges();
+  Stream<User?> get authStateChange => firebaseAuth.authStateChanges();
 
-  Future<void> signIn(String email, String password, BuildContext context) async {
+  Future<void> signIn(String email, String password, String displayName, BuildContext context) async {
     try {
-      final credential = await _firebaseAuth.signInWithEmailAndPassword(email: email, password: password);
+      final credential = await firebaseAuth.signInWithEmailAndPassword(email: email, password: password).then((value) =>value.user!.updateDisplayName(displayName) );
     } on FirebaseAuthException catch (e) {
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
@@ -25,5 +26,5 @@ class FirebaseAuthService {
     }
   }
 
-  Future<void> signOut() async => await _firebaseAuth.signOut();
+  Future<void> signOut() async => await firebaseAuth.signOut();
 }

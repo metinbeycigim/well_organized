@@ -5,7 +5,7 @@ class ProductModel {
   String productName;
   String sku;
   String location;
-  int barcode;
+  String barcode;
   int quantity;
   String photo1;
   String? photo2;
@@ -26,8 +26,8 @@ class ProductModel {
     return {
       'userName': userName,
       'productName': productName,
-      'sku': sku,
-      'location': location,
+      'sku': sku.toUpperCase(),
+      'location': location.toUpperCase(),
       'barcode': barcode,
       'quantity': quantity,
       'photo1': photo1,

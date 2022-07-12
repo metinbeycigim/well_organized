@@ -1,19 +1,22 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:well_organized/consants/text_editing_controllers.dart';
+import 'package:well_organized/consants/titles.dart';
 import 'package:well_organized/services/riverpod_service.dart';
+import 'package:well_organized/widgets/build_text_field.dart';
 
 class LoginScreen extends ConsumerWidget {
   const LoginScreen({super.key});
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final TextEditingController emailController = TextEditingController();
-    final TextEditingController passwordController = TextEditingController();
     final signInInstance = ref.read(RiverpodService.firebaseAuthProvider);
 
     return GestureDetector(
       onTap: () => FocusManager.instance.primaryFocus?.unfocus(),
       child: Scaffold(
-        appBar: AppBar(title: const Text('Well Organized')),
+        appBar: AppBar(
+          title: const Text(Titles.appTitle),
+        ),
         body: SingleChildScrollView(
           child: Column(
             children: [
@@ -25,37 +28,30 @@ class LoginScreen extends ConsumerWidget {
                   borderRadius: BorderRadius.circular(200),
                 ),
               ),
-              Padding(
-                padding: const EdgeInsets.all(10),
-                child: TextField(
-                  controller: emailController,
-                  keyboardType: TextInputType.emailAddress,
-                  decoration: const InputDecoration(
-                    border: OutlineInputBorder(),
-                    labelText: 'User Name',
-                    hintText: 'Enter a valid email',
-                  ),
-                ),
-              ),
-              Padding(
-                padding: const EdgeInsets.all(10),
-                child: TextField(
-                  controller: passwordController,
-                  obscureText: true,
-                  decoration: const InputDecoration(
-                    border: OutlineInputBorder(),
-                    labelText: 'Password',
-                    hintText: 'Enter your secure password',
-                  ),
-                ),
-              ),
+              BuildTextField('Username', 'Enter a username', TextEditingControllers.userNameController),
+              BuildTextField('E-mail', 'Enter a valid email', TextEditingControllers.emailController),
+              BuildTextField('Password', 'Enter your secure password', TextEditingControllers.passwordController),
               Container(
                 height: 50,
                 width: 250,
                 decoration: BoxDecoration(color: Colors.blue, borderRadius: BorderRadius.circular(20)),
                 child: TextButton(
-                  onPressed: () async =>
-                      await signInInstance.signIn(emailController.text.trim(), passwordController.text.trim(), context),
+                  onPressed: () async => TextEditingControllers.userNameController.text.isNotEmpty
+                      ? await signInInstance.signIn(
+                          TextEditingControllers.emailController.text.trim(),
+                          TextEditingControllers.passwordController.text.trim(),
+                          TextEditingControllers.userNameController.text.trim(),
+                          context)
+                      : ScaffoldMessenger.of(context).showSnackBar(
+                          SnackBar(
+                            content: const Text('Please enter a username'),
+                            duration: const Duration(seconds: 3),
+                            action: SnackBarAction(
+                              label: 'OK',
+                              onPressed: () {},
+                            ),
+                          ),
+                        ),
                   child: const Text(
                     'Login',
                     style: TextStyle(color: Colors.white, fontSize: 25),

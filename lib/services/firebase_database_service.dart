@@ -1,5 +1,22 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_database/firebase_database.dart';
 
+import '../models/product_model.dart';
+
 class FirebaseDatabaseService {
-  static final firebaseDatabase = FirebaseDatabase.instance.ref();
+  static final FirebaseDatabase _firebaseDatabase = FirebaseDatabase.instance;
+  static final DatabaseReference _ref = _firebaseDatabase.ref();
+
+  Future<void> addProduct(ProductModel product) async {
+    final productsRef = _ref.child('Products/${product.sku.toUpperCase()}');
+    await productsRef.push().set(product.toMap());
+  }
+
+  Future<void> addUser(User userName) async {
+    final userRef = _ref.child('Users/$userName');
+    await userRef.push().set({
+      'Username': userName.displayName,
+      'email': userName.email,
+    });
+  }
 }

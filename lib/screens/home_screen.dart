@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:well_organized/consants/titles.dart';
 import 'package:well_organized/services/riverpod_service.dart';
 
 import '../widgets/build_elevated_button.dart';
@@ -16,7 +17,7 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('HomeScreen'),
+        title: const Text(Titles.homeScreenTitle),
         actions: [
           IconButton(
             onPressed: () async => await ref.read(RiverpodService.firebaseAuthProvider).signOut(),
@@ -31,7 +32,7 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
           mainAxisAlignment: MainAxisAlignment.spaceAround,
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: const [
-            BuildElevatedButton('routeNamePlaceholder', 'buttonNamePlaceholder'),
+            BuildElevatedButton('addProduct', 'Add Product'),
             BuildElevatedButton('routeNamePlaceholder', 'buttonNamePlaceholder'),
             BuildElevatedButton('routeNamePlaceholder', 'buttonNamePlaceholder'),
             BuildElevatedButton('routeNamePlaceholder', 'buttonNamePlaceholder'),
