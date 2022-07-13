@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:well_organized/consants/titles.dart';
+import 'package:well_organized/constants/titles.dart';
 import 'package:well_organized/services/riverpod_service.dart';
 
 import '../widgets/build_elevated_button.dart';

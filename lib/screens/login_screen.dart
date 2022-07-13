@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:well_organized/consants/text_editing_controllers.dart';
-import 'package:well_organized/consants/titles.dart';
+import 'package:well_organized/constants/text_editing_controllers.dart';
+import 'package:well_organized/constants/titles.dart';
 import 'package:well_organized/services/riverpod_service.dart';
 import 'package:well_organized/widgets/build_text_field.dart';
 
@@ -64,4 +64,5 @@ class LoginScreen extends ConsumerWidget {
       ),
     );
   }
+  
 }

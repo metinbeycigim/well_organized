@@ -9,7 +9,7 @@ class FirebaseDatabaseService {
 
   Future<void> addProduct(ProductModel product) async {
     final productsRef = _ref.child('Products/${product.sku.toUpperCase()}');
-    await productsRef.push().set(product.toMap());
+    await productsRef.set(product.toMap());
   }
 
   Future<void> addUser(User userName) async {
