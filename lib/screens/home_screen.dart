@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:go_router/go_router.dart';
 import 'package:well_organized/constants/titles.dart';
 import 'package:well_organized/services/riverpod_service.dart';
 
@@ -31,11 +32,18 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceAround,
           crossAxisAlignment: CrossAxisAlignment.stretch,
-          children: const [
-            BuildElevatedButton('addProduct', 'Add Product'),
-            BuildElevatedButton('routeNamePlaceholder', 'buttonNamePlaceholder'),
-            BuildElevatedButton('routeNamePlaceholder', 'buttonNamePlaceholder'),
-            BuildElevatedButton('routeNamePlaceholder', 'buttonNamePlaceholder'),
+          children: [
+            ElevatedButton(
+              onPressed: () => context.go('/addProduct'),
+              style: ElevatedButton.styleFrom(
+                  fixedSize: const Size(double.infinity, 45),
+                  elevation: 5,
+                  shape: const RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(20)))),
+              child: const Text('Add Product'),
+            ),
+            const BuildElevatedButton('routeNamePlaceholder', 'buttonNamePlaceholder'),
+            const BuildElevatedButton('routeNamePlaceholder', 'buttonNamePlaceholder'),
+            const BuildElevatedButton('routeNamePlaceholder', 'buttonNamePlaceholder'),
           ],
         ),
       ),

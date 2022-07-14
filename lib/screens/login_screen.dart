@@ -28,30 +28,34 @@ class LoginScreen extends ConsumerWidget {
                   borderRadius: BorderRadius.circular(200),
                 ),
               ),
-              BuildTextField('Username', 'Enter a username', TextEditingControllers.userNameController),
-              BuildTextField('E-mail', 'Enter a valid email', TextEditingControllers.emailController),
-              BuildTextField('Password', 'Enter your secure password', TextEditingControllers.passwordController),
+              BuildTextField(
+                'E-mail',
+                'Enter a valid email',
+                TextEditingControllers.emailController,
+                false,
+              ),
+              BuildTextField(
+                'Password',
+                'Enter your secure password',
+                TextEditingControllers.passwordController,
+                true,
+              ),
               Container(
                 height: 50,
                 width: 250,
                 decoration: BoxDecoration(color: Colors.blue, borderRadius: BorderRadius.circular(20)),
                 child: TextButton(
-                  onPressed: () async => TextEditingControllers.userNameController.text.isNotEmpty
-                      ? await signInInstance.signIn(
-                          TextEditingControllers.emailController.text.trim(),
-                          TextEditingControllers.passwordController.text.trim(),
-                          TextEditingControllers.userNameController.text.trim(),
-                          context)
-                      : ScaffoldMessenger.of(context).showSnackBar(
-                          SnackBar(
-                            content: const Text('Please enter a username'),
-                            duration: const Duration(seconds: 3),
-                            action: SnackBarAction(
-                              label: 'OK',
-                              onPressed: () {},
+                  onPressed: () async {
+                    TextEditingControllers.emailController.text.isNotEmpty
+                        ? await signInInstance.signIn(TextEditingControllers.emailController.text.trim(),
+                            TextEditingControllers.passwordController.text.trim(), context)
+                        : ScaffoldMessenger.of(context).showSnackBar(
+                            const SnackBar(
+                              content: Text('Please enter a valid email address'),
+                              duration: Duration(seconds: 3),
                             ),
-                          ),
-                        ),
+                          );
+                  },
                   child: const Text(
                     'Login',
                     style: TextStyle(color: Colors.white, fontSize: 25),
@@ -64,5 +68,4 @@ class LoginScreen extends ConsumerWidget {
       ),
     );
   }
-  
 }

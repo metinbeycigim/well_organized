@@ -1,25 +1,26 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:well_organized/services/firebase_database_service.dart';
 
 class FirebaseAuthService {
-  late final context;
+  // late final context;
   // static final firebaseAuth = FirebaseAuth.instance;
   FirebaseAuth get firebaseAuth => FirebaseAuth.instance;
 
   Stream<User?> get authStateChange => firebaseAuth.authStateChanges();
 
-  Future<void> signIn(String email, String password, String displayName, BuildContext context) async {
+  Future<void> signIn(String email, String password, BuildContext context) async {
     try {
-      final credential = await firebaseAuth.signInWithEmailAndPassword(email: email, password: password).then((value) =>value.user!.updateDisplayName(displayName) );
+      await firebaseAuth.signInWithEmailAndPassword(email: email, password: password).then(
+            (value) => value.user!.updateDisplayName(email.split('@')[0]),
+          );
+      final userName = firebaseAuth.currentUser as User;
+      await FirebaseDatabaseService.addUser(userName);
     } on FirebaseAuthException catch (e) {
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
           content: Text(e.message.toString()),
           duration: const Duration(seconds: 3),
-          action: SnackBarAction(
-            label: 'OK',
-            onPressed: () {},
-          ),
         ),
       );
       print(e.message);
