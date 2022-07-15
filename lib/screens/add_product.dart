@@ -2,10 +2,13 @@ import 'dart:io';
 
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:flutter_barcode_scanner/flutter_barcode_scanner.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:well_organized/constants/text_editing_controllers.dart';
 import 'package:well_organized/constants/titles.dart';
+import 'package:well_organized/widgets/back_to_home_screen.dart';
 
 import '../models/product_model.dart';
 import '../services/riverpod_service.dart';
@@ -28,12 +31,14 @@ class _AddProductState extends ConsumerState<AddProduct> {
 
   @override
   Widget build(BuildContext context) {
+    String barcodeValue;
     final firebaseStorageRef = FirebaseStorage.instance.ref();
     final productImage = firebaseStorageRef.child(TextEditingControllers.skuController.text.trim().toUpperCase());
     return GestureDetector(
       onTap: () => FocusManager.instance.primaryFocus?.unfocus(),
       child: Scaffold(
         appBar: AppBar(
+          leading: const BackToHomeScreen(),
           title: const Text(Titles.addProductScreenTitle),
         ),
         body: SingleChildScrollView(
@@ -80,8 +85,26 @@ class _AddProductState extends ConsumerState<AddProduct> {
                 child: TextField(
                   controller: TextEditingControllers.barcodeController,
                   onChanged: (value) => setState(() {}),
-                  decoration: const InputDecoration(
-                    border: OutlineInputBorder(),
+                  decoration: InputDecoration(
+                    suffix: IconButton(
+                        onPressed: () async {
+                          try {
+                            final barcode = await FlutterBarcodeScanner.scanBarcode(
+                              "#ff6666",
+                              'Cancel',
+                              false,
+                              ScanMode.BARCODE,
+                            );
+                            setState(() {
+                              TextEditingControllers.barcodeController.text = barcode;
+                            });
+                          } on PlatformException catch (e) {
+                            print(e);
+                          }
+                          if (!mounted) return;
+                        },
+                        icon: const Icon(Icons.qr_code_scanner_rounded)),
+                    border: const OutlineInputBorder(),
                     labelText: 'Barcode',
                     hintText: 'Barcode',
                   ),

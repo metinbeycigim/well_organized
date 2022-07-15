@@ -3,12 +3,18 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:well_organized/constants/text_editing_controllers.dart';
 import 'package:well_organized/constants/titles.dart';
 import 'package:well_organized/services/riverpod_service.dart';
-import 'package:well_organized/widgets/build_text_field.dart';
 
-class LoginScreen extends ConsumerWidget {
+class LoginScreen extends ConsumerStatefulWidget {
   const LoginScreen({super.key});
+
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  ConsumerState<ConsumerStatefulWidget> createState() => _LoginScreenState();
+}
+
+class _LoginScreenState extends ConsumerState<LoginScreen> {
+  bool isObscure = true;
+  @override
+  Widget build(BuildContext context) {
     final signInInstance = ref.read(RiverpodService.firebaseAuthProvider);
 
     return GestureDetector(
@@ -28,17 +34,37 @@ class LoginScreen extends ConsumerWidget {
                   borderRadius: BorderRadius.circular(200),
                 ),
               ),
-              BuildTextField(
-                'E-mail',
-                'Enter a valid email',
-                TextEditingControllers.emailController,
-                false,
+              Padding(
+                padding: const EdgeInsets.all(10),
+                child: TextField(
+                  controller: TextEditingControllers.emailController,
+                  autocorrect: false,
+                  keyboardType: TextInputType.emailAddress,
+                  decoration: const InputDecoration(
+                    border: OutlineInputBorder(),
+                    labelText: 'E-mail',
+                    hintText: 'Enter a valid email',
+                  ),
+                ),
               ),
-              BuildTextField(
-                'Password',
-                'Enter your secure password',
-                TextEditingControllers.passwordController,
-                true,
+              Padding(
+                padding: const EdgeInsets.all(10),
+                child: TextField(
+                  controller: TextEditingControllers.passwordController,
+                  autocorrect: false,
+                  obscureText: isObscure,
+                  decoration: InputDecoration(
+                    border: const OutlineInputBorder(),
+                    suffix: IconButton(
+                      onPressed: () => setState(() {
+                        isObscure = !isObscure;
+                      }),
+                      icon: isObscure ? const Icon(Icons.visibility_sharp) : const Icon(Icons.visibility_off_sharp),
+                    ),
+                    labelText: 'Password',
+                    hintText: 'Enter your secure password',
+                  ),
+                ),
               ),
               Container(
                 height: 50,

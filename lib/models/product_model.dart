@@ -42,7 +42,7 @@ class ProductModel {
       productName: map['productName'] ?? '',
       sku: map['sku'] ?? '',
       location: map['location'] ?? '',
-      barcode: map['barcode']?.toInt() ?? 0,
+      barcode: map['barcode'] ?? '',
       quantity: map['quantity']?.toInt() ?? 0,
       photo1: map['photo1'] ?? '',
       photo2: map['photo2'] ?? '',

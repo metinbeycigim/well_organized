@@ -41,7 +41,14 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
                   shape: const RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(20)))),
               child: const Text('Add Product'),
             ),
-            const BuildElevatedButton('routeNamePlaceholder', 'buttonNamePlaceholder'),
+            ElevatedButton(
+              onPressed: () => context.go('/productList'),
+              style: ElevatedButton.styleFrom(
+                  fixedSize: const Size(double.infinity, 45),
+                  elevation: 5,
+                  shape: const RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(20)))),
+              child: const Text('Product List'),
+            ),
             const BuildElevatedButton('routeNamePlaceholder', 'buttonNamePlaceholder'),
             const BuildElevatedButton('routeNamePlaceholder', 'buttonNamePlaceholder'),
           ],
