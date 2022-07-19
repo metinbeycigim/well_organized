@@ -3,10 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:well_organized/services/firebase_database_service.dart';
 
 class FirebaseAuthService {
-  // late final context;
-  // static final firebaseAuth = FirebaseAuth.instance;
   FirebaseAuth get firebaseAuth => FirebaseAuth.instance;
-
   Stream<User?> get authStateChange => firebaseAuth.authStateChanges();
 
   Future<void> signIn(String email, String password, BuildContext context) async {
@@ -15,7 +12,7 @@ class FirebaseAuthService {
             (value) => value.user!.updateDisplayName(email.split('@')[0]),
           );
       final userName = firebaseAuth.currentUser as User;
-      await FirebaseDatabaseService.addUser(userName);
+      await FirebaseDatabaseService().addUser(userName);
     } on FirebaseAuthException catch (e) {
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(

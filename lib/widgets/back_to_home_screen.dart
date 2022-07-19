@@ -2,9 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
 class BackToHomeScreen extends StatelessWidget {
-  const BackToHomeScreen({
-    Key? key,
-  }) : super(key: key);
+  const BackToHomeScreen({super.key});
 
   @override
   Widget build(BuildContext context) {

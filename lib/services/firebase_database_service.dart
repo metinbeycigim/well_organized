@@ -1,21 +1,22 @@
 import 'dart:async';
 
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:firebase_database/firebase_database.dart';
 
 import '../models/product_model.dart';
 
 class FirebaseDatabaseService {
-  static final FirebaseDatabase _firebaseDatabase = FirebaseDatabase.instance;
-  static final DatabaseReference ref = _firebaseDatabase.ref();
+  FirebaseFirestore get firebaseDatabase => FirebaseFirestore.instance;
+  CollectionReference<Map<String, dynamic>> get firebaseProductRef => firebaseDatabase.collection('Products');
+  CollectionReference<Map<String, dynamic>> get firebaseUserRef => firebaseDatabase.collection('Users');
 
   Future<void> addProduct(ProductModel product) async {
-    final productsRef = ref.child('Products/${product.sku.toUpperCase()}');
-    await productsRef.update(product.toMap());
+    final productsRef = firebaseProductRef.doc(product.sku.toUpperCase());
+    await productsRef.set(product.toMap());
   }
 
-  static Future<void> addUser(User userName) async {
-    final userRef = ref.child('Users/${userName.displayName}');
+  Future<void> addUser(User userName) async {
+    final userRef = firebaseUserRef.doc(userName.displayName);
     await userRef.set({
       'Username': userName.displayName,
       'email': userName.email,
