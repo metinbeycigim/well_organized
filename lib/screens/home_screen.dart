@@ -16,6 +16,8 @@ class HomeScreen extends ConsumerStatefulWidget {
 class _HomeScreenState extends ConsumerState<HomeScreen> {
   @override
   Widget build(BuildContext context) {
+    final currentUser = ref.read(RiverpodService.firebaseAuthProvider).firebaseAuth.currentUser!.displayName;
+
     return Scaffold(
       appBar: AppBar(
         title: const Text(Titles.homeScreenTitle),
@@ -27,31 +29,45 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
           )
         ],
       ),
-      body: Padding(
-        padding: const EdgeInsets.all(100.0),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.spaceAround,
-          crossAxisAlignment: CrossAxisAlignment.stretch,
-          children: [
-            ElevatedButton(
-              onPressed: () => context.go('/addProduct'),
-              style: ElevatedButton.styleFrom(
-                  fixedSize: const Size(double.infinity, 45),
-                  elevation: 5,
-                  shape: const RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(20)))),
-              child: const Text('Add Product'),
+      body: SingleChildScrollView(
+        child: ConstrainedBox(
+          constraints: BoxConstraints(maxHeight: MediaQuery.of(context).size.height),
+          child: Align(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                ElevatedButton(
+                  onPressed: () => context.go('/addProduct'),
+                  style: ElevatedButton.styleFrom(
+                      fixedSize: const Size(250, 50),
+                      elevation: 5,
+                      shape: const RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(20)))),
+                  child: const Text('Add Product'),
+                ),
+                const SizedBox(
+                  height: 50,
+                ),
+                if (currentUser == 'admin')
+                  ElevatedButton(
+                    onPressed: () => context.go('/productList'),
+                    style: ElevatedButton.styleFrom(
+                        fixedSize: const Size(250, 50),
+                        elevation: 5,
+                        shape: const RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(20)))),
+                    child: const Text('Product List'),
+                  ),
+                if (currentUser == 'admin')
+                  const SizedBox(
+                    height: 50,
+                  ),
+                const BuildElevatedButton('routeNamePlaceholder', 'buttonNamePlaceholder'),
+                const SizedBox(
+                  height: 50,
+                ),
+                const BuildElevatedButton('routeNamePlaceholder', 'buttonNamePlaceholder'),
+              ],
             ),
-            ElevatedButton(
-              onPressed: () => context.go('/productList'),
-              style: ElevatedButton.styleFrom(
-                  fixedSize: const Size(double.infinity, 45),
-                  elevation: 5,
-                  shape: const RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(20)))),
-              child: const Text('Product List'),
-            ),
-            const BuildElevatedButton('routeNamePlaceholder', 'buttonNamePlaceholder'),
-            const BuildElevatedButton('routeNamePlaceholder', 'buttonNamePlaceholder'),
-          ],
+          ),
         ),
       ),
     );

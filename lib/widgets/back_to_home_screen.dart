@@ -8,7 +8,9 @@ class BackToHomeScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return IconButton(
       icon: const Icon(Icons.arrow_back_sharp),
-      onPressed: () => context.go('/'),
+      onPressed: () {
+        context.go('/');
+      },
     );
   }
 }

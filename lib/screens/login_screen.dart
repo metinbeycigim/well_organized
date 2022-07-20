@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:well_organized/constants/text_editing_controllers.dart';
 import 'package:well_organized/constants/titles.dart';
 import 'package:well_organized/services/riverpod_service.dart';
 
@@ -12,6 +11,9 @@ class LoginScreen extends ConsumerStatefulWidget {
 }
 
 class _LoginScreenState extends ConsumerState<LoginScreen> {
+  final TextEditingController emailController = TextEditingController();
+  final TextEditingController passwordController = TextEditingController();
+  
   bool isObscure = true;
   @override
   Widget build(BuildContext context) {
@@ -37,7 +39,7 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
               Padding(
                 padding: const EdgeInsets.all(10),
                 child: TextField(
-                  controller: TextEditingControllers.emailController,
+                  controller: emailController,
                   autocorrect: false,
                   keyboardType: TextInputType.emailAddress,
                   decoration: const InputDecoration(
@@ -50,7 +52,7 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
               Padding(
                 padding: const EdgeInsets.all(10),
                 child: TextField(
-                  controller: TextEditingControllers.passwordController,
+                  controller: passwordController,
                   autocorrect: false,
                   obscureText: isObscure,
                   decoration: InputDecoration(
@@ -72,9 +74,9 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                 decoration: BoxDecoration(color: Colors.blue, borderRadius: BorderRadius.circular(20)),
                 child: TextButton(
                   onPressed: () async {
-                    TextEditingControllers.emailController.text.isNotEmpty
-                        ? await signInInstance.signIn(TextEditingControllers.emailController.text.trim(),
-                            TextEditingControllers.passwordController.text.trim(), context)
+                    emailController.text.isNotEmpty
+                        ? await signInInstance.signIn(
+                            emailController.text.trim(), passwordController.text.trim(), context)
                         : ScaffoldMessenger.of(context).showSnackBar(
                             const SnackBar(
                               content: Text('Please enter a valid email address'),

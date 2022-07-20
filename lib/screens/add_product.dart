@@ -6,7 +6,6 @@ import 'package:flutter/services.dart';
 import 'package:flutter_barcode_scanner/flutter_barcode_scanner.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:well_organized/constants/text_editing_controllers.dart';
 import 'package:well_organized/constants/titles.dart';
 import 'package:well_organized/widgets/back_to_home_screen.dart';
 
@@ -21,19 +20,34 @@ class AddProduct extends ConsumerStatefulWidget {
 }
 
 class _AddProductState extends ConsumerState<AddProduct> {
+  final TextEditingController productNameController = TextEditingController();
+  final TextEditingController skuController = TextEditingController();
+  final TextEditingController locationController = TextEditingController();
+  final TextEditingController barcodeController = TextEditingController();
+  final TextEditingController quantityController = TextEditingController();
+
   void clearTextFields() {
-    TextEditingControllers.productNameController.clear();
-    TextEditingControllers.skuController.clear();
-    TextEditingControllers.locationController.clear();
-    TextEditingControllers.barcodeController.clear();
-    TextEditingControllers.quantityController.clear();
+    productNameController.clear();
+    skuController.clear();
+    locationController.clear();
+    barcodeController.clear();
+    quantityController.clear();
+  }
+
+  @override
+  void dispose() {
+    productNameController.dispose();
+    skuController.dispose();
+    locationController.dispose();
+    barcodeController.dispose();
+    quantityController.dispose();
+    super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
-    String barcodeValue;
     final firebaseStorageRef = FirebaseStorage.instance.ref();
-    final productImage = firebaseStorageRef.child(TextEditingControllers.skuController.text.trim().toUpperCase());
+    final productImage = firebaseStorageRef.child(skuController.text.trim().toUpperCase());
     final productsRef = ref.watch(RiverpodService.firebaseProductListProvider);
     return productsRef.when(
         data: (data) {
@@ -56,7 +70,7 @@ class _AddProductState extends ConsumerState<AddProduct> {
                     Padding(
                       padding: const EdgeInsets.all(10),
                       child: TextField(
-                        controller: TextEditingControllers.productNameController,
+                        controller: productNameController,
                         onChanged: (value) => setState(() {}),
                         decoration: const InputDecoration(
                           border: OutlineInputBorder(),
@@ -68,7 +82,7 @@ class _AddProductState extends ConsumerState<AddProduct> {
                     Padding(
                       padding: const EdgeInsets.all(10),
                       child: TextField(
-                        controller: TextEditingControllers.skuController,
+                        controller: skuController,
                         onChanged: (value) => setState(() {}),
                         decoration: const InputDecoration(
                           border: OutlineInputBorder(),
@@ -80,7 +94,7 @@ class _AddProductState extends ConsumerState<AddProduct> {
                     Padding(
                       padding: const EdgeInsets.all(10),
                       child: TextField(
-                        controller: TextEditingControllers.locationController,
+                        controller: locationController,
                         onChanged: (value) => setState(() {}),
                         decoration: const InputDecoration(
                           border: OutlineInputBorder(),
@@ -92,7 +106,7 @@ class _AddProductState extends ConsumerState<AddProduct> {
                     Padding(
                       padding: const EdgeInsets.all(10),
                       child: TextField(
-                        controller: TextEditingControllers.barcodeController,
+                        controller: barcodeController,
                         onChanged: (value) => setState(() {}),
                         decoration: InputDecoration(
                           suffix: IconButton(
@@ -105,7 +119,7 @@ class _AddProductState extends ConsumerState<AddProduct> {
                                     ScanMode.BARCODE,
                                   );
                                   setState(() {
-                                    TextEditingControllers.barcodeController.text = barcode;
+                                    barcodeController.text = barcode;
                                   });
                                 } on PlatformException catch (e) {
                                   print(e);
@@ -122,7 +136,7 @@ class _AddProductState extends ConsumerState<AddProduct> {
                     Padding(
                       padding: const EdgeInsets.all(10),
                       child: TextField(
-                        controller: TextEditingControllers.quantityController,
+                        controller: quantityController,
                         onChanged: (value) => setState(() {}),
                         decoration: const InputDecoration(
                           border: OutlineInputBorder(),
@@ -140,11 +154,11 @@ class _AddProductState extends ConsumerState<AddProduct> {
                             borderRadius: BorderRadius.circular(15),
                           ),
                         ),
-                        onPressed: TextEditingControllers.skuController.text.isNotEmpty &&
-                                TextEditingControllers.productNameController.text.isNotEmpty &&
-                                TextEditingControllers.locationController.text.isNotEmpty &&
-                                TextEditingControllers.barcodeController.text.isNotEmpty &&
-                                TextEditingControllers.quantityController.text.isNotEmpty
+                        onPressed: skuController.text.isNotEmpty &&
+                                productNameController.text.isNotEmpty &&
+                                locationController.text.isNotEmpty &&
+                                barcodeController.text.isNotEmpty &&
+                                quantityController.text.isNotEmpty
                             ? () async {
                                 final ImagePicker picker = ImagePicker();
                                 final XFile? image = await picker.pickImage(
@@ -172,11 +186,11 @@ class _AddProductState extends ConsumerState<AddProduct> {
                           borderRadius: BorderRadius.circular(15),
                         ),
                       ),
-                      onPressed: TextEditingControllers.skuController.text.isNotEmpty &&
-                              TextEditingControllers.productNameController.text.isNotEmpty &&
-                              TextEditingControllers.locationController.text.isNotEmpty &&
-                              TextEditingControllers.barcodeController.text.isNotEmpty &&
-                              TextEditingControllers.quantityController.text.isNotEmpty
+                      onPressed: skuController.text.isNotEmpty &&
+                              productNameController.text.isNotEmpty &&
+                              locationController.text.isNotEmpty &&
+                              barcodeController.text.isNotEmpty &&
+                              quantityController.text.isNotEmpty
                           ? () async {
                               final photoURL = await productImage.getDownloadURL();
                               final userName = ref
@@ -186,11 +200,11 @@ class _AddProductState extends ConsumerState<AddProduct> {
                                   .displayName as String;
                               ProductModel product = ProductModel(
                                 userName: userName,
-                                productName: TextEditingControllers.productNameController.text,
-                                sku: TextEditingControllers.skuController.text,
-                                location: TextEditingControllers.locationController.text,
-                                barcode: TextEditingControllers.barcodeController.text,
-                                quantity: int.parse(TextEditingControllers.quantityController.text),
+                                productName: productNameController.text,
+                                sku: skuController.text,
+                                location: locationController.text,
+                                barcode: barcodeController.text,
+                                quantity: int.parse(quantityController.text),
                                 photo1: photoURL,
                                 photo2: null,
                                 photo3: null,

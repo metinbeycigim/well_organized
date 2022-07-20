@@ -21,7 +21,6 @@ class MyApp extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final router = ref.watch(RiverpodService.routeProvider);
-    final authState = ref.watch(RiverpodService.authStateProvider);
 
     return MaterialApp.router(
       debugShowCheckedModeBanner: false,

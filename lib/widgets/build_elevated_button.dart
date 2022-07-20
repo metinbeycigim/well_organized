@@ -11,7 +11,7 @@ class BuildElevatedButton extends StatelessWidget {
     return ElevatedButton(
       onPressed: () => context.go('/$routeName'),
       style: ElevatedButton.styleFrom(
-          fixedSize: const Size(double.infinity, 45),
+          fixedSize: const Size(250, 50),
           elevation: 5,
           shape: const RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(20)))),
       child: Text(buttonName),
