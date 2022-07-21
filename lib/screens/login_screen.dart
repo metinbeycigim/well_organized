@@ -11,9 +11,9 @@ class LoginScreen extends ConsumerStatefulWidget {
 }
 
 class _LoginScreenState extends ConsumerState<LoginScreen> {
-  final TextEditingController emailController = TextEditingController();
+  final TextEditingController usernameController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
-  
+
   bool isObscure = true;
   @override
   Widget build(BuildContext context) {
@@ -39,13 +39,12 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
               Padding(
                 padding: const EdgeInsets.all(10),
                 child: TextField(
-                  controller: emailController,
+                  controller: usernameController,
                   autocorrect: false,
-                  keyboardType: TextInputType.emailAddress,
                   decoration: const InputDecoration(
                     border: OutlineInputBorder(),
-                    labelText: 'E-mail',
-                    hintText: 'Enter a valid email',
+                    labelText: 'Username',
+                    hintText: 'Enter your username',
                   ),
                 ),
               ),
@@ -74,9 +73,12 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                 decoration: BoxDecoration(color: Colors.blue, borderRadius: BorderRadius.circular(20)),
                 child: TextButton(
                   onPressed: () async {
-                    emailController.text.isNotEmpty
+                    usernameController.text.isNotEmpty
                         ? await signInInstance.signIn(
-                            emailController.text.trim(), passwordController.text.trim(), context)
+//////////*! autocomplete for email domain to use only username. It only works in this specific app. Not for general use!!!!!!
+                            ('${usernameController.text.trim()}@test.com'),
+                            passwordController.text.trim(),
+                            context)
                         : ScaffoldMessenger.of(context).showSnackBar(
                             const SnackBar(
                               content: Text('Please enter a valid email address'),
