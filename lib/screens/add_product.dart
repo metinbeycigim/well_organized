@@ -47,10 +47,10 @@ class _AddProductState extends ConsumerState<AddProduct> {
 
   @override
   Widget build(BuildContext context) {
-    final GlobalKey<ScaffoldState> scaffoldKey = GlobalKey<ScaffoldState>();
-    final firebaseStorageRef = FirebaseStorage.instance.ref();
-    final productImage = firebaseStorageRef.child(skuController.text.trim().toUpperCase());
     final productsRef = ref.watch(RiverpodService.firebaseProductListProvider);
+    final imageRef = ref.watch(RiverpodService.firebaseStorageProvider);
+
+    final firebaseStorageRef = FirebaseStorage.instance.ref();
     return productsRef.when(
         data: (data) {
           List<ProductModel> productList = [];
@@ -61,14 +61,11 @@ class _AddProductState extends ConsumerState<AddProduct> {
           return GestureDetector(
             onTap: () => FocusManager.instance.primaryFocus?.unfocus(),
             child: Scaffold(
-              key: scaffoldKey,
               appBar: AppBar(
                 leading: const BackToHomeScreen(),
                 title: const Text(Titles.addProductScreenTitle),
               ),
               body: SingleChildScrollView(
-                // *! all form should be connected to barcode value. If it matches a product on the database other
-                // *! fields completed automatically.
                 child: Form(
                   key: _formKey,
                   child: Column(
@@ -78,10 +75,7 @@ class _AddProductState extends ConsumerState<AddProduct> {
                         child: TextFormField(
                           controller: productNameController,
                           validator: ((value) {
-                            if (productList
-                                .any((product) => product.productName.toUpperCase() == value!.toUpperCase())) {
-                              return 'There is already this product name';
-                            } else if (value!.isEmpty) {
+                            if (value!.isEmpty) {
                               return 'Enter a product name';
                             } else {
                               return null;
@@ -98,10 +92,17 @@ class _AddProductState extends ConsumerState<AddProduct> {
                         padding: const EdgeInsets.all(10),
                         child: TextFormField(
                           controller: skuController,
+                          onChanged: (value) {
+                            for (var product in productList) {
+                              if (product.sku == value.toUpperCase()) {
+                                productNameController.text = product.productName;
+                                barcodeController.text = product.barcode;
+                                locationController.text = product.location;
+                              }
+                            }
+                          },
                           validator: ((value) {
-                            if (productList.any((product) => product.sku == value!.toUpperCase())) {
-                              return 'There is already this SKU';
-                            } else if (value!.isEmpty) {
+                            if (value!.isEmpty) {
                               return 'Enter a SKU';
                             } else {
                               return null;
@@ -136,10 +137,24 @@ class _AddProductState extends ConsumerState<AddProduct> {
                         padding: const EdgeInsets.all(10),
                         child: TextFormField(
                           controller: barcodeController,
+                          onChanged: (value) {
+                            void clearSku = skuController.clear();
+                            void clearLocation = locationController.clear();
+                            void clearProductName = productNameController.clear();
+                            for (var product in productList) {
+                              if (product.barcode == value) {
+                                productNameController.text = product.productName;
+                                skuController.text = product.sku;
+                                locationController.text = product.location;
+                              } else {
+                                clearLocation;
+                                clearSku;
+                                clearProductName;
+                              }
+                            }
+                          },
                           validator: ((value) {
-                            if (productList.any((product) => product.barcode == value)) {
-                              return 'There is already this barcode';
-                            } else if (value!.isEmpty) {
+                            if (value!.isEmpty) {
                               return 'Enter a barcode';
                             } else {
                               return null;
@@ -168,6 +183,7 @@ class _AddProductState extends ConsumerState<AddProduct> {
                             labelText: 'Barcode',
                             hintText: 'Barcode',
                           ),
+                          keyboardType: TextInputType.number,
                         ),
                       ),
                       Padding(
@@ -177,6 +193,8 @@ class _AddProductState extends ConsumerState<AddProduct> {
                           validator: ((value) {
                             if (value!.isEmpty) {
                               return 'Enter a quantity';
+                            } else if (value.contains(RegExp('[A-Za-z]'))) {
+                              return 'Enter just a number';
                             } else {
                               return null;
                             }
@@ -186,6 +204,7 @@ class _AddProductState extends ConsumerState<AddProduct> {
                             labelText: 'Quantity',
                             hintText: 'Enter the quantity',
                           ),
+                          keyboardType: TextInputType.number,
                         ),
                       ),
                       Padding(
@@ -197,23 +216,21 @@ class _AddProductState extends ConsumerState<AddProduct> {
                               borderRadius: BorderRadius.circular(15),
                             ),
                           ),
-                          onPressed: () {
-                            void takeImage() async {
+                          onPressed: () async {
+                            if (_formKey.currentState!.validate()) {
                               final ImagePicker picker = ImagePicker();
                               final XFile? image = await picker.pickImage(
                                 source: ImageSource.camera,
                               );
+
                               final imageFile = File(image!.path);
 
                               try {
-                                await productImage.putFile(imageFile);
+                                imageRef.uploadImageToFirebaseStorage(
+                                    skuController.text.trim().toUpperCase(), imageFile);
                               } on FirebaseException catch (e) {
                                 print(e);
                               }
-                            }
-
-                            if (_formKey.currentState!.validate()) {
-                              takeImage();
                             }
                           },
                           child: const Icon(Icons.photo_camera),
@@ -230,7 +247,19 @@ class _AddProductState extends ConsumerState<AddProduct> {
                           ),
                         ),
                         onPressed: () async {
-                          final photoURL = await productImage.getDownloadURL();
+                          final path = skuController.text.trim().toUpperCase();
+                          final itemCount = await imageRef.firebaseStorageRef
+                              .child(path)
+                              .listAll()
+                              .then((value) => value.items.length);
+                          String photoURL =
+                              await imageRef.firebaseStorageRef.child('$path/$path-${1.toString()}').getDownloadURL();
+                          String photoURL2 = itemCount >= 2
+                              ? await imageRef.firebaseStorageRef.child('$path/$path-${2.toString()}').getDownloadURL()
+                              : '';
+                          String photoURL3 = itemCount >= 3
+                              ? await imageRef.firebaseStorageRef.child('$path/$path-${3.toString()}').getDownloadURL()
+                              : '';
                           final userName = ref
                               .read(RiverpodService.firebaseAuthProvider)
                               .firebaseAuth
@@ -244,22 +273,32 @@ class _AddProductState extends ConsumerState<AddProduct> {
                             barcode: barcodeController.text,
                             quantity: int.parse(quantityController.text),
                             photo1: photoURL,
-                            photo2: null,
-                            photo3: null,
+                            photo2: photoURL2,
+                            photo3: photoURL3,
                           );
-                          void submitForm() {
+                          if (_formKey.currentState!.validate()) {
                             try {
-                              ref
-                                  .read(RiverpodService.firebaseDatabaseProvider)
-                                  .addProduct(product)
-                                  .then((value) => clearTextFields());
+                              if (productList.any((element) =>
+                                  element.sku == skuController.text || element.barcode == barcodeController.text)) {
+                                ref
+                                    .read(RiverpodService.firebaseDatabaseProvider)
+                                    .updateQuantity(
+                                        productList[productList.indexWhere((element) =>
+                                            element.sku == skuController.text ||
+                                            element.barcode == barcodeController.text)],
+                                        int.parse(quantityController.text),
+                                        photoURL2,
+                                        photoURL3)
+                                    .then((value) => clearTextFields());
+                              } else {
+                                ref
+                                    .read(RiverpodService.firebaseDatabaseProvider)
+                                    .addProduct(product)
+                                    .then((value) => clearTextFields());
+                              }
                             } catch (e) {
                               print('Error: $e');
                             }
-                          }
-
-                          if (_formKey.currentState!.validate()) {
-                            submitForm();
                           }
                         },
                         child: const Text(
