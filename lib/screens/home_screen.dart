@@ -4,8 +4,6 @@ import 'package:go_router/go_router.dart';
 import 'package:well_organized/constants/titles.dart';
 import 'package:well_organized/services/riverpod_service.dart';
 
-import '../widgets/build_elevated_button.dart';
-
 class HomeScreen extends ConsumerStatefulWidget {
   const HomeScreen({super.key});
 
@@ -56,15 +54,6 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
                         shape: const RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(20)))),
                     child: const Text('Product List'),
                   ),
-                if (currentUser == 'admin')
-                  const SizedBox(
-                    height: 50,
-                  ),
-                const BuildElevatedButton('routeNamePlaceholder', 'buttonNamePlaceholder'),
-                const SizedBox(
-                  height: 50,
-                ),
-                const BuildElevatedButton('routeNamePlaceholder', 'buttonNamePlaceholder'),
               ],
             ),
           ),

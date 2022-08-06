@@ -1,16 +1,17 @@
-import 'dart:io';
-
-import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_barcode_scanner/flutter_barcode_scanner.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:image_picker/image_picker.dart';
 import 'package:well_organized/constants/titles.dart';
+import 'package:well_organized/widgets/add_image_button.dart';
 import 'package:well_organized/widgets/back_to_home_screen.dart';
 
 import '../models/product_model.dart';
 import '../services/riverpod_service.dart';
+
+extension Path on String {
+  String pathToUrl(int index) => '$this/$this-${index.toString()}';
+}
 
 class AddProduct extends ConsumerStatefulWidget {
   const AddProduct({super.key});
@@ -50,7 +51,6 @@ class _AddProductState extends ConsumerState<AddProduct> {
     final productsRef = ref.watch(RiverpodService.firebaseProductListProvider);
     final imageRef = ref.watch(RiverpodService.firebaseStorageProvider);
 
-    final firebaseStorageRef = FirebaseStorage.instance.ref();
     return productsRef.when(
         data: (data) {
           List<ProductModel> productList = [];
@@ -66,6 +66,8 @@ class _AddProductState extends ConsumerState<AddProduct> {
                 title: const Text(Titles.addProductScreenTitle),
               ),
               body: SingleChildScrollView(
+                keyboardDismissBehavior: ScrollViewKeyboardDismissBehavior.onDrag,
+                //! form validations should be detailed. They get validated easily right now.
                 child: Form(
                   key: _formKey,
                   child: Column(
@@ -209,31 +211,10 @@ class _AddProductState extends ConsumerState<AddProduct> {
                       ),
                       Padding(
                         padding: const EdgeInsets.all(10),
-                        child: ElevatedButton(
-                          style: ElevatedButton.styleFrom(
-                            minimumSize: const Size(250, 50),
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(15),
-                            ),
-                          ),
-                          onPressed: () async {
-                            if (_formKey.currentState!.validate()) {
-                              final ImagePicker picker = ImagePicker();
-                              final XFile? image = await picker.pickImage(
-                                source: ImageSource.camera,
-                              );
-
-                              final imageFile = File(image!.path);
-
-                              try {
-                                imageRef.uploadImageToFirebaseStorage(
-                                    skuController.text.trim().toUpperCase(), imageFile);
-                              } on FirebaseException catch (e) {
-                                print(e);
-                              }
-                            }
-                          },
-                          child: const Icon(Icons.photo_camera),
+                        child: AddImageButton(
+                          formKey: _formKey,
+                          imageRef: imageRef,
+                          skuController: skuController,
                         ),
                       ),
                       const SizedBox(
@@ -246,16 +227,18 @@ class _AddProductState extends ConsumerState<AddProduct> {
                             borderRadius: BorderRadius.circular(15),
                           ),
                         ),
+                        //! photourl values should be dynamic.
                         onPressed: () async {
                           final path = skuController.text.trim().toUpperCase();
                           final itemCount = await imageRef.firebaseStorageRef
                               .child(path)
                               .listAll()
                               .then((value) => value.items.length);
+
                           String photoURL =
                               await imageRef.firebaseStorageRef.child('$path/$path-${1.toString()}').getDownloadURL();
                           String photoURL2 = itemCount >= 2
-                              ? await imageRef.firebaseStorageRef.child('$path/$path-${2.toString()}').getDownloadURL()
+                              ? await imageRef.firebaseStorageRef.child(path.pathToUrl(itemCount)).getDownloadURL()
                               : '';
                           String photoURL3 = itemCount >= 3
                               ? await imageRef.firebaseStorageRef.child('$path/$path-${3.toString()}').getDownloadURL()
@@ -276,6 +259,7 @@ class _AddProductState extends ConsumerState<AddProduct> {
                             photo2: photoURL2,
                             photo3: photoURL3,
                           );
+                          //! if there are new photos they should be submit before add product button works.
                           if (_formKey.currentState!.validate()) {
                             try {
                               if (productList.any((element) =>
