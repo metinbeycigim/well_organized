@@ -1,6 +1,6 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:intl/intl.dart';
 import 'package:syncfusion_flutter_xlsio/xlsio.dart' hide Column;
 import 'package:well_organized/models/product_model.dart';
 import 'package:well_organized/services/riverpod_service.dart';
@@ -43,21 +43,23 @@ class _ProductListState extends ConsumerState<ProductList> {
       setCellContent('H1', 'Photo-3');
       setCellContent('I1', 'User Name');
 
-      void setList(List<Map<String, dynamic>> productList, void Function(String cell, String content) setSellContent) {
-        for (var i = 0; i < productList.length; i++) {
-          setCellContent('A${i + 2}', productList[i]['barcode']);
-          setCellContent('B${i + 2}', productList[i]['sku']);
-          setCellContent('C${i + 2}', productList[i]['location']);
-          setCellContent('D${i + 2}', productList[i]['productName']);
-          setCellContent('E${i + 2}', productList[i]['quantity'].toString());
-          setCellContent('D${i + 2}', productList[i]['photo1']);
-          setCellContent('D${i + 2}', productList[i]['photo2']);
-          setCellContent('D${i + 2}', productList[i]['photo3']);
-          setCellContent('D${i + 2}', productList[i]['userName']);
+      void setList(List<QueryDocumentSnapshot<Map<String, dynamic>>>? productList,
+          void Function(String cell, String content) setSellContent) {
+        for (var i = 0; i < productList!.length; i++) {
+          setCellContent('A${i + 2}', ProductModel.fromMap(productList[i].data()).barcode);
+          setCellContent('B${i + 2}', ProductModel.fromMap(productList[i].data()).sku);
+          setCellContent('C${i + 2}', ProductModel.fromMap(productList[i].data()).location);
+          setCellContent('D${i + 2}', ProductModel.fromMap(productList[i].data()).productName);
+          setCellContent('E${i + 2}', ProductModel.fromMap(productList[i].data()).quantity.toString());
+          setCellContent('D${i + 2}', ProductModel.fromMap(productList[i].data()).photo1);
+          setCellContent('D${i + 2}', ProductModel.fromMap(productList[i].data()).photo2 ?? '');
+          setCellContent('D${i + 2}', ProductModel.fromMap(productList[i].data()).photo3 ?? '');
+          setCellContent('D${i + 2}', ProductModel.fromMap(productList[i].data()).userName);
         }
       }
 
-  
+      final productList = productsRef.whenData((value) => value.docs).value;
+      setList(productList, setCellContent);
 
       //Save and launch the excel
       final List<int> bytes = workbook.saveAsStream();

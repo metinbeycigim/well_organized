@@ -21,6 +21,7 @@ Future<void> saveAndLaunchFile(List<int> bytes, String fileName) async {
   if (Platform.isAndroid || Platform.isIOS) {
     //Launch the file (used open_file package)
     await open_file.OpenFile.open('$path/$fileName');
+    print('$path/$fileName');
   } else if (Platform.isWindows) {
     await Process.run('start', <String>['$path\\$fileName'], runInShell: true);
   } else if (Platform.isMacOS) {
