@@ -37,10 +37,15 @@ dependencies:
   flutter:
     sdk: flutter
   flutter_barcode_scanner: ^2.0.0
+  flutter_email_sender: ^5.1.0
   flutter_riverpod: ^1.0.4
   go_router: ^4.1.0
   image_picker: ^0.8.5+3
+  intl: ^0.17.0
   moment_dart: ^0.8.0
+  open_file: ^3.2.1
+  path_provider: ^2.0.11
+  syncfusion_flutter_xlsio: ^20.2.40-beta
 
 dev_dependencies:
   flutter_lints: ^2.0.0
