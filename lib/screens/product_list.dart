@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:intl/intl.dart';
 import 'package:syncfusion_flutter_xlsio/xlsio.dart' hide Column;
 import 'package:well_organized/models/product_model.dart';
 import 'package:well_organized/services/riverpod_service.dart';
@@ -46,15 +47,16 @@ class _ProductListState extends ConsumerState<ProductList> {
       void setList(List<QueryDocumentSnapshot<Map<String, dynamic>>>? productList,
           void Function(String cell, String content) setSellContent) {
         for (var i = 0; i < productList!.length; i++) {
-          setCellContent('A${i + 2}', ProductModel.fromMap(productList[i].data()).barcode);
-          setCellContent('B${i + 2}', ProductModel.fromMap(productList[i].data()).sku);
-          setCellContent('C${i + 2}', ProductModel.fromMap(productList[i].data()).location);
-          setCellContent('D${i + 2}', ProductModel.fromMap(productList[i].data()).productName);
-          setCellContent('E${i + 2}', ProductModel.fromMap(productList[i].data()).quantity.toString());
-          setCellContent('D${i + 2}', ProductModel.fromMap(productList[i].data()).photo1);
-          setCellContent('D${i + 2}', ProductModel.fromMap(productList[i].data()).photo2 ?? '');
-          setCellContent('D${i + 2}', ProductModel.fromMap(productList[i].data()).photo3 ?? '');
-          setCellContent('D${i + 2}', ProductModel.fromMap(productList[i].data()).userName);
+          final modelFirebase = ProductModel.fromMap(productList[i].data());
+          setCellContent('A${i + 2}', modelFirebase.barcode);
+          setCellContent('B${i + 2}', modelFirebase.sku);
+          setCellContent('C${i + 2}', modelFirebase.location);
+          setCellContent('D${i + 2}', modelFirebase.productName);
+          setCellContent('E${i + 2}', modelFirebase.quantity.toString());
+          setCellContent('F${i + 2}', modelFirebase.photo1);
+          setCellContent('G${i + 2}', modelFirebase.photo2 ?? '');
+          setCellContent('H${i + 2}', modelFirebase.photo3 ?? '');
+          setCellContent('I${i + 2}', modelFirebase.userName);
         }
       }
 
@@ -67,7 +69,8 @@ class _ProductListState extends ConsumerState<ProductList> {
       workbook.dispose();
 
       //Save and launch the file.
-      await saveAndLaunchFile(bytes, 'Product List.xlsx');
+      await saveAndLaunchFile(
+          bytes, 'Product List-${DateFormat('MM.dd.yy-h:ma').format(DateTime.parse(DateTime.now().toString()))}.xlsx');
     }
 
     return Scaffold(
