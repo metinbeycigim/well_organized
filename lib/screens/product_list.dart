@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:intl/intl.dart';
 import 'package:syncfusion_flutter_xlsio/xlsio.dart' hide Column;
+import 'package:well_organized/constants/extensions.dart';
 import 'package:well_organized/models/product_model.dart';
 import 'package:well_organized/services/riverpod_service.dart';
 
@@ -79,8 +80,13 @@ class _ProductListState extends ConsumerState<ProductList> {
       workbook.dispose();
 
       //Save and launch the file.
-      await saveAndLaunchFile(
-          bytes, 'Product List-${DateFormat('MM.dd.yy-h:ma').format(DateTime.parse(DateTime.now().toString()))}.xlsx');
+      await saveAndLaunchFile(bytes,
+              'Product List-${DateFormat('MM.dd.yy-h:ma').format(DateTime.parse(DateTime.now().toString()))}.xlsx')
+          .then((_) => ref.watch(RiverpodService.firebaseDatabaseProvider).firebaseProductRef.get().then((snapshot) {
+                for (var doc in snapshot.docs) {
+                  doc.reference.update({'quantity': 0});
+                }
+              }));
     }
 
     return Scaffold(
@@ -138,20 +144,27 @@ class _ProductListState extends ConsumerState<ProductList> {
                 ),
                 Expanded(
                   child: SizedBox(
-                    child: ListView.builder(
-                      itemBuilder: ((_, index) {
-                        final product = _controller.text.isEmpty
-                            ? ProductModel.fromMap(productList[index].data())
-                            : ProductModel.fromMap(listViewData[index].data());
-                        return ListTile(
-                          leading: Text(product.sku),
-                          title: Text(product.productName),
-                          subtitle: Text('location: ${product.location}'),
-                          trailing: Text(product.quantity.toString()),
-                        );
-                      }),
-                      itemCount: _controller.text.isEmpty ? productList.length : listViewData.length,
-                    ),
+                    child: productList.zeroQuantityProducts().isNotEmpty
+                        ? ListView.builder(
+                            itemBuilder: ((_, index) {
+                              final product = _controller.text.isEmpty
+                                  ? ProductModel.fromMap(productList[index].data())
+                                  : ProductModel.fromMap(listViewData[index].data());
+
+                              return ListTile(
+                                leading: Text(product.sku),
+                                title: Text(product.productName),
+                                subtitle: Text('location: ${product.location}'),
+                                trailing: Text(product.quantity.toString()),
+                              );
+                            }),
+                            itemCount: _controller.text.isEmpty
+                                ? productList.zeroQuantityProducts().length
+                                : listViewData.zeroQuantityProducts().length,
+                          )
+                        : const Center(
+                            child: Text('No product'),
+                          ),
                   ),
                 ),
               ],

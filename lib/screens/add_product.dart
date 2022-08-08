@@ -231,17 +231,24 @@ class _AddProductState extends ConsumerState<AddProduct> {
                         onPressed: () async {
                           final path = skuController.text.trim().toUpperCase();
                           final itemCount = await imageRef.firebaseStorageRef
-                              .child(path)
+                              .child('Images/$path')
                               .listAll()
                               .then((value) => value.items.length);
 
-                          String photoURL =
-                              await imageRef.firebaseStorageRef.child('$path/$path-${1.toString()}').getDownloadURL();
-                          String photoURL2 = itemCount >= 2
-                              ? await imageRef.firebaseStorageRef.child(path.pathToUrl(itemCount)).getDownloadURL()
+                          String photoURL = itemCount >= 0
+                              ? await imageRef.firebaseStorageRef
+                                  .child('Images/$path/$path-${1.toString()}')
+                                  .getDownloadURL()
                               : '';
-                          String photoURL3 = itemCount >= 3
-                              ? await imageRef.firebaseStorageRef.child('$path/$path-${3.toString()}').getDownloadURL()
+                          String photoURL2 = itemCount >= 1
+                              ? await imageRef.firebaseStorageRef
+                                  .child('Images/$path/$path-${2.toString()}')
+                                  .getDownloadURL()
+                              : '';
+                          String photoURL3 = itemCount >= 2
+                              ? await imageRef.firebaseStorageRef
+                                  .child('Images/$path/$path-${3.toString()}')
+                                  .getDownloadURL()
                               : '';
                           final userName = ref
                               .read(RiverpodService.firebaseAuthProvider)
