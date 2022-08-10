@@ -7,7 +7,7 @@ class ProductModel {
   String location;
   String barcode;
   int quantity;
-  String photo1;
+  String? photo1;
   String? photo2;
   String? photo3;
   ProductModel({
@@ -17,7 +17,7 @@ class ProductModel {
     required this.location,
     required this.barcode,
     required this.quantity,
-    required this.photo1,
+    this.photo1,
     this.photo2,
     this.photo3,
   });

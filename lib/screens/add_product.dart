@@ -49,7 +49,7 @@ class _AddProductState extends ConsumerState<AddProduct> {
   @override
   Widget build(BuildContext context) {
     final productsRef = ref.watch(RiverpodService.firebaseProductListProvider);
-    final imageRef = ref.watch(RiverpodService.firebaseStorageProvider);
+    final imageRef = ref.read(RiverpodService.firebaseStorageProvider);
 
     return productsRef.when(
         data: (data) {
@@ -235,26 +235,21 @@ class _AddProductState extends ConsumerState<AddProduct> {
                               .listAll()
                               .then((value) => value.items.length);
 
-                          String photoURL = itemCount >= 0
-                              ? await imageRef.firebaseStorageRef
-                                  .child('Images/$path/$path-${1.toString()}')
-                                  .getDownloadURL()
-                              : '';
-                          String photoURL2 = itemCount >= 1
-                              ? await imageRef.firebaseStorageRef
-                                  .child('Images/$path/$path-${2.toString()}')
-                                  .getDownloadURL()
-                              : '';
-                          String photoURL3 = itemCount >= 2
-                              ? await imageRef.firebaseStorageRef
-                                  .child('Images/$path/$path-${3.toString()}')
-                                  .getDownloadURL()
-                              : '';
+
+                          Future<String> getPhotoUrl(int photoCount) async {
+                            final photoUrl = await imageRef.firebaseStorageRef
+                                .child('Images/$path/$path-${photoCount.toString()}')
+                                .getDownloadURL();
+
+                            return photoUrl;
+                          }
+
                           final userName = ref
                               .read(RiverpodService.firebaseAuthProvider)
                               .firebaseAuth
                               .currentUser!
                               .displayName as String;
+
                           ProductModel product = ProductModel(
                             userName: userName,
                             productName: productNameController.text,
@@ -262,11 +257,12 @@ class _AddProductState extends ConsumerState<AddProduct> {
                             location: locationController.text,
                             barcode: barcodeController.text,
                             quantity: int.parse(quantityController.text),
-                            photo1: photoURL,
-                            photo2: photoURL2,
-                            photo3: photoURL3,
+                            photo1: itemCount >= 1 ? await getPhotoUrl(1) : '',
+                            photo2: itemCount >= 2 ? await getPhotoUrl(2) : '',
+                            photo3: itemCount >= 3 ? await getPhotoUrl(3) : '',
                           );
-                          //! if there are new photos they should be submit before add product button works.
+
+                          
                           if (_formKey.currentState!.validate()) {
                             try {
                               if (productList.any((element) =>
@@ -274,12 +270,14 @@ class _AddProductState extends ConsumerState<AddProduct> {
                                 ref
                                     .read(RiverpodService.firebaseDatabaseProvider)
                                     .updateQuantity(
-                                        productList[productList.indexWhere((element) =>
-                                            element.sku == skuController.text ||
-                                            element.barcode == barcodeController.text)],
-                                        int.parse(quantityController.text),
-                                        photoURL2,
-                                        photoURL3)
+                                      productList[productList.indexWhere((element) =>
+                                          element.sku == skuController.text ||
+                                          element.barcode == barcodeController.text)],
+                                      int.parse(quantityController.text),
+                                      product.photo1,
+                                      product.photo2,
+                                      product.photo3,
+                                    )
                                     .then((value) => clearTextFields());
                               } else {
                                 ref

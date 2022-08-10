@@ -64,7 +64,7 @@ class _ProductListState extends ConsumerState<ProductList> {
           setCellContent('C${i + 2}', modelFirebase.location);
           setCellContent('D${i + 2}', modelFirebase.productName);
           setCellContent('E${i + 2}', modelFirebase.quantity.toString());
-          setCellContent('F${i + 2}', modelFirebase.photo1);
+          setCellContent('F${i + 2}', modelFirebase.photo1 ?? '');
           setCellContent('G${i + 2}', modelFirebase.photo2 ?? '');
           setCellContent('H${i + 2}', modelFirebase.photo3 ?? '');
           setCellContent('I${i + 2}', modelFirebase.userName);

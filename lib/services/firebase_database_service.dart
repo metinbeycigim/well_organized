@@ -15,9 +15,11 @@ class FirebaseDatabaseService {
     await productsRef.set(product.toMap());
   }
 
-  Future<void> updateQuantity(ProductModel product, int addedQuantity, String? photo2, String? photo3) async {
+  Future<void> updateQuantity(
+      ProductModel product, int addedQuantity, String? photo1, String? photo2, String? photo3) async {
     final productsRef = firebaseProductRef.doc(product.sku.toUpperCase());
-    await productsRef.update({'quantity': product.quantity + addedQuantity, 'photo2': photo2, 'photo3': photo3});
+    await productsRef
+        .update({'quantity': product.quantity + addedQuantity, 'photo1': photo1, 'photo2': photo2, 'photo3': photo3});
   }
 
   Future<void> addUser(User userName) async {
