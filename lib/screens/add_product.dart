@@ -227,7 +227,7 @@ class _AddProductState extends ConsumerState<AddProduct> {
                             borderRadius: BorderRadius.circular(15),
                           ),
                         ),
-                        //! photourl values should be dynamic.
+                        
                         onPressed: () async {
                           final path = skuController.text.trim().toUpperCase();
                           final itemCount = await imageRef.firebaseStorageRef

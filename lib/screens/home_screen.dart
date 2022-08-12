@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:go_router/go_router.dart';
-import 'package:well_organized/constants/titles.dart';
-import 'package:well_organized/services/riverpod_service.dart';
+import 'package:well_organized/screens/add_product.dart';
+import 'package:well_organized/screens/product_list.dart';
+import 'package:well_organized/screens/settings.dart';
 
 class HomeScreen extends ConsumerStatefulWidget {
   const HomeScreen({super.key});
@@ -12,52 +12,36 @@ class HomeScreen extends ConsumerStatefulWidget {
 }
 
 class _HomeScreenState extends ConsumerState<HomeScreen> {
+  int _selectedIndex = 0;
+  void _changeIndex(int index) {
+    setState(() {
+      _selectedIndex = index;
+    });
+  }
+
+  final List<Widget> _screens = [
+    const AddProduct(),
+    const ProductList(),
+    const Settings(),
+  ];
   @override
   Widget build(BuildContext context) {
-    final currentUser = ref.read(RiverpodService.firebaseAuthProvider).firebaseAuth.currentUser!.displayName;
-
     return Scaffold(
-      appBar: AppBar(
-        title: const Text(Titles.homeScreenTitle),
-        actions: [
-          IconButton(
-            onPressed: () async => await ref.read(RiverpodService.firebaseAuthProvider).signOut(),
-            icon: const Icon(Icons.exit_to_app),
-            tooltip: 'Sign Out',
-          )
+      bottomNavigationBar: BottomNavigationBar(
+        items: const [
+          BottomNavigationBarItem(icon: Icon(Icons.add), label: 'Add Product'),
+          BottomNavigationBarItem(icon: Icon(Icons.list), label: 'Product List'),
+          BottomNavigationBarItem(icon: Icon(Icons.settings), label: 'Settings'),
         ],
+        currentIndex: _selectedIndex,
+        onTap: _changeIndex,
+        selectedIconTheme: const IconThemeData(size: 40),
+        selectedLabelStyle: const TextStyle(fontWeight: FontWeight.bold),
+        selectedFontSize: 15,
+        selectedItemColor: Theme.of(context).colorScheme.primary,
       ),
-      body: SingleChildScrollView(
-        child: ConstrainedBox(
-          constraints: BoxConstraints(maxHeight: MediaQuery.of(context).size.height),
-          child: Align(
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                ElevatedButton(
-                  onPressed: () => context.go('/addProduct'),
-                  style: ElevatedButton.styleFrom(
-                      fixedSize: const Size(250, 50),
-                      elevation: 5,
-                      shape: const RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(20)))),
-                  child: const Text('Add Product'),
-                ),
-                const SizedBox(
-                  height: 50,
-                ),
-                if (currentUser == 'admin')
-                  ElevatedButton(
-                    onPressed: () => context.go('/productList'),
-                    style: ElevatedButton.styleFrom(
-                        fixedSize: const Size(250, 50),
-                        elevation: 5,
-                        shape: const RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(20)))),
-                    child: const Text('Product List'),
-                  ),
-              ],
-            ),
-          ),
-        ),
+      body: Center(
+        child: _screens.elementAt(_selectedIndex),
       ),
     );
   }
