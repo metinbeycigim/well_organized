@@ -1,10 +1,10 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
-import 'package:well_organized/screens/routes.dart';
 import 'package:well_organized/services/firebase_auth_service.dart';
 import 'package:well_organized/services/firebase_database_service.dart';
 import 'package:well_organized/services/firebase_storage.dart';
+import 'package:well_organized/services/routes.dart';
 
 class RiverpodService {
   static final firebaseAuthProvider = Provider<FirebaseAuthService>((ref) => FirebaseAuthService());

@@ -40,9 +40,7 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
         selectedFontSize: 15,
         selectedItemColor: Theme.of(context).colorScheme.primary,
       ),
-      body: Center(
-        child: _screens.elementAt(_selectedIndex),
-      ),
+      body: _screens.elementAt(_selectedIndex),
     );
   }
 }

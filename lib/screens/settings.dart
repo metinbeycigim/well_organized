@@ -2,7 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:intl/intl.dart';
-import 'package:syncfusion_flutter_xlsio/xlsio.dart';
+import 'package:syncfusion_flutter_xlsio/xlsio.dart' hide Column;
 import 'package:well_organized/services/save_excel_file.dart';
 
 import '../models/product_model.dart';
@@ -75,20 +75,51 @@ class Settings extends ConsumerWidget {
               }));
     }
 
+    final userName = ref.read(RiverpodService.firebaseAuthProvider).firebaseAuth.currentUser!.displayName;
+
     return Scaffold(
       appBar: AppBar(
         title: const Text('Settings'),
-      ),
-      body: Center(
-        child: ElevatedButton(
-          style: ElevatedButton.styleFrom(
-            minimumSize: const Size(250, 50),
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(15),
+        actions: [
+          Center(
+            child: Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Text('signed in as ${userName!.toUpperCase()}'),
             ),
           ),
-          onPressed: generateExcel,
-          child: const Text('Export Product List'),
+        ],
+      ),
+      body: Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: ElevatedButton(
+                style: ElevatedButton.styleFrom(
+                  minimumSize: const Size(250, 50),
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(15),
+                  ),
+                ),
+                onPressed: generateExcel,
+                child: const Text('Export Product List'),
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: ElevatedButton(
+                style: ElevatedButton.styleFrom(
+                  minimumSize: const Size(250, 50),
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(15),
+                  ),
+                ),
+                onPressed: () async => await ref.watch(RiverpodService.firebaseAuthProvider).signOut(),
+                child: const Text('Sign Out'),
+              ),
+            ),
+          ],
         ),
       ),
     );

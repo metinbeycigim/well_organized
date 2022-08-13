@@ -50,6 +50,7 @@ class _AddProductState extends ConsumerState<AddProduct> {
   Widget build(BuildContext context) {
     final productsRef = ref.watch(RiverpodService.firebaseProductListProvider);
     final imageRef = ref.read(RiverpodService.firebaseStorageProvider);
+    final ValueNotifier<String> buttonState = ValueNotifier('Add Product');
 
     return productsRef.when(
         data: (data) {
@@ -102,6 +103,9 @@ class _AddProductState extends ConsumerState<AddProduct> {
                                 locationController.text = product.location;
                               }
                             }
+                            productList.any((element) => element.sku == value.toUpperCase())
+                                ? buttonState.value = 'Update Product'
+                                : buttonState.value = 'Add Product';
                           },
                           validator: ((value) {
                             if (value!.isEmpty) {
@@ -154,6 +158,9 @@ class _AddProductState extends ConsumerState<AddProduct> {
                                 clearProductName;
                               }
                             }
+                            productList.any((element) => element.barcode == value.toUpperCase())
+                                ? buttonState.value = 'Update Product'
+                                : buttonState.value = 'Add Product';
                           },
                           validator: ((value) {
                             if (value!.isEmpty) {
@@ -227,14 +234,12 @@ class _AddProductState extends ConsumerState<AddProduct> {
                             borderRadius: BorderRadius.circular(15),
                           ),
                         ),
-                        
                         onPressed: () async {
                           final path = skuController.text.trim().toUpperCase();
                           final itemCount = await imageRef.firebaseStorageRef
                               .child('Images/$path')
                               .listAll()
                               .then((value) => value.items.length);
-
 
                           Future<String> getPhotoUrl(int photoCount) async {
                             final photoUrl = await imageRef.firebaseStorageRef
@@ -262,7 +267,6 @@ class _AddProductState extends ConsumerState<AddProduct> {
                             photo3: itemCount >= 3 ? await getPhotoUrl(3) : '',
                           );
 
-                          
                           if (_formKey.currentState!.validate()) {
                             try {
                               if (productList.any((element) =>
@@ -290,9 +294,12 @@ class _AddProductState extends ConsumerState<AddProduct> {
                             }
                           }
                         },
-                        child: const Text(
-                          'AddProduct',
-                          style: TextStyle(color: Colors.white, fontSize: 25),
+                        child: ValueListenableBuilder(
+                          valueListenable: buttonState,
+                          builder: (_, String value, __) {
+                            print(value);
+                            return Text(value, style: const TextStyle(color: Colors.white, fontSize: 25));
+                          },
                         ),
                       ),
                     ],

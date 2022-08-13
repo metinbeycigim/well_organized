@@ -27,7 +27,6 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
             title: const Text(Titles.appTitle),
           ),
           body: SingleChildScrollView(
-            
             keyboardDismissBehavior: ScrollViewKeyboardDismissBehavior.onDrag,
             child: Column(
               children: [
@@ -78,7 +77,7 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                     onPressed: () async {
                       usernameController.text.isNotEmpty
                           ? await signInInstance.signIn(
-    //////////*! autocomplete for email domain to use only username. It only works in this specific app. Not for general use!!!!!!
+                              //////////*! autocomplete for email domain to use only username. It only works in this specific app. Not for general use!!!!!!
                               ('${usernameController.text.trim()}@test.com'),
                               passwordController.text.trim(),
                               context)
