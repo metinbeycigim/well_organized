@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:well_organized/constants/app_colors.dart';
 import 'package:well_organized/screens/add_product.dart';
 import 'package:well_organized/screens/product_list.dart';
 import 'package:well_organized/screens/settings.dart';
@@ -51,12 +50,6 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
             ],
             currentIndex: _selectedIndex,
             onTap: _changeIndex,
-            selectedIconTheme: const IconThemeData(size: 40),
-            selectedLabelStyle: const TextStyle(fontWeight: FontWeight.bold),
-            selectedFontSize: 15,
-            selectedItemColor: selectedItemColor,
-            unselectedItemColor: unselectedItemColor,
-            backgroundColor: widgetBackgroundColor,
           ),
         ),
       ),

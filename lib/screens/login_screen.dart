@@ -72,7 +72,7 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                   height: 50,
                   width: 250,
                   decoration: BoxDecoration(color: Colors.blue, borderRadius: BorderRadius.circular(20)),
-                  child: TextButton(
+                  child: ElevatedButton(
                     onPressed: () async {
                       usernameController.text.isNotEmpty
                           ? await signInInstance.signIn(

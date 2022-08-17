@@ -7,9 +7,6 @@ import 'package:well_organized/widgets/add_image_button.dart';
 import '../models/product_model.dart';
 import '../services/riverpod_service.dart';
 
-extension Path on String {
-  String pathToUrl(int index) => '$this/$this-${index.toString()}';
-}
 
 class AddProduct extends ConsumerStatefulWidget {
   const AddProduct({super.key});
