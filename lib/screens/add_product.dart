@@ -2,9 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_barcode_scanner/flutter_barcode_scanner.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:well_organized/constants/titles.dart';
 import 'package:well_organized/widgets/add_image_button.dart';
-import 'package:well_organized/widgets/back_to_home_screen.dart';
 
 import '../models/product_model.dart';
 import '../services/riverpod_service.dart';
@@ -63,10 +61,10 @@ class _AddProductState extends ConsumerState<AddProduct> {
             onTap: () => FocusManager.instance.primaryFocus?.unfocus(),
             child: Scaffold(
               appBar: AppBar(
-                leading: const BackToHomeScreen(),
-                title: const Text(Titles.addProductScreenTitle),
+                title: const Text('Add Product'),
               ),
               body: SingleChildScrollView(
+                physics: const BouncingScrollPhysics(),
                 keyboardDismissBehavior: ScrollViewKeyboardDismissBehavior.onDrag,
                 //! form validations should be detailed. They get validated easily right now.
                 child: Form(

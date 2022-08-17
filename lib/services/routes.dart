@@ -1,3 +1,5 @@
+//! I quit to use GoRouter for now. BottomNavigationBar works instead.
+
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:well_organized/screens/add_product.dart';

@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:well_organized/constants/titles.dart';
 import 'package:well_organized/services/riverpod_service.dart';
 
 class LoginScreen extends ConsumerStatefulWidget {
@@ -24,7 +23,7 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
         onTap: () => FocusManager.instance.primaryFocus?.unfocus(),
         child: Scaffold(
           appBar: AppBar(
-            title: const Text(Titles.appTitle),
+            title: const Text('Well Organized'),
           ),
           body: SingleChildScrollView(
             keyboardDismissBehavior: ScrollViewKeyboardDismissBehavior.onDrag,

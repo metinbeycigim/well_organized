@@ -5,8 +5,6 @@ import 'package:well_organized/constants/extensions.dart';
 import 'package:well_organized/models/product_model.dart';
 import 'package:well_organized/services/riverpod_service.dart';
 
-import '../widgets/back_to_home_screen.dart';
-
 class ProductList extends ConsumerStatefulWidget {
   const ProductList({Key? key}) : super(key: key);
 
@@ -30,7 +28,6 @@ class _ProductListState extends ConsumerState<ProductList> {
 
     return Scaffold(
       appBar: AppBar(
-        leading: const BackToHomeScreen(),
         title: const Text('Product List'),
       ),
       body: Center(
@@ -77,7 +74,7 @@ class _ProductListState extends ConsumerState<ProductList> {
                 ),
                 Expanded(
                   child: SizedBox(
-                    child: productList.zeroQuantityProducts().isNotEmpty
+                    child: productList.isNotZero().isNotEmpty
                         ? ListView.builder(
                             itemBuilder: ((_, index) {
                               final product = _controller.text.isEmpty
@@ -92,8 +89,8 @@ class _ProductListState extends ConsumerState<ProductList> {
                               );
                             }),
                             itemCount: _controller.text.isEmpty
-                                ? productList.zeroQuantityProducts().length
-                                : listViewData.zeroQuantityProducts().length,
+                                ? productList.isNotZero().length
+                                : listViewData.isNotZero().length,
                           )
                         : const Center(
                             child: Text('No product'),
