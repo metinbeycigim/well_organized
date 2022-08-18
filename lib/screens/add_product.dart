@@ -119,6 +119,7 @@ class _AddProductState extends ConsumerState<AddProduct> {
                       Padding(
                         padding: const EdgeInsets.all(10),
                         child: TextFormField(
+                          
                           controller: locationController,
                           validator: ((value) {
                             if (value!.isEmpty) {
@@ -137,6 +138,7 @@ class _AddProductState extends ConsumerState<AddProduct> {
                       Padding(
                         padding: const EdgeInsets.all(10),
                         child: TextFormField(
+                          
                           controller: barcodeController,
                           onChanged: (value) {
                             void clearSku = skuController.clear();

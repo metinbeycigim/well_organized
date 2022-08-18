@@ -28,6 +28,15 @@ class MyApp extends ConsumerWidget {
     return MaterialApp(
       home: authState.value == null ? const LoginScreen() : const HomeScreen(),
       theme: ThemeData(
+        inputDecorationTheme: const InputDecorationTheme(
+          labelStyle: TextStyle(color: inputLabelColor),
+          focusedBorder: OutlineInputBorder(
+            borderSide: BorderSide(color: borderColor),
+          ),
+          enabledBorder: OutlineInputBorder(
+            borderSide: BorderSide(color: borderColor),
+          ),
+        ),
         bottomNavigationBarTheme: const BottomNavigationBarThemeData(
           backgroundColor: widgetBackgroundColor,
           selectedItemColor: selectedItemColor,
@@ -43,6 +52,12 @@ class MyApp extends ConsumerWidget {
         ),
         textTheme: GoogleFonts.montserratTextTheme(),
         appBarTheme: AppBarTheme(
+            shape: const RoundedRectangleBorder(
+              borderRadius: BorderRadius.only(
+                bottomLeft: Radius.circular(20),
+                bottomRight: Radius.circular(20),
+              ),
+            ),
             backgroundColor: widgetBackgroundColor,
             titleTextStyle: GoogleFonts.montserrat(
               color: titleTextColor,

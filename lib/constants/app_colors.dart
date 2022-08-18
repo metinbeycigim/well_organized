@@ -8,3 +8,5 @@ const unselectedItemColor = Color.fromRGBO(96, 126, 170, 1);
 const titleTextColor = Color.fromRGBO(28, 56, 121, 1);
 const selectedItemColor = Color.fromRGBO(28, 56, 121, 1);
 const buttonColor = Color.fromRGBO(28, 56, 121, 1);
+const inputLabelColor =  Color.fromRGBO(28, 56, 121, 1);
+const borderColor =  Color.fromRGBO(28, 56, 121, 1);
