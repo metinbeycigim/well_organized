@@ -26,6 +26,7 @@ class MyApp extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final authState = ref.watch(RiverpodService.authStateProvider);
     return MaterialApp(
+      //! after signing up, home page goes to HomeScreen. It should be signin screen.
       home: authState.value == null ? const LoginScreen() : const HomeScreen(),
       theme: ThemeData(
         inputDecorationTheme: const InputDecorationTheme(

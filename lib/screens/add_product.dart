@@ -3,10 +3,10 @@ import 'package:flutter/services.dart';
 import 'package:flutter_barcode_scanner/flutter_barcode_scanner.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:well_organized/widgets/add_image_button.dart';
+import 'package:well_organized/widgets/add_space.dart';
 
 import '../models/product_model.dart';
 import '../services/riverpod_service.dart';
-
 
 class AddProduct extends ConsumerStatefulWidget {
   const AddProduct({super.key});
@@ -119,7 +119,6 @@ class _AddProductState extends ConsumerState<AddProduct> {
                       Padding(
                         padding: const EdgeInsets.all(10),
                         child: TextFormField(
-                          
                           controller: locationController,
                           validator: ((value) {
                             if (value!.isEmpty) {
@@ -138,7 +137,6 @@ class _AddProductState extends ConsumerState<AddProduct> {
                       Padding(
                         padding: const EdgeInsets.all(10),
                         child: TextFormField(
-                          
                           controller: barcodeController,
                           onChanged: (value) {
                             void clearSku = skuController.clear();
@@ -221,9 +219,7 @@ class _AddProductState extends ConsumerState<AddProduct> {
                           skuController: skuController,
                         ),
                       ),
-                      const SizedBox(
-                        height: 20,
-                      ),
+                      verticalSpace(20),
                       ElevatedButton(
                         style: ElevatedButton.styleFrom(
                           minimumSize: const Size(250, 50),

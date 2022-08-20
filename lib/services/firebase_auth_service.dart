@@ -24,5 +24,21 @@ class FirebaseAuthService {
     }
   }
 
+  Future<void> signUp(String email, String password, BuildContext context) async {
+    try {
+      await FirebaseAuth.instance.createUserWithEmailAndPassword(
+        email: email,
+        password: password,
+      );      
+    } on FirebaseAuthException catch (e) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text(e.message.toString()),
+          duration: const Duration(seconds: 3),
+        ),
+      );
+    }
+  }
+
   Future<void> signOut() async => await firebaseAuth.signOut();
 }
