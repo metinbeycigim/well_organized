@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:firebase_storage/firebase_storage.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 class FirebaseStorageService {
   Reference get firebaseStorageRef => FirebaseStorage.instance.ref();
@@ -15,4 +16,6 @@ class FirebaseStorageService {
   Future<void> uploadExcelFiletoFirebaseStorage(String excelFileName, File excelFile) async {
     final excelFileUpload = await firebaseStorageRef.child('Files/$excelFileName').putFile(excelFile);
   }
+  static final firebaseStorageProvider = Provider<FirebaseStorageService>((ref) => FirebaseStorageService());
+
 }

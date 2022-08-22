@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:well_organized/constants/extensions.dart';
 import 'package:well_organized/models/product_model.dart';
-import 'package:well_organized/services/riverpod_service.dart';
+import 'package:well_organized/services/firebase_database_service.dart';
 
 class ProductList extends ConsumerStatefulWidget {
   const ProductList({Key? key}) : super(key: key);
@@ -24,7 +24,7 @@ class _ProductListState extends ConsumerState<ProductList> {
 
   @override
   Widget build(BuildContext context) {
-    final productsRef = ref.watch(RiverpodService.firebaseProductListProvider);
+    final productsRef = ref.watch(FirebaseDatabaseService.firebaseProductListProvider);
 
     return Scaffold(
       appBar: AppBar(

@@ -1,8 +1,9 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:well_organized/constants/app_colors.dart';
-import 'package:well_organized/services/riverpod_service.dart';
+import 'package:well_organized/services/firebase_auth_service.dart';
 import 'package:well_organized/widgets/add_space.dart';
 
 class LoginScreen extends ConsumerStatefulWidget {
@@ -21,7 +22,7 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final signInInstance = ref.read(RiverpodService.firebaseAuthProvider);
+    final signInInstance = ref.read(FirebaseAuthService.firebaseAuthProvider);
 
     return SafeArea(
       child: GestureDetector(
@@ -101,11 +102,20 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                           )
                         : ElevatedButton(
                             onPressed: () async {
-                              await signInInstance.signUp(
-                                emailController.text.trim(),
-                                passwordController.text.trim(),
-                                context,
-                              );
+                              try {
+                                await signInInstance.signUp(
+                                  emailController.text.trim(),
+                                  passwordController.text.trim(),
+                                  context,
+                                );
+                              } on FirebaseAuthException catch (e) {
+                                ScaffoldMessenger.of(context).showSnackBar(
+                                  SnackBar(
+                                    content: Text('$e'),
+                                    duration: const Duration(seconds: 3),
+                                  ),
+                                );
+                              }
                             },
                             child: const Text(
                               'Sign Up',

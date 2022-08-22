@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../models/product_model.dart';
 
@@ -29,4 +30,8 @@ class FirebaseDatabaseService {
       'email': userName.email,
     });
   }
+
+  static final firebaseProductListProvider =
+      StreamProvider.autoDispose((ref) => FirebaseDatabaseService().firebaseProductRef.snapshots());
+  static final firebaseDatabaseProvider = Provider<FirebaseDatabaseService>((ref) => FirebaseDatabaseService());
 }

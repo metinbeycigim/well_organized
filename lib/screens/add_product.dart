@@ -2,11 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_barcode_scanner/flutter_barcode_scanner.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:well_organized/services/firebase_auth_service.dart';
+import 'package:well_organized/services/firebase_database_service.dart';
+import 'package:well_organized/services/firebase_storage.dart';
 import 'package:well_organized/widgets/add_image_button.dart';
 import 'package:well_organized/widgets/add_space.dart';
 
 import '../models/product_model.dart';
-import '../services/riverpod_service.dart';
 
 class AddProduct extends ConsumerStatefulWidget {
   const AddProduct({super.key});
@@ -43,8 +45,8 @@ class _AddProductState extends ConsumerState<AddProduct> {
 
   @override
   Widget build(BuildContext context) {
-    final productsRef = ref.watch(RiverpodService.firebaseProductListProvider);
-    final imageRef = ref.read(RiverpodService.firebaseStorageProvider);
+    final productsRef = ref.watch(FirebaseDatabaseService.firebaseProductListProvider);
+    final imageRef = ref.read(FirebaseStorageService.firebaseStorageProvider);
     final ValueNotifier<String> buttonState = ValueNotifier('Add Product');
 
     return productsRef.when(
@@ -243,7 +245,7 @@ class _AddProductState extends ConsumerState<AddProduct> {
                           }
 
                           final userName = ref
-                              .read(RiverpodService.firebaseAuthProvider)
+                              .read(FirebaseAuthService.firebaseAuthProvider)
                               .firebaseAuth
                               .currentUser!
                               .displayName as String;
@@ -265,7 +267,7 @@ class _AddProductState extends ConsumerState<AddProduct> {
                               if (productList.any((element) =>
                                   element.sku == skuController.text || element.barcode == barcodeController.text)) {
                                 ref
-                                    .read(RiverpodService.firebaseDatabaseProvider)
+                                    .read(FirebaseDatabaseService.firebaseDatabaseProvider)
                                     .updateQuantity(
                                       productList[productList.indexWhere((element) =>
                                           element.sku == skuController.text ||
@@ -278,7 +280,7 @@ class _AddProductState extends ConsumerState<AddProduct> {
                                     .then((value) => clearTextFields());
                               } else {
                                 ref
-                                    .read(RiverpodService.firebaseDatabaseProvider)
+                                    .read(FirebaseDatabaseService.firebaseDatabaseProvider)
                                     .addProduct(product)
                                     .then((value) => clearTextFields());
                               }

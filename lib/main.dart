@@ -5,7 +5,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:well_organized/constants/app_colors.dart';
 import 'package:well_organized/screens/home_screen.dart';
 import 'package:well_organized/screens/login_screen.dart';
-import 'package:well_organized/services/riverpod_service.dart';
+import 'package:well_organized/services/routes.dart';
 
 import 'firebase_options.dart';
 
@@ -17,17 +17,27 @@ void main() async {
   runApp(const ProviderScope(child: MyApp()));
 }
 
-class MyApp extends ConsumerWidget {
-  const MyApp({super.key});
-  static const String title = 'Well Organized';
+class MyApp extends ConsumerStatefulWidget {
+  const MyApp({Key? key}) : super(key: key);
 
-  // This widget is the root of your application.
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
-    final authState = ref.watch(RiverpodService.authStateProvider);
+  ConsumerState<ConsumerStatefulWidget> createState() => _MyAppState();
+}
+
+class _MyAppState extends ConsumerState<MyApp> {
+  bool isSignedIn = false;
+  @override
+  Widget build(BuildContext context) {
+    
+    final userStream = ref.watch(firebaseAuthProvider).firebaseAuth.authStateChanges().listen((user) {
+      user == null ? isSignedIn = false : true;
+      print(isSignedIn);
+      setState(() {});
+    });
+
     return MaterialApp(
-      //! after signing up, home page goes to HomeScreen. It should be signin screen.
-      home: authState.value == null ? const LoginScreen() : const HomeScreen(),
+      //! signup goes to homescreen as well. after signup loginscreen should be shown.
+      home: isSignedIn ? const HomeScreen() : const LoginScreen(),
       theme: ThemeData(
         inputDecorationTheme: const InputDecorationTheme(
           labelStyle: TextStyle(color: inputLabelColor),
@@ -70,7 +80,7 @@ class MyApp extends ConsumerWidget {
             )),
       ),
       debugShowCheckedModeBanner: false,
-      title: title,
+      title: 'Well Organized',
     );
   }
 }

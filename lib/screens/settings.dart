@@ -3,17 +3,18 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:intl/intl.dart';
 import 'package:syncfusion_flutter_xlsio/xlsio.dart' hide Column;
+import 'package:well_organized/services/firebase_auth_service.dart';
+import 'package:well_organized/services/firebase_database_service.dart';
 import 'package:well_organized/services/save_excel_file.dart';
 
 import '../models/product_model.dart';
-import '../services/riverpod_service.dart';
 
 class Settings extends ConsumerWidget {
   const Settings({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final productsRef = ref.watch(RiverpodService.firebaseProductListProvider);
+    final productsRef = ref.watch(FirebaseDatabaseService.firebaseProductListProvider);
 
     Future<void> generateExcel() async {
       //Creating a workbook.
@@ -68,26 +69,27 @@ class Settings extends ConsumerWidget {
       //Save and launch the file.
       await saveAndLaunchFile(bytes,
               'Product List-${DateFormat('MM.dd.yy-h:ma').format(DateTime.parse(DateTime.now().toString()))}.xlsx')
-          .then((_) => ref.watch(RiverpodService.firebaseDatabaseProvider).firebaseProductRef.get().then((snapshot) {
+          .then((_) =>
+              ref.watch(FirebaseDatabaseService.firebaseDatabaseProvider).firebaseProductRef.get().then((snapshot) {
                 for (var doc in snapshot.docs) {
                   doc.reference.update({'quantity': 0});
                 }
               }));
     }
 
-    final userName = ref.read(RiverpodService.firebaseAuthProvider).firebaseAuth.currentUser!.displayName;
+    // final userName = ref.read(FirebaseAuthService.firebaseAuthProvider).firebaseAuth.currentUser!.displayName;
 
     return Scaffold(
       appBar: AppBar(
         title: const Text('Settings'),
-        actions: [
-          Center(
-            child: Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Text('signed in as ${userName!.toUpperCase()}'),
-            ),
-          ),
-        ],
+        // actions: [
+        //   Center(
+        //     child: Padding(
+        //       padding: const EdgeInsets.all(8.0),
+        //       child: Text('signed in as ${userName!.toUpperCase()}'),
+        //     ),
+        //   ),
+        // ],
       ),
       body: Center(
         child: Column(
@@ -115,7 +117,7 @@ class Settings extends ConsumerWidget {
                     borderRadius: BorderRadius.circular(15),
                   ),
                 ),
-                onPressed: () async => await ref.watch(RiverpodService.firebaseAuthProvider).signOut(),
+                onPressed: () async => await FirebaseAuthService().signOut(),
                 child: const Text('Sign Out'),
               ),
             ),
