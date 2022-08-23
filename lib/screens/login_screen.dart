@@ -1,10 +1,11 @@
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:well_organized/constants/app_colors.dart';
 import 'package:well_organized/services/firebase_auth_service.dart';
 import 'package:well_organized/widgets/add_space.dart';
+import 'package:well_organized/widgets/sign_in_button.dart';
+import 'package:well_organized/widgets/sign_up_button.dart';
 
 class LoginScreen extends ConsumerStatefulWidget {
   const LoginScreen({super.key});
@@ -22,7 +23,7 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final signInInstance = ref.read(FirebaseAuthService.firebaseAuthProvider);
+    final authInstance = ref.read(FirebaseAuthService.firebaseAuthProvider);
 
     return SafeArea(
       child: GestureDetector(
@@ -80,48 +81,14 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                     height: 50,
                     width: 250,
                     child: isSignIn
-                        ? ElevatedButton(
-                            onPressed: () async {
-                              emailController.text.isNotEmpty
-                                  ? await signInInstance.signIn(
-                                      //////////*! autocomplete for email domain to use only username. It only works in this specific app. Not for general use!!!!!!
-                                      emailController.text.trim(),
-                                      passwordController.text.trim(),
-                                      context)
-                                  : ScaffoldMessenger.of(context).showSnackBar(
-                                      const SnackBar(
-                                        content: Text('Please enter a valid email address'),
-                                        duration: Duration(seconds: 3),
-                                      ),
-                                    );
-                            },
-                            child: const Text(
-                              'Login',
-                              style: TextStyle(color: Colors.white, fontSize: 25),
-                            ),
-                          )
-                        : ElevatedButton(
-                            onPressed: () async {
-                              try {
-                                await signInInstance.signUp(
-                                  emailController.text.trim(),
-                                  passwordController.text.trim(),
-                                  context,
-                                );
-                              } on FirebaseAuthException catch (e) {
-                                ScaffoldMessenger.of(context).showSnackBar(
-                                  SnackBar(
-                                    content: Text('$e'),
-                                    duration: const Duration(seconds: 3),
-                                  ),
-                                );
-                              }
-                            },
-                            child: const Text(
-                              'Sign Up',
-                              style: TextStyle(color: Colors.white, fontSize: 25),
-                            ),
-                          ),
+                        ? SignInButton(
+                            emailController: emailController,
+                            instance: authInstance,
+                            passwordController: passwordController)
+                        : SignUpButton(
+                            instance: authInstance,
+                            emailController: emailController,
+                            passwordController: passwordController),
                   ),
                   verticalSpace(30),
                   RichText(

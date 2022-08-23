@@ -25,19 +25,14 @@ class MyApp extends ConsumerStatefulWidget {
 }
 
 class _MyAppState extends ConsumerState<MyApp> {
-  bool isSignedIn = false;
   @override
   Widget build(BuildContext context) {
-    
-    final userStream = ref.watch(firebaseAuthProvider).firebaseAuth.authStateChanges().listen((user) {
-      user == null ? isSignedIn = false : true;
-      print(isSignedIn);
-      setState(() {});
-    });
-
+    final userStream = ref.watch(authStateProvider);
+    final user = ref.read(firebaseAuthProvider).firebaseAuth.currentUser;
+    print('user is: $user');
     return MaterialApp(
       //! signup goes to homescreen as well. after signup loginscreen should be shown.
-      home: isSignedIn ? const HomeScreen() : const LoginScreen(),
+      home: userStream.value == null ? const LoginScreen() : const HomeScreen(),
       theme: ThemeData(
         inputDecorationTheme: const InputDecorationTheme(
           labelStyle: TextStyle(color: inputLabelColor),
@@ -46,6 +41,7 @@ class _MyAppState extends ConsumerState<MyApp> {
           ),
           enabledBorder: OutlineInputBorder(
             borderSide: BorderSide(color: borderColor),
+            borderRadius: BorderRadius.all(Radius.circular(15)),
           ),
         ),
         bottomNavigationBarTheme: const BottomNavigationBarThemeData(
