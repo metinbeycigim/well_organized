@@ -46,7 +46,6 @@ class _AddProductState extends ConsumerState<AddProduct> {
   @override
   Widget build(BuildContext context) {
     final productsRef = ref.watch(FirebaseDatabaseService.firebaseProductListProvider);
-    final imageRef = ref.read(FirebaseStorageService.firebaseStorageProvider);
     final ValueNotifier<String> buttonState = ValueNotifier('Add Product');
 
     return productsRef.when(
@@ -217,7 +216,7 @@ class _AddProductState extends ConsumerState<AddProduct> {
                         padding: const EdgeInsets.all(10),
                         child: AddImageButton(
                           formKey: _formKey,
-                          imageRef: imageRef,
+                          imageRef: FirebaseStorageService(),
                           skuController: skuController,
                         ),
                       ),
@@ -231,24 +230,23 @@ class _AddProductState extends ConsumerState<AddProduct> {
                         ),
                         onPressed: () async {
                           final path = skuController.text.trim().toUpperCase();
-                          final itemCount = await imageRef.firebaseStorageRef
+                          final itemCount = await FirebaseStorageService()
+                              .firebaseStorageRef
                               .child('Images/$path')
                               .listAll()
                               .then((value) => value.items.length);
 
                           Future<String> getPhotoUrl(int photoCount) async {
-                            final photoUrl = await imageRef.firebaseStorageRef
+                            final photoUrl = await FirebaseStorageService()
+                                .firebaseStorageRef
                                 .child('Images/$path/$path-${photoCount.toString()}')
                                 .getDownloadURL();
 
                             return photoUrl;
                           }
 
-                          final userName = ref
-                              .read(FirebaseAuthService.firebaseAuthProvider)
-                              .firebaseAuth
-                              .currentUser!
-                              .displayName as String;
+                          final userName =
+                              FirebaseAuthService().firebaseAuthInstance.currentUser!.displayName as String;
 
                           ProductModel product = ProductModel(
                             userName: userName,
@@ -266,8 +264,7 @@ class _AddProductState extends ConsumerState<AddProduct> {
                             try {
                               if (productList.any((element) =>
                                   element.sku == skuController.text || element.barcode == barcodeController.text)) {
-                                ref
-                                    .read(FirebaseDatabaseService.firebaseDatabaseProvider)
+                                FirebaseDatabaseService()
                                     .updateQuantity(
                                       productList[productList.indexWhere((element) =>
                                           element.sku == skuController.text ||
@@ -279,10 +276,7 @@ class _AddProductState extends ConsumerState<AddProduct> {
                                     )
                                     .then((value) => clearTextFields());
                               } else {
-                                ref
-                                    .read(FirebaseDatabaseService.firebaseDatabaseProvider)
-                                    .addProduct(product)
-                                    .then((value) => clearTextFields());
+                                FirebaseDatabaseService().addProduct(product).then((value) => clearTextFields());
                               }
                             } catch (e) {
                               print('Error: $e');

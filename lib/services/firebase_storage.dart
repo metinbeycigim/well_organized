@@ -16,6 +16,5 @@ class FirebaseStorageService {
   Future<void> uploadExcelFiletoFirebaseStorage(String excelFileName, File excelFile) async {
     final excelFileUpload = await firebaseStorageRef.child('Files/$excelFileName').putFile(excelFile);
   }
-  static final firebaseStorageProvider = Provider<FirebaseStorageService>((ref) => FirebaseStorageService());
 
 }

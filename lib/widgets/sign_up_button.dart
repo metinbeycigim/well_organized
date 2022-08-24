@@ -5,12 +5,11 @@ import 'package:well_organized/services/firebase_auth_service.dart';
 class SignUpButton extends StatelessWidget {
   const SignUpButton({
     Key? key,
-    required this.instance,
     required this.emailController,
     required this.passwordController,
   }) : super(key: key);
 
-  final FirebaseAuthService instance;
+  
   final TextEditingController emailController;
   final TextEditingController passwordController;
 
@@ -19,7 +18,7 @@ class SignUpButton extends StatelessWidget {
     return ElevatedButton(
       onPressed: () async {
         try {
-          await instance.signUp(emailController.text.trim(), passwordController.text.trim(), context);
+          await FirebaseAuthService().signUp(emailController.text.trim(), passwordController.text.trim(), context);
         } on FirebaseAuthException catch (e) {
           ScaffoldMessenger.of(context).showSnackBar(
             SnackBar(

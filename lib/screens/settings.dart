@@ -70,26 +70,26 @@ class Settings extends ConsumerWidget {
       await saveAndLaunchFile(bytes,
               'Product List-${DateFormat('MM.dd.yy-h:ma').format(DateTime.parse(DateTime.now().toString()))}.xlsx')
           .then((_) =>
-              ref.watch(FirebaseDatabaseService.firebaseDatabaseProvider).firebaseProductRef.get().then((snapshot) {
+                 FirebaseDatabaseService().firebaseProductRef.get().then((snapshot) {
                 for (var doc in snapshot.docs) {
                   doc.reference.update({'quantity': 0});
                 }
               }));
     }
 
-    // final userName = ref.read(FirebaseAuthService.firebaseAuthProvider).firebaseAuth.currentUser!.displayName;
+    final userName = FirebaseAuthService().firebaseAuthInstance.currentUser!.displayName;
 
     return Scaffold(
       appBar: AppBar(
         title: const Text('Settings'),
-        // actions: [
-        //   Center(
-        //     child: Padding(
-        //       padding: const EdgeInsets.all(8.0),
-        //       child: Text('signed in as ${userName!.toUpperCase()}'),
-        //     ),
-        //   ),
-        // ],
+        actions: [
+          Center(
+            child: Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Text('signed in as ${userName!.toUpperCase()}'),
+            ),
+          ),
+        ],
       ),
       body: Center(
         child: Column(

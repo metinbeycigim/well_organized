@@ -4,12 +4,12 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:well_organized/services/firebase_database_service.dart';
 
 class FirebaseAuthService {
-  FirebaseAuth get firebaseAuth => FirebaseAuth.instance;
-  Stream<User?> get authStateChange => firebaseAuth.authStateChanges();
+  FirebaseAuth get firebaseAuthInstance => FirebaseAuth.instance;
+  Stream<User?> get authStateChanges => firebaseAuthInstance.authStateChanges();
 
   Future<void> signIn(String email, String password, BuildContext context) async {
     try {
-      await firebaseAuth.signInWithEmailAndPassword(email: email, password: password);
+      await firebaseAuthInstance.signInWithEmailAndPassword(email: email, password: password);
     } on FirebaseAuthException catch (e) {
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
@@ -31,7 +31,7 @@ class FirebaseAuthService {
           .then(
             (value) => value.user!.updateDisplayName(email.split('@')[0]),
           );
-      final userName = firebaseAuth.currentUser as User;
+      final userName = firebaseAuthInstance.currentUser as User;
       await FirebaseDatabaseService().addUser(userName);
     } on FirebaseAuthException catch (e) {
       ScaffoldMessenger.of(context).showSnackBar(
@@ -43,7 +43,6 @@ class FirebaseAuthService {
     }
   }
 
-  Future<void> signOut() async => await firebaseAuth.signOut();
-  static final firebaseAuthProvider = Provider<FirebaseAuthService>((ref) => FirebaseAuthService());
-  static final authStateProvider = StreamProvider<User?>((ref) => ref.watch(firebaseAuthProvider).authStateChange);
+  Future<void> signOut() async => await firebaseAuthInstance.signOut();
+  static final authStateProvider = StreamProvider<User?>((ref) => FirebaseAuthService().authStateChanges);
 }

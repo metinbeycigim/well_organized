@@ -5,12 +5,12 @@ class SignInButton extends StatelessWidget {
   const SignInButton({
     Key? key,
     required this.emailController,
-    required this.instance,
+
     required this.passwordController,
   }) : super(key: key);
 
   final TextEditingController emailController;
-  final FirebaseAuthService instance;
+
   final TextEditingController passwordController;
 
   @override
@@ -18,7 +18,7 @@ class SignInButton extends StatelessWidget {
     return ElevatedButton(
       onPressed: () async {
         emailController.text.isNotEmpty
-            ? await instance.signIn(emailController.text.trim(), passwordController.text.trim(), context)
+            ? await FirebaseAuthService().signIn(emailController.text.trim(), passwordController.text.trim(), context)
             : ScaffoldMessenger.of(context).showSnackBar(
                 const SnackBar(
                   content: Text('Please enter a valid email address'),

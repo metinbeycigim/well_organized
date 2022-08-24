@@ -33,5 +33,4 @@ class FirebaseDatabaseService {
 
   static final firebaseProductListProvider =
       StreamProvider.autoDispose((ref) => FirebaseDatabaseService().firebaseProductRef.snapshots());
-  static final firebaseDatabaseProvider = Provider<FirebaseDatabaseService>((ref) => FirebaseDatabaseService());
 }

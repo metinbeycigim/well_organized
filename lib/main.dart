@@ -5,7 +5,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:well_organized/constants/app_colors.dart';
 import 'package:well_organized/screens/home_screen.dart';
 import 'package:well_organized/screens/login_screen.dart';
-import 'package:well_organized/services/routes.dart';
+import 'package:well_organized/services/firebase_auth_service.dart';
 
 import 'firebase_options.dart';
 
@@ -27,23 +27,15 @@ class MyApp extends ConsumerStatefulWidget {
 class _MyAppState extends ConsumerState<MyApp> {
   @override
   Widget build(BuildContext context) {
-    final userStream = ref.watch(authStateProvider);
-    final user = ref.read(firebaseAuthProvider).firebaseAuth.currentUser;
-    print('user is: $user');
+    final userStream = ref.watch(FirebaseAuthService.authStateProvider);
+
     return MaterialApp(
-      //! signup goes to homescreen as well. after signup loginscreen should be shown.
       home: userStream.value == null ? const LoginScreen() : const HomeScreen(),
       theme: ThemeData(
         inputDecorationTheme: const InputDecorationTheme(
-          labelStyle: TextStyle(color: inputLabelColor),
-          focusedBorder: OutlineInputBorder(
-            borderSide: BorderSide(color: borderColor),
-          ),
-          enabledBorder: OutlineInputBorder(
-            borderSide: BorderSide(color: borderColor),
-            borderRadius: BorderRadius.all(Radius.circular(15)),
-          ),
-        ),
+            labelStyle: TextStyle(color: inputLabelColor),
+            enabledBorder: OutlineInputBorder(
+                borderSide: BorderSide(color: borderColor), borderRadius: BorderRadius.all(Radius.circular(15)))),
         bottomNavigationBarTheme: const BottomNavigationBarThemeData(
           backgroundColor: widgetBackgroundColor,
           selectedItemColor: selectedItemColor,

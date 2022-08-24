@@ -35,15 +35,15 @@ class Routes extends ChangeNotifier {
       ];
 }
 
-final firebaseAuthProvider = Provider<FirebaseAuthService>((ref) => FirebaseAuthService());
-final authStateProvider = StreamProvider<User?>((ref) => ref.watch(firebaseAuthProvider).authStateChange);
-final routeProvider = Provider<GoRouter>((ref) {
-  final authState = ref.watch(authStateProvider);
-  final router = Routes();
-  return GoRouter(
-    initialLocation: authState.value == null ? '/login' : '/',
-    debugLogDiagnostics: true,
-    refreshListenable: router,
-    routes: router.routes,
-  );
-});
+// final firebaseAuthProvider = Provider<FirebaseAuthService>((ref) => FirebaseAuthService());
+// final authStateProvider = StreamProvider<User?>((ref) => ref.watch(firebaseAuthProvider).authStateChange);
+// final routeProvider = Provider<GoRouter>((ref) {
+//   final authState = ref.watch(authStateProvider);
+//   final router = Routes();
+//   return GoRouter(
+//     initialLocation: authState.value == null ? '/login' : '/',
+//     debugLogDiagnostics: true,
+//     refreshListenable: router,
+//     routes: router.routes,
+//   );
+// });

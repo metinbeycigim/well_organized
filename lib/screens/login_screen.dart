@@ -23,7 +23,6 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final authInstance = ref.read(FirebaseAuthService.firebaseAuthProvider);
 
     return SafeArea(
       child: GestureDetector(
@@ -83,12 +82,12 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                     child: isSignIn
                         ? SignInButton(
                             emailController: emailController,
-                            instance: authInstance,
-                            passwordController: passwordController)
+                            passwordController: passwordController,
+                          )
                         : SignUpButton(
-                            instance: authInstance,
                             emailController: emailController,
-                            passwordController: passwordController),
+                            passwordController: passwordController,
+                          ),
                   ),
                   verticalSpace(30),
                   RichText(
