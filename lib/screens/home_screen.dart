@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:well_organized/screens/add_product.dart';
+import 'package:well_organized/screens/ebay_products.dart';
 import 'package:well_organized/screens/product_list.dart';
 import 'package:well_organized/screens/settings.dart';
 
@@ -23,6 +24,7 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
     const AddProduct(),
     const ProductList(),
     const Settings(),
+    const EbayProducts(),
   ];
   @override
   Widget build(BuildContext context) {
@@ -47,6 +49,7 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
               BottomNavigationBarItem(icon: Icon(Icons.add), label: 'Add Product'),
               BottomNavigationBarItem(icon: Icon(Icons.list), label: 'Product List'),
               BottomNavigationBarItem(icon: Icon(Icons.settings), label: 'Settings'),
+              BottomNavigationBarItem(icon: Icon(Icons.shopping_bag), label: 'Ebay Products'),
             ],
             currentIndex: _selectedIndex,
             onTap: _changeIndex,
