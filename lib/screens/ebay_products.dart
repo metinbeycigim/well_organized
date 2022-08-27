@@ -15,9 +15,18 @@ class _EbayProductsState extends ConsumerState<EbayProducts> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Center(
-        child: ElevatedButton(
-          onPressed: () => EbayApi().getProductByUpc(upc),
-          child: const Text('Get Product Data'),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            ElevatedButton(
+              onPressed: () => EbayApi().getProductByUpc(upc),
+              child: const Text('Get Product Data'),
+            ),
+            ElevatedButton(
+              onPressed: () => EbayApi().getToken(),
+              child: const Text('Get Token'),
+            ),
+          ],
         ),
       ),
     );
