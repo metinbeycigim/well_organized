@@ -19,12 +19,8 @@ class _EbayProductsState extends ConsumerState<EbayProducts> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             ElevatedButton(
-              onPressed: () => EbayApi().getProductByUpc(upc),
+              onPressed: () => EbayApi().getProductDataEbay(upc),
               child: const Text('Get Product Data'),
-            ),
-            ElevatedButton(
-              onPressed: () => EbayApi().getToken(),
-              child: const Text('Get Token'),
             ),
           ],
         ),

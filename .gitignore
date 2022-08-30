@@ -38,6 +38,9 @@ lib/generated_plugin_registrant.dart
 # Firebase related
 lib/firebase_options.dart
 
+# Ebay key related
+lib/constants/ebay_key.dart
+
 # Symbolication related
 app.*.symbols
 
