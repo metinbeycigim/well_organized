@@ -2,7 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:well_organized/constants/extensions.dart';
-import 'package:well_organized/models/product_model.dart';
+import 'package:well_organized/models/app_product_model.dart';
 import 'package:well_organized/services/firebase_database_service.dart';
 
 class ProductList extends ConsumerStatefulWidget {
@@ -52,12 +52,15 @@ class _ProductListState extends ConsumerState<ProductList> {
                       onChanged: ((value) {
                         final list = productList
                             .where((element) =>
-                                ProductModel.fromMap(element.data()).sku.toLowerCase().contains(value.toLowerCase()) ||
-                                ProductModel.fromMap(element.data())
+                                AppProductModel.fromMap(element.data())
+                                    .sku
+                                    .toLowerCase()
+                                    .contains(value.toLowerCase()) ||
+                                AppProductModel.fromMap(element.data())
                                     .location
                                     .toLowerCase()
                                     .contains(value.toLowerCase()) ||
-                                ProductModel.fromMap(element.data())
+                                AppProductModel.fromMap(element.data())
                                     .productName
                                     .toLowerCase()
                                     .contains(value.toLowerCase()))
@@ -78,8 +81,8 @@ class _ProductListState extends ConsumerState<ProductList> {
                         ? ListView.builder(
                             itemBuilder: ((_, index) {
                               final product = _controller.text.isEmpty
-                                  ? ProductModel.fromMap(productList[index].data())
-                                  : ProductModel.fromMap(listViewData[index].data());
+                                  ? AppProductModel.fromMap(productList[index].data())
+                                  : AppProductModel.fromMap(listViewData[index].data());
 
                               return ListTile(
                                 leading: Text(product.sku),

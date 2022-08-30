@@ -3,7 +3,7 @@ import 'dart:io';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:well_organized/services/firebase_storage.dart';
+import 'package:well_organized/services/firebase_storage_service.dart';
 
 class AddImageButton extends StatelessWidget {
   const AddImageButton({

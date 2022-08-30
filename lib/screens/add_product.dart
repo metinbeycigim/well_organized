@@ -4,11 +4,11 @@ import 'package:flutter_barcode_scanner/flutter_barcode_scanner.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:well_organized/services/firebase_auth_service.dart';
 import 'package:well_organized/services/firebase_database_service.dart';
-import 'package:well_organized/services/firebase_storage.dart';
+import 'package:well_organized/services/firebase_storage_service.dart';
 import 'package:well_organized/widgets/add_image_button.dart';
 import 'package:well_organized/widgets/add_space.dart';
 
-import '../models/product_model.dart';
+import '../models/app_product_model.dart';
 
 class AddProduct extends ConsumerStatefulWidget {
   const AddProduct({super.key});
@@ -50,9 +50,9 @@ class _AddProductState extends ConsumerState<AddProduct> {
 
     return productsRef.when(
         data: (data) {
-          List<ProductModel> productList = [];
+          List<AppProductModel> productList = [];
           for (var snapshot in data.docs) {
-            final product = ProductModel.fromMap(snapshot.data());
+            final product = AppProductModel.fromMap(snapshot.data());
             productList.add(product);
           }
           return GestureDetector(
@@ -248,7 +248,7 @@ class _AddProductState extends ConsumerState<AddProduct> {
                           final userName =
                               FirebaseAuthService().firebaseAuthInstance.currentUser!.displayName as String;
 
-                          ProductModel product = ProductModel(
+                          AppProductModel product = AppProductModel(
                             userName: userName,
                             productName: productNameController.text,
                             sku: skuController.text,

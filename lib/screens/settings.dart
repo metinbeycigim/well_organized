@@ -7,7 +7,7 @@ import 'package:well_organized/services/firebase_auth_service.dart';
 import 'package:well_organized/services/firebase_database_service.dart';
 import 'package:well_organized/services/save_excel_file.dart';
 
-import '../models/product_model.dart';
+import '../models/app_product_model.dart';
 
 class Settings extends ConsumerWidget {
   const Settings({super.key});
@@ -43,9 +43,9 @@ class Settings extends ConsumerWidget {
       // does not include quantity = 0 items
       void setList(List<QueryDocumentSnapshot<Map<String, dynamic>>>? productList,
           void Function(String cell, String content) setSellContent) {
-        final products = productList!.where((element) => ProductModel.fromMap(element.data()).quantity > 0).toList();
+        final products = productList!.where((element) => AppProductModel.fromMap(element.data()).quantity > 0).toList();
         for (var i = 0; i < products.length; i++) {
-          final modelFirebase = ProductModel.fromMap(products[i].data());
+          final modelFirebase = AppProductModel.fromMap(products[i].data());
           setCellContent('A${i + 2}', modelFirebase.barcode);
           setCellContent('B${i + 2}', modelFirebase.sku);
           setCellContent('C${i + 2}', modelFirebase.location);
@@ -69,8 +69,7 @@ class Settings extends ConsumerWidget {
       //Save and launch the file.
       await saveAndLaunchFile(bytes,
               'Product List-${DateFormat('MM.dd.yy-h:ma').format(DateTime.parse(DateTime.now().toString()))}.xlsx')
-          .then((_) =>
-                 FirebaseDatabaseService().firebaseProductRef.get().then((snapshot) {
+          .then((_) => FirebaseDatabaseService().firebaseProductRef.get().then((snapshot) {
                 for (var doc in snapshot.docs) {
                   doc.reference.update({'quantity': 0});
                 }
