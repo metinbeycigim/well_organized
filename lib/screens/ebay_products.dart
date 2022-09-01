@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:well_organized/services/ebay_api.dart';
+import 'package:well_organized/widgets/add_space.dart';
 
 class EbayProducts extends ConsumerStatefulWidget {
   const EbayProducts({Key? key}) : super(key: key);
@@ -10,19 +11,52 @@ class EbayProducts extends ConsumerStatefulWidget {
 }
 
 class _EbayProductsState extends ConsumerState<EbayProducts> {
-  String upc = '0026508267042';
+  final TextEditingController upcController = TextEditingController();
+  final _formKey = GlobalKey<FormState>();
+  @override
+  void dispose() {
+    upcController.dispose();
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
+    // final ebayProductProviderRef = ref.read(EbayApi.ebayProductProvider(upcController.text));
+
     return Scaffold(
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            ElevatedButton(
-              onPressed: () => EbayApi().getProductDataEbay(upc),
-              child: const Text('Get Product Data'),
-            ),
-          ],
+      body: Form(
+        key: _formKey,
+        child: Center(
+          child: Column(
+            children: [
+              verticalSpace(50),
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: TextFormField(
+                  controller: upcController,
+                  validator: ((value) {
+                    if (value!.isEmpty) {
+                      return 'Enter a UPC';
+                    } else if (value.length < 12) {
+                      return 'UPC can not be less than 12 characters';
+                    }
+                    return null;
+                  }),
+                  decoration: const InputDecoration(
+                    border: OutlineInputBorder(),
+                    labelText: 'UPC',
+                    hintText: 'Enter a valid UPC',
+                  ),
+                ),
+              ),
+              ElevatedButton(
+                onPressed: () =>
+                    _formKey.currentState!.validate() ? EbayApi().getProductDataEbay(upcController.text) : {},
+                child: const Text('Get Product Data'),
+              ),
+              
+            ],
+          ),
         ),
       ),
     );

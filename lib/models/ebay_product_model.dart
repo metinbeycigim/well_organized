@@ -53,21 +53,19 @@ class ItemSummary {
   Price price;
   String itemHref;
   Seller seller;
-  MarketingPrice marketingPrice;
   String condition;
   String conditionId;
   List<Image> thumbnailImages;
   List<ShippingOption> shippingOptions;
   List<String> buyingOptions;
   String epid;
-  String itemAffiliateWebUrl;
   String itemWebUrl;
   ItemLocation itemLocation;
   List<Image> additionalImages;
   bool adultOnly;
   String legacyItemId;
   bool availableCoupons;
-  DateTime itemCreationDate;
+  String itemCreationDate;
   bool topRatedBuyingExperience;
   bool priorityListing;
   String listingMarketplaceId;
@@ -80,14 +78,12 @@ class ItemSummary {
     this.price,
     this.itemHref,
     this.seller,
-    this.marketingPrice,
     this.condition,
     this.conditionId,
     this.thumbnailImages,
     this.shippingOptions,
     this.buyingOptions,
     this.epid,
-    this.itemAffiliateWebUrl,
     this.itemWebUrl,
     this.itemLocation,
     this.additionalImages,
@@ -110,21 +106,19 @@ class ItemSummary {
       'price': price.toMap(),
       'itemHref': itemHref,
       'seller': seller.toMap(),
-      'marketingPrice': marketingPrice.toMap(),
       'condition': condition,
       'conditionId': conditionId,
       'thumbnailImages': thumbnailImages.map((x) => x.toMap()).toList(),
       'shippingOptions': shippingOptions.map((x) => x.toMap()).toList(),
       'buyingOptions': buyingOptions,
       'epid': epid,
-      'itemAffiliateWebUrl': itemAffiliateWebUrl,
       'itemWebUrl': itemWebUrl,
       'itemLocation': itemLocation.toMap(),
       'additionalImages': additionalImages.map((x) => x.toMap()).toList(),
       'adultOnly': adultOnly,
       'legacyItemId': legacyItemId,
       'availableCoupons': availableCoupons,
-      'itemCreationDate': itemCreationDate.millisecondsSinceEpoch,
+      'itemCreationDate': itemCreationDate,
       'topRatedBuyingExperience': topRatedBuyingExperience,
       'priorityListing': priorityListing,
       'listingMarketplaceId': listingMarketplaceId,
@@ -141,21 +135,19 @@ class ItemSummary {
       Price.fromMap(map['price']),
       map['itemHref'] ?? '',
       Seller.fromMap(map['seller']),
-      MarketingPrice.fromMap(map['marketingPrice']),
       map['condition'] ?? '',
       map['conditionId'] ?? '',
       List<Image>.from(map['thumbnailImages']?.map((x) => Image.fromMap(x))),
       List<ShippingOption>.from(map['shippingOptions']?.map((x) => ShippingOption.fromMap(x))),
       List<String>.from(map['buyingOptions']),
       map['epid'] ?? '',
-      map['itemAffiliateWebUrl'] ?? '',
       map['itemWebUrl'] ?? '',
       ItemLocation.fromMap(map['itemLocation']),
       List<Image>.from(map['additionalImages']?.map((x) => Image.fromMap(x))),
       map['adultOnly'] ?? false,
       map['legacyItemId'] ?? '',
       map['availableCoupons'] ?? false,
-      DateTime.fromMillisecondsSinceEpoch(map['itemCreationDate']),
+      map['itemCreationDate'],
       map['topRatedBuyingExperience'] ?? false,
       map['priorityListing'] ?? false,
       map['listingMarketplaceId'] ?? '',
@@ -242,37 +234,6 @@ class ItemLocation {
   String toJson() => json.encode(toMap());
 
   factory ItemLocation.fromJson(String source) => ItemLocation.fromMap(json.decode(source));
-}
-
-class MarketingPrice {
-  Price originalPrice;
-  String discountPercentage;
-  Price discountAmount;
-  MarketingPrice(
-    this.originalPrice,
-    this.discountPercentage,
-    this.discountAmount,
-  );
-
-  Map<String, dynamic> toMap() {
-    return {
-      'originalPrice': originalPrice.toMap(),
-      'discountPercentage': discountPercentage,
-      'discountAmount': discountAmount.toMap(),
-    };
-  }
-
-  factory MarketingPrice.fromMap(Map<String, dynamic> map) {
-    return MarketingPrice(
-      Price.fromMap(map['originalPrice']),
-      map['discountPercentage'] ?? '',
-      Price.fromMap(map['discountAmount']),
-    );
-  }
-
-  String toJson() => json.encode(toMap());
-
-  factory MarketingPrice.fromJson(String source) => MarketingPrice.fromMap(json.decode(source));
 }
 
 class Price {

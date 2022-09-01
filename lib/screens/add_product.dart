@@ -298,7 +298,7 @@ class _AddProductState extends ConsumerState<AddProduct> {
             ),
           );
         },
-        error: ((error, stackTrace) => const Text('error')),
+        error: ((error, stackTrace) => const Center(child: Text('error'))),
         loading: () => const Center(child: CircularProgressIndicator()));
   }
 }

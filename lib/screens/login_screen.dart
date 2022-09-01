@@ -2,7 +2,6 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:well_organized/constants/app_colors.dart';
-import 'package:well_organized/services/firebase_auth_service.dart';
 import 'package:well_organized/widgets/add_space.dart';
 import 'package:well_organized/widgets/sign_in_button.dart';
 import 'package:well_organized/widgets/sign_up_button.dart';
