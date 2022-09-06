@@ -32,41 +32,38 @@ class _MyAppState extends ConsumerState<MyApp> {
     return MaterialApp(
       home: userStream.value == null ? const LoginScreen() : const HomeScreen(),
       theme: ThemeData(
-        inputDecorationTheme: const InputDecorationTheme(
-            labelStyle: TextStyle(color: inputLabelColor),
-            enabledBorder: OutlineInputBorder(
-                borderSide: BorderSide(color: borderColor), borderRadius: BorderRadius.all(Radius.circular(15)))),
-        bottomNavigationBarTheme: const BottomNavigationBarThemeData(
-          backgroundColor: widgetBackgroundColor,
-          selectedItemColor: selectedItemColor,
-          unselectedItemColor: unselectedItemColor,
-          selectedIconTheme: IconThemeData(size: 40),
-          selectedLabelStyle: TextStyle(fontWeight: FontWeight.bold, fontSize: 15),
-        ),
-        scaffoldBackgroundColor: backgroundColor,
-        elevatedButtonTheme: ElevatedButtonThemeData(
-          style: ButtonStyle(
-              backgroundColor: MaterialStateProperty.resolveWith((states) => buttonColor),
-              foregroundColor: MaterialStateProperty.resolveWith((states) => buttonIconColor)),
-        ),
-        textTheme: GoogleFonts.montserratTextTheme(),
-        appBarTheme: AppBarTheme(
-            shape: const RoundedRectangleBorder(
-              borderRadius: BorderRadius.only(
-                bottomLeft: Radius.circular(20),
-                bottomRight: Radius.circular(20),
+        
+          canvasColor: widgetBackgroundColor,
+          inputDecorationTheme: const InputDecorationTheme(
+              labelStyle: TextStyle(color: inputLabelColor),
+              enabledBorder: OutlineInputBorder(
+                  borderSide: BorderSide(color: borderColor), borderRadius: BorderRadius.all(Radius.circular(15)))),
+          bottomNavigationBarTheme: const BottomNavigationBarThemeData(
+            selectedItemColor: selectedItemColor,
+            unselectedItemColor: unselectedItemColor,
+            selectedIconTheme: IconThemeData(size: 40),
+            selectedLabelStyle: TextStyle(fontWeight: FontWeight.bold, fontSize: 15),
+          ),
+          scaffoldBackgroundColor: backgroundColor,
+          elevatedButtonTheme: ElevatedButtonThemeData(
+            style: ButtonStyle(
+                backgroundColor: MaterialStateProperty.resolveWith((states) => buttonColor),
+                foregroundColor: MaterialStateProperty.resolveWith((states) => buttonIconColor)),
+          ),
+          textTheme: GoogleFonts.montserratTextTheme(),
+          appBarTheme: AppBarTheme(
+              shape: const RoundedRectangleBorder(
+                borderRadius: BorderRadius.only(
+                  bottomLeft: Radius.circular(20),
+                  bottomRight: Radius.circular(20),
+                ),
               ),
-            ),
-            backgroundColor: widgetBackgroundColor,
-            titleTextStyle: GoogleFonts.montserrat(
-              color: titleTextColor,
-              fontSize: 25,
-              fontWeight: FontWeight.w600,
-            ),
-            actionsIconTheme: const IconThemeData(
-              color: titleTextColor,
-            )),
-      ),
+              backgroundColor: widgetBackgroundColor,
+              titleTextStyle: GoogleFonts.montserrat(
+                color: titleTextColor,
+                fontSize: 25,
+                fontWeight: FontWeight.w600,
+              ))),
       debugShowCheckedModeBanner: false,
       title: 'Well Organized',
     );

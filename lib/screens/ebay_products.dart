@@ -23,39 +23,42 @@ class _EbayProductsState extends ConsumerState<EbayProducts> {
   Widget build(BuildContext context) {
     // final ebayProductProviderRef = ref.read(EbayApi.ebayProductProvider(upcController.text));
 
-    return Scaffold(
-      body: Form(
-        key: _formKey,
-        child: Center(
-          child: Column(
-            children: [
-              verticalSpace(50),
-              Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: TextFormField(
-                  controller: upcController,
-                  validator: ((value) {
-                    if (value!.isEmpty) {
-                      return 'Enter a UPC';
-                    } else if (value.length < 12) {
-                      return 'UPC can not be less than 12 characters';
-                    }
-                    return null;
-                  }),
-                  decoration: const InputDecoration(
-                    border: OutlineInputBorder(),
-                    labelText: 'UPC',
-                    hintText: 'Enter a valid UPC',
+    return GestureDetector(
+      onTap: () => FocusManager.instance.primaryFocus?.unfocus(),
+      child: Scaffold(
+        body: Form(
+          key: _formKey,
+          child: Center(
+            child: Column(
+              children: [
+                verticalSpace(50),
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: TextFormField(
+                    keyboardType: TextInputType.number,
+                    controller: upcController,
+                    validator: ((value) {
+                      if (value!.isEmpty) {
+                        return 'Enter a UPC';
+                      } else if (value.length < 12) {
+                        return 'UPC can not be less than 12 characters';
+                      }
+                      return null;
+                    }),
+                    decoration: const InputDecoration(
+                      border: OutlineInputBorder(),
+                      labelText: 'UPC',
+                      hintText: 'Enter a valid UPC',
+                    ),
                   ),
                 ),
-              ),
-              ElevatedButton(
-                onPressed: () =>
-                    _formKey.currentState!.validate() ? EbayApi().getProductDataEbay(upcController.text) : {},
-                child: const Text('Get Product Data'),
-              ),
-              
-            ],
+                ElevatedButton(
+                  onPressed: () =>
+                      _formKey.currentState!.validate() ? EbayApi().getProductDataEbay(upcController.text) : {},
+                  child: const Text('Get Product Data'),
+                ),
+              ],
+            ),
           ),
         ),
       ),

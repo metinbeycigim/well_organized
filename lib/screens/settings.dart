@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:intl/intl.dart';
 import 'package:syncfusion_flutter_xlsio/xlsio.dart' hide Column;
+import 'package:well_organized/constants/app_colors.dart';
 import 'package:well_organized/services/firebase_auth_service.dart';
 import 'package:well_organized/services/firebase_database_service.dart';
 import 'package:well_organized/services/save_excel_file.dart';
@@ -85,7 +86,10 @@ class Settings extends ConsumerWidget {
           Center(
             child: Padding(
               padding: const EdgeInsets.all(8.0),
-              child: Text('signed in as ${userName!.toUpperCase()}'),
+              child: Text(
+                'signed in as ${userName!.toUpperCase()}',
+                style: const TextStyle(color: titleTextColor),
+              ),
             ),
           ),
         ],

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:well_organized/constants/app_colors.dart';
 import 'package:well_organized/screens/add_product.dart';
 import 'package:well_organized/screens/ebay_products.dart';
 import 'package:well_organized/screens/product_list.dart';
