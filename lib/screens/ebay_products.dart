@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:well_organized/models/ebay_product_model.dart';
 import 'package:well_organized/services/ebay_api.dart';
 import 'package:well_organized/widgets/add_space.dart';
 
@@ -22,7 +23,7 @@ class _EbayProductsState extends ConsumerState<EbayProducts> {
   @override
   Widget build(BuildContext context) {
     // final ebayProductProviderRef = ref.read(EbayApi.ebayProductProvider(upcController.text));
-
+    final ebayProductList = <ItemSummary>[];
     return GestureDetector(
       onTap: () => FocusManager.instance.primaryFocus?.unfocus(),
       child: Scaffold(
@@ -53,10 +54,24 @@ class _EbayProductsState extends ConsumerState<EbayProducts> {
                   ),
                 ),
                 ElevatedButton(
-                  onPressed: () =>
-                      _formKey.currentState!.validate() ? EbayApi().getProductDataEbay(upcController.text) : {},
+                  onPressed: () => _formKey.currentState!.validate()
+                      ? EbayApi()
+                          .getProductDataEbay(upcController.text)
+                          .then((value) => value.itemSummaries.forEach((element) {
+                                ebayProductList.add(element);
+                              }))
+                      : {},
                   child: const Text('Get Product Data'),
                 ),
+                ListView.builder(
+                  shrinkWrap: true,
+                    itemCount: ebayProductList.length,
+                    itemBuilder: (context, index) {
+                      return ListTile(
+                        leading: Text(ebayProductList[index].price.currency + ebayProductList[index].price.value),
+                        title: Text(ebayProductList[index].title),
+                      );
+                    })
               ],
             ),
           ),
