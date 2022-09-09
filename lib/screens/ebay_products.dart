@@ -54,17 +54,12 @@ class _EbayProductsState extends ConsumerState<EbayProducts> {
                   ),
                 ),
                 ElevatedButton(
-                  onPressed: () => _formKey.currentState!.validate()
-                      ? EbayApi()
-                          .getProductDataEbay(upcController.text)
-                          .then((value) => value.itemSummaries.forEach((element) {
-                                ebayProductList.add(element);
-                              }))
-                      : {},
+                  onPressed: () =>
+                      _formKey.currentState!.validate() ? EbayApi().getProductDataEbay(upcController.text) : {},
                   child: const Text('Get Product Data'),
                 ),
                 ListView.builder(
-                  shrinkWrap: true,
+                    shrinkWrap: true,
                     itemCount: ebayProductList.length,
                     itemBuilder: (context, index) {
                       return ListTile(

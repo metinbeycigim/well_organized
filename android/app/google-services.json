@@ -30,6 +30,13 @@
             {
               "client_id": "244235600424-u0grkb37vpqu2vfca2dm8pfte5jndfou.apps.googleusercontent.com",
               "client_type": 3
+            },
+            {
+              "client_id": "244235600424-8jujm3p9l6qla9dq4d6d3vlsupuot174.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.wellOrganized"
+              }
             }
           ]
         }
