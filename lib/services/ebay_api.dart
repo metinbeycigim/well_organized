@@ -1,5 +1,6 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:well_organized/constants/ebay_key.dart';
 import 'package:well_organized/models/ebay_product_model.dart';
 
@@ -34,3 +35,8 @@ class EbayApi {
     }
   }
 }
+
+final ebayApiProvider = Provider<EbayApi>((ref) => EbayApi());
+final ebayDataProvider = FutureProvider.family<EbayProductModel, String>((ref, upc) async {
+  return ref.watch(ebayApiProvider).getProductDataEbay(upc);
+});
