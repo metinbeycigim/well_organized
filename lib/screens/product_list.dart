@@ -80,8 +80,9 @@ class _ProductListState extends ConsumerState<ProductList> {
                     child: productList.isNotZero().isNotEmpty
                         ? ListView.builder(
                             itemBuilder: ((_, index) {
+                              final productsQuantityNotZero = productList.isNotZero().toList();
                               final product = _controller.text.isEmpty
-                                  ? AppProductModel.fromMap(productList[index].data())
+                                  ? AppProductModel.fromMap(productsQuantityNotZero[index].data())
                                   : AppProductModel.fromMap(listViewData[index].data());
 
                               return ListTile(
