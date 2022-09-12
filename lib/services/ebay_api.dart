@@ -20,7 +20,7 @@ class EbayApi {
       final String accessToken = postTokenResponse.data['access_token'];
 
       var getDataResponse = await Dio().get(
-        'https://api.ebay.com/buy/browse/v1/item_summary/search?gtin=$upc&limit=1',
+        'https://api.ebay.com/buy/browse/v1/item_summary/search?gtin=$upc',
         options: Options(headers: {
           'Authorization': 'Bearer $accessToken',
           'Content-Type': 'application/json',
@@ -37,6 +37,6 @@ class EbayApi {
 }
 
 final ebayApiProvider = Provider<EbayApi>((ref) => EbayApi());
-final ebayDataProvider = FutureProvider.family<EbayProductModel, String>((ref, upc) async {
+final ebayProductProvider = FutureProvider.family<EbayProductModel, String>((ref, upc) async {
   return ref.watch(ebayApiProvider).getProductDataEbay(upc);
 });
