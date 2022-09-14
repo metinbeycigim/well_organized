@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:well_organized/screens/ebay_product_details.dart';
 import 'package:well_organized/services/ebay_api.dart';
-import 'package:well_organized/widgets/add_space.dart';
 
 class EbayProducts extends ConsumerStatefulWidget {
   const EbayProducts({Key? key}) : super(key: key);
@@ -23,16 +23,18 @@ class _EbayProductsState extends ConsumerState<EbayProducts> {
   Widget build(BuildContext context) {
     final ebayProduct = ref.watch(ebayProductProvider(upcController.text));
 
-    const String testUpc = '014817483499';
+    const String testUpcGood = '014817483499';
+    const String testUpcBad = '0849376002160';
+
     return GestureDetector(
       onTap: () => FocusManager.instance.primaryFocus?.unfocus(),
       child: Scaffold(
+        appBar: AppBar(title: const Text('Ebay Products')),
         body: Form(
           key: _formKey,
           child: Center(
             child: Column(
               children: [
-                verticalSpace(75),
                 Padding(
                   padding: const EdgeInsets.all(8.0),
                   child: TextFormField(
@@ -60,16 +62,25 @@ class _EbayProductsState extends ConsumerState<EbayProducts> {
                 if (upcController.text.length > 11)
                   ebayProduct.when(
                       data: (data) {
-                        return ListView.builder(
-                            shrinkWrap: true,
-                            itemCount: data.itemSummaries.length,
-                            itemBuilder: (context, index) {
-                              return ListTile(
-                                leading: Text(
-                                    data.itemSummaries[index].price.currency + data.itemSummaries[index].price.value),
-                                title: Text(data.itemSummaries[index].title),
-                              );
-                            });
+                        return Expanded(
+                          child: ListView.builder(
+                              shrinkWrap: true,
+                              itemCount: data['itemSummaries'].length,
+                              itemBuilder: (context, index) {
+                                return InkWell(
+                                  onTap: () => Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                          builder: ((context) => EbayProductDetail(data['itemSummaries'][index])))),
+                                  child: ListTile(
+                                    leading: Text(data['itemSummaries'][index]['price']['currency'] +
+                                        ' ' +
+                                        data['itemSummaries'][index]['price']['value']),
+                                    title: Text(data['itemSummaries'][index]['title']),
+                                  ),
+                                );
+                              }),
+                        );
                       },
                       error: ((error, stackTrace) => Center(child: Text(error.toString()))),
                       loading: () => const Center(child: CircularProgressIndicator()))

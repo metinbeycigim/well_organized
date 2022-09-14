@@ -32,7 +32,6 @@ class _MyAppState extends ConsumerState<MyApp> {
     return MaterialApp(
       home: userStream.value == null ? const LoginScreen() : const HomeScreen(),
       theme: ThemeData(
-        
           canvasColor: widgetBackgroundColor,
           inputDecorationTheme: const InputDecorationTheme(
               labelStyle: TextStyle(color: inputLabelColor),
@@ -52,6 +51,7 @@ class _MyAppState extends ConsumerState<MyApp> {
           ),
           textTheme: GoogleFonts.montserratTextTheme(),
           appBarTheme: AppBarTheme(
+              iconTheme: const IconThemeData(color: buttonColor),
               shape: const RoundedRectangleBorder(
                 borderRadius: BorderRadius.only(
                   bottomLeft: Radius.circular(20),
