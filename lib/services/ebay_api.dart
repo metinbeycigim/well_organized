@@ -7,7 +7,7 @@ import 'package:well_organized/models/ebay_product_model.dart';
 class EbayApi {
   final String scope = 'https%3A%2F%2Fapi.ebay.com%2Foauth%2Fapi_scope';
 
-  Future<Map<String, dynamic>> getProductDataEbay(String upc) async {
+  Future<EbayProductModel> getProductDataEbay(String upc) async {
     try {
       var postTokenResponse = await Dio().post(
         'https://api.ebay.com/identity/v1/oauth2/token',
@@ -29,7 +29,7 @@ class EbayApi {
       );
       final data = (getDataResponse.data) as Map<String, dynamic>;
       print(data['itemSummaries'][0]['thumbnailImages']);
-      return data;
+      return EbayProductModel.fromMap(data);
     } on PlatformException catch (_) {
       rethrow;
     }
@@ -37,6 +37,6 @@ class EbayApi {
 }
 
 final ebayApiProvider = Provider<EbayApi>((ref) => EbayApi());
-final ebayProductProvider = FutureProvider.family<Map<String, dynamic>, String>((ref, upc) async {
+final ebayProductProvider = FutureProvider.family<EbayProductModel, String>((ref, upc) async {
   return ref.watch(ebayApiProvider).getProductDataEbay(upc);
 });

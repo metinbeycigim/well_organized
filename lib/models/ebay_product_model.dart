@@ -6,7 +6,7 @@ class EbayProductModel {
   String next;
   int limit;
   int offset;
-  List<ItemSummary> itemSummaries;
+  List<ItemSummary>? itemSummaries;
 
   EbayProductModel(
     this.href,
@@ -24,7 +24,7 @@ class EbayProductModel {
       'next': next,
       'limit': limit,
       'offset': offset,
-      'itemSummaries': itemSummaries.map((x) => x.toMap()).toList(),
+      'itemSummaries': itemSummaries!.map((x) => x.toMap()).toList(),
     };
   }
 
@@ -35,7 +35,7 @@ class EbayProductModel {
       map['next'] ?? '',
       map['limit']?.toInt() ?? 0,
       map['offset']?.toInt() ?? 0,
-      List<ItemSummary>.from(map['itemSummaries']?.map((x) => ItemSummary.fromMap(x))),
+      List<ItemSummary>.from(map['itemSummaries']?.map((x) => ItemSummary.fromMap(x)) ?? []),
     );
   }
 
@@ -47,21 +47,21 @@ class EbayProductModel {
 class ItemSummary {
   String itemId;
   String title;
-  List<String> leafCategoryIds;
-  List<Category> categories;
+  List<String>? leafCategoryIds;
+  List<Category>? categories;
   Image image;
   Price price;
   String itemHref;
   Seller seller;
   String condition;
   String conditionId;
-  List<Image> thumbnailImages;
-  List<ShippingOption> shippingOptions;
-  List<String> buyingOptions;
+  List<Image>? thumbnailImages;
+  List<ShippingOption>? shippingOptions;
+  List<String>? buyingOptions;
   String epid;
   String itemWebUrl;
   ItemLocation itemLocation;
-  List<Image> additionalImages;
+  List<Image>? additionalImages;
   bool adultOnly;
   String legacyItemId;
   bool availableCoupons;
@@ -101,20 +101,20 @@ class ItemSummary {
       'itemId': itemId,
       'title': title,
       'leafCategoryIds': leafCategoryIds,
-      'categories': categories.map((x) => x.toMap()).toList(),
+      'categories': categories!.map((x) => x.toMap()).toList(),
       'image': image.toMap(),
       'price': price.toMap(),
       'itemHref': itemHref,
       'seller': seller.toMap(),
       'condition': condition,
       'conditionId': conditionId,
-      'thumbnailImages': thumbnailImages.map((x) => x.toMap()).toList(),
-      'shippingOptions': shippingOptions.map((x) => x.toMap()).toList(),
+      'thumbnailImages': thumbnailImages!.map((x) => x.toMap()).toList(),
+      'shippingOptions': shippingOptions!.map((x) => x.toMap()).toList(),
       'buyingOptions': buyingOptions,
       'epid': epid,
       'itemWebUrl': itemWebUrl,
       'itemLocation': itemLocation.toMap(),
-      'additionalImages': additionalImages.map((x) => x.toMap()).toList(),
+      'additionalImages': additionalImages!.map((x) => x.toMap()).toList(),
       'adultOnly': adultOnly,
       'legacyItemId': legacyItemId,
       'availableCoupons': availableCoupons,
@@ -129,21 +129,21 @@ class ItemSummary {
     return ItemSummary(
       map['itemId'] ?? '',
       map['title'] ?? '',
-      List<String>.from(map['leafCategoryIds']),
-      List<Category>.from(map['categories']?.map((x) => Category.fromMap(x))),
+      List<String>.from(map['leafCategoryIds'] ?? []),
+      List<Category>.from(map['categories']?.map((x) => Category.fromMap(x)) ?? []),
       Image.fromMap(map['image']),
       Price.fromMap(map['price']),
       map['itemHref'] ?? '',
       Seller.fromMap(map['seller']),
       map['condition'] ?? '',
       map['conditionId'] ?? '',
-      List<Image>.from(map['thumbnailImages']?.map((x) => Image.fromMap(x))),
-      List<ShippingOption>.from(map['shippingOptions']?.map((x) => ShippingOption.fromMap(x))),
-      List<String>.from(map['buyingOptions']),
+      List<Image>.from(map['thumbnailImages']?.map((x) => Image.fromMap(x)) ?? []),
+      List<ShippingOption>.from(map['shippingOptions']?.map((x) => ShippingOption.fromMap(x)) ?? []),
+      List<String>.from(map['buyingOptions'] ?? []),
       map['epid'] ?? '',
       map['itemWebUrl'] ?? '',
-      ItemLocation.fromMap(map['itemLocation']),
-      List<Image>.from(map['additionalImages']?.map((x) => Image.fromMap(x))),
+      ItemLocation.fromMap(map['itemLocation'] ?? []),
+      List<Image>.from(map['additionalImages']?.map((x) => Image.fromMap(x)) ?? []),
       map['adultOnly'] ?? false,
       map['legacyItemId'] ?? '',
       map['availableCoupons'] ?? false,

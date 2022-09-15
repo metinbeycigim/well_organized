@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:well_organized/models/ebay_product_model.dart' hide Image;
 import 'package:well_organized/widgets/add_space.dart';
 
 class EbayProductDetail extends ConsumerWidget {
-  final Map<String, dynamic> upc;
-  const EbayProductDetail(this.upc, {super.key});
+  final ItemSummary product;
+  const EbayProductDetail(this.product, {super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -15,16 +16,29 @@ class EbayProductDetail extends ConsumerWidget {
       body: Column(
         children: [
           Image.network(
-            upc['thumbnailImages'][0]['imageUrl'],
+            product.thumbnailImages![0].imageUrl,
           ),
+          verticalSpace(5),
           ListTile(
-            leading: Text(upc['price']['currency'] + ' ' + upc['price']['value']),
-            title: Text(upc['title']),
+            leading: Text('${product.price.currency} ${product.price.value}'),
+            title: Text(product.title),
           ),
-          verticalSpace(10),
-          upc['shippingOptions'][0]['shippingCost']['value'] == '0.00'
+          verticalSpace(5),
+          product.shippingOptions![0].shippingCost.value == '0.00'
               ? const Text('Free Shipping')
-              : Text(upc['shippingOptions'][0]['shippingCost']['value']),
+              : Text(product.shippingOptions![0].shippingCost.value),
+          verticalSpace(5),
+          Text('Condition : ${product.condition}'),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Text('Seller : ${product.seller.username}'),
+              horizontalSpace(5),
+              Text('%${product.seller.feedbackPercentage} / ${product.seller.feedbackScore}'),
+              horizontalSpace(2),
+              if (product.topRatedBuyingExperience == true) const Icon(Icons.stars_sharp),
+            ],
+          )
         ],
       ),
     );

@@ -1,0 +1,440 @@
+{
+  "href": "https://api.ebay.com/buy/browse/v1/item_summary/search?limit=50&gtin=0849376002160&offset=0",
+  "total": 4,
+  "limit": 50,
+  "offset": 0,
+  "itemSummaries": [
+    {
+      "itemId": "v1|184106803211|0",
+      "title": "GlideRite 7 in. Oil Rubbed Bronze Finish Solid Handle Bar Pulls(10pack)",
+      "leafCategoryIds": [
+        "85879"
+      ],
+      "categories": [
+        {
+          "categoryId": "85879",
+          "categoryName": "Kitchen Cabinets"
+        },
+        {
+          "categoryId": "11700",
+          "categoryName": "Home & Garden"
+        },
+        {
+          "categoryId": "177073",
+          "categoryName": "Kitchen Fixtures"
+        }
+      ],
+      "image": {
+        "imageUrl": "https://i.ebayimg.com/thumbs/images/g/yPwAAOSwW1BeC2oE/s-l225.jpg"
+      },
+      "price": {
+        "value": "21.74",
+        "currency": "USD"
+      },
+      "itemHref": "https://api.ebay.com/buy/browse/v1/item/v1%7C184106803211%7C0",
+      "seller": {
+        "username": "lydiahomegoods",
+        "feedbackPercentage": "99.3",
+        "feedbackScore": 24871
+      },
+      "condition": "New",
+      "conditionId": "1000",
+      "thumbnailImages": [
+        {
+          "imageUrl": "https://i.ebayimg.com/images/g/yPwAAOSwW1BeC2oE/s-l1200.jpg"
+        }
+      ],
+      "shippingOptions": [
+        {
+          "shippingCostType": "FIXED",
+          "shippingCost": {
+            "value": "0.00",
+            "currency": "USD"
+          }
+        }
+      ],
+      "buyingOptions": [
+        "FIXED_PRICE"
+      ],
+      "epid": "1212439977",
+      "itemAffiliateWebUrl": "https://www.ebay.com/itm/184106803211?hash=item2add9ee00b%3Ag%3AyPwAAOSwW1BeC2oE&amdata=enc%3AAQAHAAAA0C0qXTcLIlVLc%2Bfb25LqxOTloriHCy1Zpsmg6iSeIUVvpVGFfg8t7Z%2Fcp0cTXl1XBGLcGqCNUyYt2fHAXCbWRTMcEzYQBDN85L9cZUpR%2FNUuesFvQUg3CIhXWqRRc%2FaYhHylMr0ioyN74ZVblAGhd6%2F%2BDcbaVdriSiUfG%2B6U4%2BNdJCf%2BEkh9duWs1mjN%2FR1q0QxNnCdrsWV3NyUt4So5G0EBgV%2FrTZ4ut02wDhSl8M%2Fn4Q5O5beat7zqMCEBOvVrwjVKWzm6b4RHDq3vcMtlHmU%3D&mkevt=1&mkcid=1&mkrid=711-53200-19255-0&campid=%253CePNCampaignId%253E&customid=%253CreferenceId%253E&toolid=10049",
+      "itemWebUrl": "https://www.ebay.com/itm/184106803211?hash=item2add9ee00b:g:yPwAAOSwW1BeC2oE&amdata=enc%3AAQAHAAAA0C0qXTcLIlVLc%2Bfb25LqxOTloriHCy1Zpsmg6iSeIUVvpVGFfg8t7Z%2Fcp0cTXl1XBGLcGqCNUyYt2fHAXCbWRTMcEzYQBDN85L9cZUpR%2FNUuesFvQUg3CIhXWqRRc%2FaYhHylMr0ioyN74ZVblAGhd6%2F%2BDcbaVdriSiUfG%2B6U4%2BNdJCf%2BEkh9duWs1mjN%2FR1q0QxNnCdrsWV3NyUt4So5G0EBgV%2FrTZ4ut02wDhSl8M%2Fn4Q5O5beat7zqMCEBOvVrwjVKWzm6b4RHDq3vcMtlHmU%3D",
+      "itemLocation": {
+        "postalCode": "752**",
+        "country": "US"
+      },
+      "adultOnly": false,
+      "legacyItemId": "184106803211",
+      "availableCoupons": false,
+      "itemCreationDate": "2019-12-31T15:33:16.000Z",
+      "topRatedBuyingExperience": true,
+      "priorityListing": true,
+      "listingMarketplaceId": "EBAY_US"
+    },
+    {
+      "itemId": "v1|353135469832|0",
+      "title": "GlideRite 7\" Center-to-Center Oil Rubbed Bronze Solid Handle Bar Pulls (10-Pack)",
+      "leafCategoryIds": [
+        "259155"
+      ],
+      "categories": [
+        {
+          "categoryId": "259155",
+          "categoryName": "Cabinet Knobs"
+        },
+        {
+          "categoryId": "159907",
+          "categoryName": "Home Improvement"
+        },
+        {
+          "categoryId": "3187",
+          "categoryName": "Building & Hardware"
+        },
+        {
+          "categoryId": "11700",
+          "categoryName": "Home & Garden"
+        },
+        {
+          "categoryId": "41971",
+          "categoryName": "Cabinet Hardware"
+        }
+      ],
+      "image": {
+        "imageUrl": "https://i.ebayimg.com/thumbs/images/g/8b4AAOSws41fCJqe/s-l225.jpg"
+      },
+      "price": {
+        "value": "22.39",
+        "currency": "USD"
+      },
+      "itemHref": "https://api.ebay.com/buy/browse/v1/item/v1%7C353135469832%7C0",
+      "seller": {
+        "username": "yourhomeoutlet",
+        "feedbackPercentage": "99.8",
+        "feedbackScore": 16974
+      },
+      "marketingPrice": {
+        "originalPrice": {
+          "value": "27.99",
+          "currency": "USD"
+        },
+        "discountPercentage": "20",
+        "discountAmount": {
+          "value": "5.60",
+          "currency": "USD"
+        },
+        "priceTreatment": "MARKDOWN"
+      },
+      "condition": "New",
+      "conditionId": "1000",
+      "thumbnailImages": [
+        {
+          "imageUrl": "https://i.ebayimg.com/images/g/8b4AAOSws41fCJqe/s-l1200.jpg"
+        }
+      ],
+      "shippingOptions": [
+        {
+          "shippingCostType": "FIXED",
+          "shippingCost": {
+            "value": "0.00",
+            "currency": "USD"
+          }
+        }
+      ],
+      "buyingOptions": [
+        "FIXED_PRICE"
+      ],
+      "epid": "1212439977",
+      "itemAffiliateWebUrl": "https://www.ebay.com/itm/353135469832?hash=item523883a508%3Ag%3A8b4AAOSws41fCJqe&mkevt=1&mkcid=1&mkrid=711-53200-19255-0&campid=%253CePNCampaignId%253E&customid=%253CreferenceId%253E&toolid=10049",
+      "itemWebUrl": "https://www.ebay.com/itm/353135469832?hash=item523883a508:g:8b4AAOSws41fCJqe",
+      "itemLocation": {
+        "postalCode": "190**",
+        "country": "US"
+      },
+      "adultOnly": false,
+      "legacyItemId": "353135469832",
+      "availableCoupons": false,
+      "itemCreationDate": "2020-07-10T16:43:08.000Z",
+      "topRatedBuyingExperience": true,
+      "priorityListing": false,
+      "listingMarketplaceId": "EBAY_US"
+    },
+    {
+      "itemId": "v1|265370084491|0",
+      "title": "10pk GlideRite 7\" CC Oil Rubbed Bronze 10\" Long Solid Handle Cabinet Bar pulls",
+      "leafCategoryIds": [
+        "259155"
+      ],
+      "categories": [
+        {
+          "categoryId": "259155",
+          "categoryName": "Cabinet Knobs"
+        },
+        {
+          "categoryId": "159907",
+          "categoryName": "Home Improvement"
+        },
+        {
+          "categoryId": "3187",
+          "categoryName": "Building & Hardware"
+        },
+        {
+          "categoryId": "11700",
+          "categoryName": "Home & Garden"
+        },
+        {
+          "categoryId": "41971",
+          "categoryName": "Cabinet Hardware"
+        }
+      ],
+      "image": {
+        "imageUrl": "https://i.ebayimg.com/thumbs/images/g/PWcAAOSwWFxhcOdV/s-l225.jpg"
+      },
+      "price": {
+        "value": "22.99",
+        "currency": "USD"
+      },
+      "itemHref": "https://api.ebay.com/buy/browse/v1/item/v1%7C265370084491%7C0",
+      "seller": {
+        "username": "oneclickwarehouse",
+        "feedbackPercentage": "99.4",
+        "feedbackScore": 37708
+      },
+      "condition": "New",
+      "conditionId": "1000",
+      "thumbnailImages": [
+        {
+          "imageUrl": "https://i.ebayimg.com/images/g/PWcAAOSwWFxhcOdV/s-l1200.jpg"
+        }
+      ],
+      "shippingOptions": [
+        {
+          "shippingCostType": "FIXED",
+          "shippingCost": {
+            "value": "0.00",
+            "currency": "USD"
+          }
+        }
+      ],
+      "buyingOptions": [
+        "FIXED_PRICE"
+      ],
+      "epid": "1212439977",
+      "itemAffiliateWebUrl": "https://www.ebay.com/itm/265370084491?hash=item3dc94a248b%3Ag%3APWcAAOSwWFxhcOdV&mkevt=1&mkcid=1&mkrid=711-53200-19255-0&campid=%253CePNCampaignId%253E&customid=%253CreferenceId%253E&toolid=10049",
+      "itemWebUrl": "https://www.ebay.com/itm/265370084491?hash=item3dc94a248b:g:PWcAAOSwWFxhcOdV",
+      "itemLocation": {
+        "postalCode": "844**",
+        "country": "US"
+      },
+      "additionalImages": [
+        {
+          "imageUrl": "https://galleryplus.ebayimg.com/ws/web/265370084491_2_0_1/225x225.jpg"
+        },
+        {
+          "imageUrl": "https://galleryplus.ebayimg.com/ws/web/265370084491_3_0_1/225x225.jpg"
+        },
+        {
+          "imageUrl": "https://galleryplus.ebayimg.com/ws/web/265370084491_4_0_1/225x225.jpg"
+        }
+      ],
+      "adultOnly": false,
+      "legacyItemId": "265370084491",
+      "availableCoupons": false,
+      "itemCreationDate": "2021-10-21T04:06:31.000Z",
+      "topRatedBuyingExperience": true,
+      "priorityListing": false,
+      "listingMarketplaceId": "EBAY_US"
+    },
+    {
+      "itemId": "v1|304619782451|0",
+      "title": "GlideRite Hardware 5004-178-ORB-10 7 inch Cc Oil Rubbed Bronze 10 inch Long S...",
+      "leafCategoryIds": [
+        "259155"
+      ],
+      "categories": [
+        {
+          "categoryId": "259155",
+          "categoryName": "Cabinet Knobs"
+        },
+        {
+          "categoryId": "159907",
+          "categoryName": "Home Improvement"
+        },
+        {
+          "categoryId": "3187",
+          "categoryName": "Building & Hardware"
+        },
+        {
+          "categoryId": "11700",
+          "categoryName": "Home & Garden"
+        },
+        {
+          "categoryId": "41971",
+          "categoryName": "Cabinet Hardware"
+        }
+      ],
+      "image": {
+        "imageUrl": "https://i.ebayimg.com/thumbs/images/g/-oYAAOSwZSRjFbom/s-l225.jpg"
+      },
+      "price": {
+        "value": "50.05",
+        "currency": "USD"
+      },
+      "itemHref": "https://api.ebay.com/buy/browse/v1/item/v1%7C304619782451%7C0",
+      "seller": {
+        "username": "shopit.sale",
+        "feedbackPercentage": "96.4",
+        "feedbackScore": 609
+      },
+      "condition": "Open box",
+      "conditionId": "1500",
+      "thumbnailImages": [
+        {
+          "imageUrl": "https://i.ebayimg.com/images/g/-oYAAOSwZSRjFbom/s-l500.jpg"
+        }
+      ],
+      "shippingOptions": [
+        {
+          "shippingCostType": "FIXED",
+          "shippingCost": {
+            "value": "0.00",
+            "currency": "USD"
+          }
+        }
+      ],
+      "buyingOptions": [
+        "FIXED_PRICE"
+      ],
+      "epid": "1212439977",
+      "itemAffiliateWebUrl": "https://www.ebay.com/itm/304619782451?hash=item46ecc10133%3Ag%3A-oYAAOSwZSRjFbom&mkevt=1&mkcid=1&mkrid=711-53200-19255-0&campid=%253CePNCampaignId%253E&customid=%253CreferenceId%253E&toolid=10049",
+      "itemWebUrl": "https://www.ebay.com/itm/304619782451?hash=item46ecc10133:g:-oYAAOSwZSRjFbom",
+      "itemLocation": {
+        "country": "US"
+      },
+      "additionalImages": [
+        {
+          "imageUrl": "https://galleryplus.ebayimg.com/ws/web/304619782451_2_0_1/225x225.jpg"
+        },
+        {
+          "imageUrl": "https://galleryplus.ebayimg.com/ws/web/304619782451_3_0_1/225x225.jpg"
+        },
+        {
+          "imageUrl": "https://galleryplus.ebayimg.com/ws/web/304619782451_4_0_1/225x225.jpg"
+        },
+        {
+          "imageUrl": "https://galleryplus.ebayimg.com/ws/web/304619782451_5_0_1/225x225.jpg"
+        },
+        {
+          "imageUrl": "https://galleryplus.ebayimg.com/ws/web/304619782451_6_0_1/225x225.jpg"
+        },
+        {
+          "imageUrl": "https://galleryplus.ebayimg.com/ws/web/304619782451_7_0_1/225x225.jpg"
+        },
+        {
+          "imageUrl": "https://galleryplus.ebayimg.com/ws/web/304619782451_8_0_1/225x225.jpg"
+        },
+        {
+          "imageUrl": "https://galleryplus.ebayimg.com/ws/web/304619782451_9_0_1/225x225.jpg"
+        }
+      ],
+      "adultOnly": false,
+      "legacyItemId": "304619782451",
+      "availableCoupons": false,
+      "itemCreationDate": "2022-09-05T08:58:15.000Z",
+      "topRatedBuyingExperience": false,
+      "priorityListing": false,
+      "listingMarketplaceId": "EBAY_US"
+    },
+    {
+      "itemId": "v1|304617646232|0",
+      "title": "GlideRite 11-inch Oil Rubbed Bronze Cabinet Bar Pulls (Pack Bronze Finish",
+      "leafCategoryIds": [
+        "85879"
+      ],
+      "categories": [
+        {
+          "categoryId": "85879",
+          "categoryName": "Kitchen Cabinets"
+        },
+        {
+          "categoryId": "11700",
+          "categoryName": "Home & Garden"
+        },
+        {
+          "categoryId": "177073",
+          "categoryName": "Kitchen Fixtures"
+        }
+      ],
+      "image": {
+        "imageUrl": "https://i.ebayimg.com/thumbs/images/g/sGIAAOSwhfRjEvRR/s-l225.jpg"
+      },
+      "price": {
+        "value": "33.49",
+        "currency": "USD"
+      },
+      "itemHref": "https://api.ebay.com/buy/browse/v1/item/v1%7C304617646232%7C0",
+      "seller": {
+        "username": "overstock",
+        "feedbackPercentage": "96.2",
+        "feedbackScore": 567110
+      },
+      "marketingPrice": {
+        "originalPrice": {
+          "value": "36.44",
+          "currency": "USD"
+        },
+        "discountPercentage": "8",
+        "discountAmount": {
+          "value": "2.95",
+          "currency": "USD"
+        },
+        "priceTreatment": "LIST_PRICE"
+      },
+      "condition": "New",
+      "conditionId": "1000",
+      "thumbnailImages": [
+        {
+          "imageUrl": "https://i.ebayimg.com/images/g/sGIAAOSwhfRjEvRR/s-l1600.jpg"
+        }
+      ],
+      "shippingOptions": [
+        {
+          "shippingCostType": "FIXED",
+          "shippingCost": {
+            "value": "0.00",
+            "currency": "USD"
+          }
+        }
+      ],
+      "buyingOptions": [
+        "FIXED_PRICE"
+      ],
+      "epid": "1212439977",
+      "itemAffiliateWebUrl": "https://www.ebay.com/itm/304617646232?hash=item46eca06898%3Ag%3AsGIAAOSwhfRjEvRR&mkevt=1&mkcid=1&mkrid=711-53200-19255-0&campid=%253CePNCampaignId%253E&customid=%253CreferenceId%253E&toolid=10049",
+      "itemWebUrl": "https://www.ebay.com/itm/304617646232?hash=item46eca06898:g:sGIAAOSwhfRjEvRR",
+      "itemLocation": {
+        "country": "US"
+      },
+      "additionalImages": [
+        {
+          "imageUrl": "https://galleryplus.ebayimg.com/ws/web/304617646232_2_0_1/225x225.jpg"
+        },
+        {
+          "imageUrl": "https://galleryplus.ebayimg.com/ws/web/304617646232_3_0_1/225x225.jpg"
+        },
+        {
+          "imageUrl": "https://galleryplus.ebayimg.com/ws/web/304617646232_4_0_1/225x225.jpg"
+        },
+        {
+          "imageUrl": "https://galleryplus.ebayimg.com/ws/web/304617646232_5_0_1/225x225.jpg"
+        }
+      ],
+      "adultOnly": false,
+      "legacyItemId": "304617646232",
+      "availableCoupons": false,
+      "itemCreationDate": "2022-09-03T06:29:34.000Z",
+      "topRatedBuyingExperience": false,
+      "priorityListing": false,
+      "listingMarketplaceId": "EBAY_US"
+    }
+  ]
+}

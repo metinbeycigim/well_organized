@@ -62,25 +62,29 @@ class _EbayProductsState extends ConsumerState<EbayProducts> {
                 if (upcController.text.length > 11)
                   ebayProduct.when(
                       data: (data) {
-                        return Expanded(
-                          child: ListView.builder(
-                              shrinkWrap: true,
-                              itemCount: data['itemSummaries'].length,
-                              itemBuilder: (context, index) {
-                                return InkWell(
-                                  onTap: () => Navigator.push(
-                                      context,
-                                      MaterialPageRoute(
-                                          builder: ((context) => EbayProductDetail(data['itemSummaries'][index])))),
-                                  child: ListTile(
-                                    leading: Text(data['itemSummaries'][index]['price']['currency'] +
-                                        ' ' +
-                                        data['itemSummaries'][index]['price']['value']),
-                                    title: Text(data['itemSummaries'][index]['title']),
-                                  ),
-                                );
-                              }),
-                        );
+                        if (data.itemSummaries!.isNotEmpty) {
+                          return Expanded(
+                            child: ListView.builder(
+                                shrinkWrap: true,
+                                itemCount: data.itemSummaries!.length,
+                                itemBuilder: (context, index) {
+                                  return InkWell(
+                                    onTap: () => Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                            builder: ((context) => EbayProductDetail(data.itemSummaries![index])))),
+                                    child: ListTile(
+                                      leading: Text(
+                                          '${data.itemSummaries![index].price.currency} ${data.itemSummaries![index].price.value}'),
+                                      title: Text(
+                                        data.itemSummaries![index].title,
+                                      ),
+                                    ),
+                                  );
+                                }),
+                          );
+                        }
+                        return const Text('No product');
                       },
                       error: ((error, stackTrace) => Center(child: Text(error.toString()))),
                       loading: () => const Center(child: CircularProgressIndicator()))
