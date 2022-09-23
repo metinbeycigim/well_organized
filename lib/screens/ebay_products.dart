@@ -25,6 +25,7 @@ class _EbayProductsState extends ConsumerState<EbayProducts> {
 
     const String testUpcGood = '014817483499';
     const String testUpcBad = '0849376002160';
+    const String testUpcBad2 = '50885785091062'; //itemsummaries null
 
     return GestureDetector(
       onTap: () => FocusManager.instance.primaryFocus?.unfocus(),
@@ -62,29 +63,37 @@ class _EbayProductsState extends ConsumerState<EbayProducts> {
                 if (upcController.text.length > 11)
                   ebayProduct.when(
                       data: (data) {
-                        if (data.itemSummaries!.isNotEmpty) {
+                        if (data.total != 0) {
                           return Expanded(
                             child: ListView.builder(
                                 shrinkWrap: true,
-                                itemCount: data.itemSummaries!.length,
+                                itemCount: data.itemSummaries.length,
                                 itemBuilder: (context, index) {
                                   return InkWell(
                                     onTap: () => Navigator.push(
                                         context,
                                         MaterialPageRoute(
-                                            builder: ((context) => EbayProductDetail(data.itemSummaries![index])))),
+                                            builder: ((context) => EbayProductDetail(data.itemSummaries[index])))),
                                     child: ListTile(
                                       leading: Text(
-                                          '${data.itemSummaries![index].price.currency} ${data.itemSummaries![index].price.value}'),
+                                          '${data.itemSummaries[index].price.currency} ${data.itemSummaries[index].price.value}'),
                                       title: Text(
-                                        data.itemSummaries![index].title,
+                                        data.itemSummaries[index].title,
                                       ),
                                     ),
                                   );
                                 }),
                           );
                         }
-                        return const Text('No product');
+                        return const SizedBox(
+                          height: 200,
+                          child: Center(
+                            child: Text(
+                              'No product!\nIt still may be exist on Ebay',
+                              textAlign: TextAlign.center,
+                            ),
+                          ),
+                        );
                       },
                       error: ((error, stackTrace) => Center(child: Text(error.toString()))),
                       loading: () => const Center(child: CircularProgressIndicator()))

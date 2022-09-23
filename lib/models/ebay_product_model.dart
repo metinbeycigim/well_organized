@@ -6,7 +6,7 @@ class EbayProductModel {
   String next;
   int limit;
   int offset;
-  List<ItemSummary>? itemSummaries;
+  List<ItemSummary> itemSummaries;
 
   EbayProductModel(
     this.href,
@@ -24,7 +24,7 @@ class EbayProductModel {
       'next': next,
       'limit': limit,
       'offset': offset,
-      'itemSummaries': itemSummaries!.map((x) => x.toMap()).toList(),
+      'itemSummaries': itemSummaries.map((x) => x.toMap()).toList(),
     };
   }
 

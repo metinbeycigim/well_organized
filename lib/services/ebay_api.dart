@@ -28,7 +28,8 @@ class EbayApi {
         }),
       );
       final data = (getDataResponse.data) as Map<String, dynamic>;
-      print(data['itemSummaries'][0]['thumbnailImages']);
+      //!if itemsummaries is null print causes error.
+      // print(data['itemSummaries'][0]['thumbnailImages']);
       return EbayProductModel.fromMap(data);
     } on PlatformException catch (_) {
       rethrow;
