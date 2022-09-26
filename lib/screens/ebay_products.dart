@@ -26,6 +26,7 @@ class _EbayProductsState extends ConsumerState<EbayProducts> {
     const String testUpcGood = '014817483499';
     const String testUpcBad = '0849376002160';
     const String testUpcBad2 = '50885785091062'; //itemsummaries null
+    const String testMissingMap = '017801809879';
 
     return GestureDetector(
       onTap: () => FocusManager.instance.primaryFocus?.unfocus(),

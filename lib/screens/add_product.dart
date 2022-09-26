@@ -166,24 +166,25 @@ class _AddProductState extends ConsumerState<AddProduct> {
                             }
                           }),
                           decoration: InputDecoration(
-                            suffix: IconButton(
-                                onPressed: () async {
-                                  try {
-                                    final barcode = await FlutterBarcodeScanner.scanBarcode(
-                                      "#ff6666",
-                                      'Cancel',
-                                      false,
-                                      ScanMode.BARCODE,
-                                    );
-                                    setState(() {
-                                      barcodeController.text = barcode;
-                                    });
-                                  } on PlatformException catch (e) {
-                                    print(e);
-                                  }
-                                  if (!mounted) return;
-                                },
-                                icon: const Icon(Icons.qr_code_scanner_rounded)),
+                            suffixIcon: InkWell(
+                              child: const Icon(Icons.qr_code_scanner_rounded),
+                              onTap: () async {
+                                try {
+                                  final barcode = await FlutterBarcodeScanner.scanBarcode(
+                                    "#ff6666",
+                                    'Cancel',
+                                    false,
+                                    ScanMode.BARCODE,
+                                  );
+                                  setState(() {
+                                    barcodeController.text = barcode;
+                                  });
+                                } on PlatformException catch (e) {
+                                  print(e);
+                                }
+                                if (!mounted) return;
+                              },
+                            ),
                             border: const OutlineInputBorder(),
                             labelText: 'Barcode',
                             hintText: 'Barcode',

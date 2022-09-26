@@ -22,7 +22,6 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
 
   @override
   Widget build(BuildContext context) {
-
     return SafeArea(
       child: GestureDetector(
         onTap: () => FocusManager.instance.primaryFocus?.unfocus(),
@@ -65,11 +64,12 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                       obscureText: isObscure,
                       decoration: InputDecoration(
                         border: const OutlineInputBorder(),
-                        suffix: IconButton(
-                          onPressed: () => setState(() {
+                        suffixIcon: InkWell(
+                          child:
+                              isObscure ? const Icon(Icons.visibility_sharp) : const Icon(Icons.visibility_off_sharp),
+                          onTap: () => setState(() {
                             isObscure = !isObscure;
                           }),
-                          icon: isObscure ? const Icon(Icons.visibility_sharp) : const Icon(Icons.visibility_off_sharp),
                         ),
                         labelText: 'Password',
                         hintText: 'Enter your secure password',

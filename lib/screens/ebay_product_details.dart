@@ -13,33 +13,37 @@ class EbayProductDetail extends ConsumerWidget {
       appBar: AppBar(
         title: const Text('Ebay Product Detail'),
       ),
-      body: Column(
-        children: [
-          Image.network(
-            product.thumbnailImages![0].imageUrl,
-          ),
-          verticalSpace(5),
-          ListTile(
-            leading: Text('${product.price.currency} ${product.price.value}'),
-            title: Text(product.title),
-          ),
-          verticalSpace(5),
-          product.shippingOptions![0].shippingCost.value == '0.00'
-              ? const Text('Free Shipping')
-              : Text(product.shippingOptions![0].shippingCost.value),
-          verticalSpace(5),
-          Text('Condition : ${product.condition}'),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Text('Seller : ${product.seller.username}'),
-              horizontalSpace(5),
-              Text('%${product.seller.feedbackPercentage} / ${product.seller.feedbackScore}'),
-              horizontalSpace(2),
-              if (product.topRatedBuyingExperience == true) const Icon(Icons.stars_sharp),
-            ],
-          )
-        ],
+      body: SingleChildScrollView(
+        child: Column(
+          children: [
+            Image.network(
+              product.thumbnailImages![0].imageUrl,
+            ),
+            verticalSpace(5),
+            ListTile(
+              leading: Text('${product.price.currency} ${product.price.value}'),
+              title: Text(product.title),
+            ),
+            verticalSpace(5),
+            product.shippingOptions![0].shippingCost.value == '0.00'
+                ? const Text('Free Shipping')
+                : Text(
+                    'Shipping Cost: ${product.shippingOptions![0].shippingCost.currency} ${product.shippingOptions![0].shippingCost.value}'),
+            verticalSpace(5),
+            Text('Condition : ${product.condition}'),
+            verticalSpace(5),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Text('Seller : ${product.seller.username}'),
+                horizontalSpace(5),
+                Text('%${product.seller.feedbackPercentage} / ${product.seller.feedbackScore}'),
+                horizontalSpace(2),
+                if (product.topRatedBuyingExperience == true) const Icon(Icons.stars_sharp),
+              ],
+            )
+          ],
+        ),
       ),
     );
   }

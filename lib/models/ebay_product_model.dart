@@ -131,10 +131,10 @@ class ItemSummary {
       map['title'] ?? '',
       List<String>.from(map['leafCategoryIds'] ?? []),
       List<Category>.from(map['categories']?.map((x) => Category.fromMap(x)) ?? []),
-      Image.fromMap(map['image']),
-      Price.fromMap(map['price']),
+      Image.fromMap(map['image'] ?? {}),
+      Price.fromMap(map['price'] ?? {}),
       map['itemHref'] ?? '',
-      Seller.fromMap(map['seller']),
+      Seller.fromMap(map['seller'] ?? {}),
       map['condition'] ?? '',
       map['conditionId'] ?? '',
       List<Image>.from(map['thumbnailImages']?.map((x) => Image.fromMap(x)) ?? []),
@@ -142,7 +142,7 @@ class ItemSummary {
       List<String>.from(map['buyingOptions'] ?? []),
       map['epid'] ?? '',
       map['itemWebUrl'] ?? '',
-      ItemLocation.fromMap(map['itemLocation'] ?? []),
+      ItemLocation.fromMap(map['itemLocation'] ?? {}),
       List<Image>.from(map['additionalImages']?.map((x) => Image.fromMap(x)) ?? []),
       map['adultOnly'] ?? false,
       map['legacyItemId'] ?? '',
@@ -312,7 +312,7 @@ class ShippingOption {
   factory ShippingOption.fromMap(Map<String, dynamic> map) {
     return ShippingOption(
       map['shippingCostType'] ?? '',
-      Price.fromMap(map['shippingCost']),
+      Price.fromMap(map['shippingCost'] ?? {}),
     );
   }
 
