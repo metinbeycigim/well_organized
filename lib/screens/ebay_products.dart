@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:well_organized/constants/app_colors.dart';
 import 'package:well_organized/screens/ebay_product_details.dart';
 import 'package:well_organized/services/ebay_api.dart';
 
@@ -70,18 +71,38 @@ class _EbayProductsState extends ConsumerState<EbayProducts> {
                                 shrinkWrap: true,
                                 itemCount: data.itemSummaries.length,
                                 itemBuilder: (context, index) {
-                                  return InkWell(
-                                    onTap: () => Navigator.push(
-                                        context,
-                                        MaterialPageRoute(
-                                            builder: ((context) => EbayProductDetail(data.itemSummaries[index])))),
-                                    child: ListTile(
-                                      leading: Text(
-                                          '${data.itemSummaries[index].price.currency} ${data.itemSummaries[index].price.value}'),
-                                      title: Text(
-                                        data.itemSummaries[index].title,
+                                  data.itemSummaries.sort(((a, b) => a.price.value.compareTo(b.price.value)));
+                                  return Column(
+                                    children: [
+                                      ListTile(
+                                        onTap: () => Navigator.push(
+                                            context,
+                                            MaterialPageRoute(
+                                                builder: ((context) => EbayProductDetail(data.itemSummaries[index])))),
+                                        leading: Stack(
+                                          clipBehavior: Clip.none,
+                                          children: [
+                                            Text(
+                                                '${data.itemSummaries[index].price.currency} ${data.itemSummaries[index].price.value}'),
+                                            if (data.itemSummaries[index].topRatedBuyingExperience == true)
+                                              const Positioned(
+                                                top: -15,
+                                                left: -10,
+                                                child: Icon(Icons.stars_sharp),
+                                              ),
+                                          ],
+                                        ),
+                                        title: Text(
+                                          data.itemSummaries[index].title,
+                                        ),
                                       ),
-                                    ),
+                                      const Divider(
+                                        thickness: 1,
+                                        color: textColor,
+                                        indent: 70,
+                                        endIndent: 70,
+                                      ),
+                                    ],
                                   );
                                 }),
                           );

@@ -4,6 +4,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:intl/intl.dart';
 import 'package:syncfusion_flutter_xlsio/xlsio.dart' hide Column;
 import 'package:well_organized/constants/app_colors.dart';
+import 'package:well_organized/screens/qr_code.dart';
 import 'package:well_organized/services/firebase_auth_service.dart';
 import 'package:well_organized/services/firebase_database_service.dart';
 import 'package:well_organized/services/save_excel_file.dart';
@@ -122,6 +123,19 @@ class Settings extends ConsumerWidget {
                 ),
                 onPressed: () async => await FirebaseAuthService().signOut(),
                 child: const Text('Sign Out'),
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: ElevatedButton(
+                style: ElevatedButton.styleFrom(
+                  minimumSize: const Size(250, 50),
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(15),
+                  ),
+                ),
+                onPressed: () => Navigator.push(context, MaterialPageRoute(builder: ((context) => const QrCode()))),
+                child: const Text('QR Code'),
               ),
             ),
           ],

@@ -6,6 +6,7 @@ import 'package:well_organized/constants/app_colors.dart';
 import 'package:well_organized/screens/home_screen.dart';
 import 'package:well_organized/screens/login_screen.dart';
 import 'package:well_organized/services/firebase_auth_service.dart';
+import 'package:well_organized/services/qr_print.dart';
 
 import 'firebase_options.dart';
 
@@ -30,6 +31,9 @@ class _MyAppState extends ConsumerState<MyApp> {
     final userStream = ref.watch(FirebaseAuthService.authStateProvider);
 
     return MaterialApp(
+      routes: {
+        QrPrint.routeName: (context) => const QrPrint(),
+      },
       home: userStream.value == null ? const LoginScreen() : const HomeScreen(),
       theme: ThemeData(
           canvasColor: widgetBackgroundColor,
