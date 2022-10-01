@@ -27,11 +27,10 @@ environment:
 # the latest version available on pub.dev. To see which dependencies have newer
 # versions available, run `flutter pub outdated`.
 dependencies:
+  blue_print_pos: ^0.0.14
   cloud_firestore: ^3.3.0
   cupertino_icons: ^1.0.2
   dio: ^4.0.6
-  esc_pos_bluetooth: ^0.4.1
-  esc_pos_utils: ^1.1.0
   firebase_auth: ^3.4.1
   firebase_core: ^1.19.1
   firebase_database: ^9.0.18
