@@ -5,8 +5,6 @@ import 'package:qr_flutter/qr_flutter.dart';
 import 'package:well_organized/models/app_product_model.dart';
 import 'package:well_organized/services/firebase_database_service.dart';
 
-
-
 class QrCode extends ConsumerStatefulWidget {
   const QrCode({super.key});
 
@@ -79,6 +77,13 @@ class _QrCodeState extends ConsumerState<QrCode> {
                           version: QrVersions.auto,
                           size: 250,
                         ),
+                        Text(
+                          qrData,
+                          style: const TextStyle(
+                            fontWeight: FontWeight.bold,
+                            fontSize: 20,
+                          ),
+                        ),
                         Padding(
                           padding: const EdgeInsets.all(8.0),
                           child: ElevatedButton(
@@ -89,11 +94,6 @@ class _QrCodeState extends ConsumerState<QrCode> {
                               ),
                             ),
                             onPressed: () => context.push('/qrPrint', extra: qrData),
-                            // Navigator.pushNamed(
-                            //   context,
-                            //   QrPrint.routeName,
-                            //   arguments: QrData(qrData: qrData),
-                            // ),
                             child: const Text('Print'),
                           ),
                         ),

@@ -4,6 +4,7 @@ import 'package:well_organized/screens/add_product.dart';
 import 'package:well_organized/screens/home_screen.dart';
 import 'package:well_organized/screens/login_screen.dart';
 import 'package:well_organized/screens/product_list.dart';
+import 'package:well_organized/screens/qr_code.dart';
 import 'package:well_organized/services/qr_print.dart';
 
 class Routes extends ChangeNotifier {
@@ -32,6 +33,11 @@ class Routes extends ChangeNotifier {
           name: 'qrPrint',
           path: '/qrPrint',
           builder: (context, state) => QrPrint(state.extra as String),
+        ),
+        GoRoute(
+          name: 'qrCode',
+          path: '/qrCode',
+          builder: (context, state) => const QrCode(),
         ),
       ];
 }

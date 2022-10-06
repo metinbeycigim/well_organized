@@ -46,8 +46,6 @@ dependencies:
   moment_dart: ^0.10.1
   open_file: ^3.2.1
   path_provider: ^2.0.11
-  pdf: ^3.8.3
-  printing: ^5.9.3
   qr_flutter: ^4.0.0
   syncfusion_flutter_xlsio: ^20.2.40-beta
 

@@ -1,10 +1,10 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:go_router/go_router.dart';
 import 'package:intl/intl.dart';
 import 'package:syncfusion_flutter_xlsio/xlsio.dart' hide Column;
 import 'package:well_organized/constants/app_colors.dart';
-import 'package:well_organized/screens/qr_code.dart';
 import 'package:well_organized/services/firebase_auth_service.dart';
 import 'package:well_organized/services/firebase_database_service.dart';
 import 'package:well_organized/services/save_excel_file.dart';
@@ -122,7 +122,7 @@ class Settings extends ConsumerWidget {
                     borderRadius: BorderRadius.circular(15),
                   ),
                 ),
-                onPressed: () => Navigator.push(context, MaterialPageRoute(builder: ((context) => const QrCode()))),
+                onPressed: () => context.push('/qrCode'),
                 child: const Text('QR Code'),
               ),
             ),
