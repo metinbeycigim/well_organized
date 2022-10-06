@@ -86,7 +86,7 @@ class _ProductListState extends ConsumerState<ProductList> {
                                   : AppProductModel.fromMap(listViewData[index].data());
 
                               return ListTile(
-                                leading: Text(product.sku),
+                                leading: Text(product.sku.toUpperCase()),
                                 title: Text(product.productName),
                                 subtitle: Text('location: ${product.location}'),
                                 trailing: Text(product.quantity.toString()),
