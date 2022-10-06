@@ -1,14 +1,10 @@
-//! I quit to use GoRouter for now. BottomNavigationBar works instead.
-
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:well_organized/screens/add_product.dart';
 import 'package:well_organized/screens/home_screen.dart';
 import 'package:well_organized/screens/login_screen.dart';
 import 'package:well_organized/screens/product_list.dart';
-import 'package:well_organized/services/firebase_auth_service.dart';
+import 'package:well_organized/services/qr_print.dart';
 
 class Routes extends ChangeNotifier {
   List<GoRoute> get routes => [
@@ -32,8 +28,15 @@ class Routes extends ChangeNotifier {
           path: '/productList',
           builder: (context, state) => const ProductList(),
         ),
+        GoRoute(
+          name: 'qrPrint',
+          path: '/qrPrint',
+          builder: (context, state) => QrPrint(state.extra as String),
+        ),
       ];
 }
+
+// first approach before bottomnavigationbar was implemented
 
 // final firebaseAuthProvider = Provider<FirebaseAuthService>((ref) => FirebaseAuthService());
 // final authStateProvider = StreamProvider<User?>((ref) => ref.watch(firebaseAuthProvider).authStateChange);

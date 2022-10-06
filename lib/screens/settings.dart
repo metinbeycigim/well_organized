@@ -8,6 +8,7 @@ import 'package:well_organized/screens/qr_code.dart';
 import 'package:well_organized/services/firebase_auth_service.dart';
 import 'package:well_organized/services/firebase_database_service.dart';
 import 'package:well_organized/services/save_excel_file.dart';
+import 'package:well_organized/widgets/add_space.dart';
 
 import '../models/app_product_model.dart';
 
@@ -121,10 +122,11 @@ class Settings extends ConsumerWidget {
                     borderRadius: BorderRadius.circular(15),
                   ),
                 ),
-                onPressed: () async => await FirebaseAuthService().signOut(),
-                child: const Text('Sign Out'),
+                onPressed: () => Navigator.push(context, MaterialPageRoute(builder: ((context) => const QrCode()))),
+                child: const Text('QR Code'),
               ),
             ),
+            verticalSpace(100),
             Padding(
               padding: const EdgeInsets.all(8.0),
               child: ElevatedButton(
@@ -134,8 +136,8 @@ class Settings extends ConsumerWidget {
                     borderRadius: BorderRadius.circular(15),
                   ),
                 ),
-                onPressed: () => Navigator.push(context, MaterialPageRoute(builder: ((context) => const QrCode()))),
-                child: const Text('QR Code'),
+                onPressed: () async => await FirebaseAuthService().signOut(),
+                child: const Text('Sign Out'),
               ),
             ),
           ],

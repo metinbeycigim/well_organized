@@ -1,14 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:go_router/go_router.dart';
 import 'package:qr_flutter/qr_flutter.dart';
 import 'package:well_organized/models/app_product_model.dart';
 import 'package:well_organized/services/firebase_database_service.dart';
-import 'package:well_organized/services/qr_print.dart';
 
-class QrData {
-  final String qrData;
-  QrData({required this.qrData});
-}
+
 
 class QrCode extends ConsumerStatefulWidget {
   const QrCode({super.key});
@@ -91,11 +88,12 @@ class _QrCodeState extends ConsumerState<QrCode> {
                                 borderRadius: BorderRadius.circular(15),
                               ),
                             ),
-                            onPressed: () => Navigator.pushNamed(
-                              context,
-                              QrPrint.routeName,
-                              arguments: QrData(qrData: qrData),
-                            ),
+                            onPressed: () => context.push('/qrPrint', extra: qrData),
+                            // Navigator.pushNamed(
+                            //   context,
+                            //   QrPrint.routeName,
+                            //   arguments: QrData(qrData: qrData),
+                            // ),
                             child: const Text('Print'),
                           ),
                         ),

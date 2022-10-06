@@ -1,12 +1,11 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:go_router/go_router.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:well_organized/constants/app_colors.dart';
-import 'package:well_organized/screens/home_screen.dart';
-import 'package:well_organized/screens/login_screen.dart';
 import 'package:well_organized/services/firebase_auth_service.dart';
-import 'package:well_organized/services/qr_print.dart';
+import 'package:well_organized/services/routes.dart';
 
 import 'firebase_options.dart';
 
@@ -29,12 +28,14 @@ class _MyAppState extends ConsumerState<MyApp> {
   @override
   Widget build(BuildContext context) {
     final userStream = ref.watch(FirebaseAuthService.authStateProvider);
+    final GoRouter router = GoRouter(
+      initialLocation: userStream.value == null ? '/login' : '/',
+      routes: Routes().routes,
+    );
 
-    return MaterialApp(
-      routes: {
-        QrPrint.routeName: (context) => const QrPrint(),
-      },
-      home: userStream.value == null ? const LoginScreen() : const HomeScreen(),
+    return MaterialApp.router(
+      routerConfig: router,
+      // home: userStream.value == null ? const LoginScreen() : const HomeScreen(),
       theme: ThemeData(
           canvasColor: widgetBackgroundColor,
           inputDecorationTheme: const InputDecorationTheme(
