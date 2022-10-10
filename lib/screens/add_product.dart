@@ -72,6 +72,7 @@ class _AddProductState extends ConsumerState<AddProduct> {
                       Padding(
                         padding: const EdgeInsets.all(10),
                         child: TextFormField(
+                          textCapitalization: TextCapitalization.words,
                           controller: productNameController,
                           validator: ((value) {
                             if (value!.isEmpty) {
@@ -90,6 +91,7 @@ class _AddProductState extends ConsumerState<AddProduct> {
                       Padding(
                         padding: const EdgeInsets.all(10),
                         child: TextFormField(
+                          textCapitalization: TextCapitalization.characters,
                           controller: skuController,
                           onChanged: (value) {
                             for (var product in productList) {
@@ -120,6 +122,7 @@ class _AddProductState extends ConsumerState<AddProduct> {
                       Padding(
                         padding: const EdgeInsets.all(10),
                         child: TextFormField(
+                          textCapitalization: TextCapitalization.characters,
                           controller: locationController,
                           validator: ((value) {
                             if (value!.isEmpty) {

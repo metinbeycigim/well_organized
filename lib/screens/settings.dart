@@ -71,12 +71,20 @@ class Settings extends ConsumerWidget {
 
       //Save and launch the file.
       await saveAndLaunchFile(bytes,
-              'Product List-${DateFormat('MM.dd.yy-h:ma').format(DateTime.parse(DateTime.now().toString()))}.xlsx')
+              'Product List-${DateFormat('MM.dd.yy-h:mma').format(DateTime.parse(DateTime.now().toString()))}.xlsx')
           .then((_) => FirebaseDatabaseService().firebaseProductRef.get().then((snapshot) {
                 for (var doc in snapshot.docs) {
                   doc.reference.update({'quantity': 0});
                 }
-              }));
+              }))
+          .then((_) {
+        return ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(
+            content: Text('Excel file uploaded successfully'),
+            duration: Duration(seconds: 2),
+          ),
+        );
+      });
     }
 
     final userName = FirebaseAuthService().firebaseAuthInstance.currentUser!.displayName;

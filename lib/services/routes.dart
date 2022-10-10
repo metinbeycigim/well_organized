@@ -42,7 +42,7 @@ class Routes extends ChangeNotifier {
       ];
 }
 
-// first approach before bottomnavigationbar was implemented
+// first approach before bottomnavigationbar was implemented and then it was changed with go_router 2.0
 
 // final firebaseAuthProvider = Provider<FirebaseAuthService>((ref) => FirebaseAuthService());
 // final authStateProvider = StreamProvider<User?>((ref) => ref.watch(firebaseAuthProvider).authStateChange);
