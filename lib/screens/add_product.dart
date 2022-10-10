@@ -72,6 +72,7 @@ class _AddProductState extends ConsumerState<AddProduct> {
                       Padding(
                         padding: const EdgeInsets.all(10),
                         child: TextFormField(
+                          autovalidateMode: AutovalidateMode.onUserInteraction,
                           textCapitalization: TextCapitalization.words,
                           controller: productNameController,
                           validator: ((value) {
@@ -91,6 +92,7 @@ class _AddProductState extends ConsumerState<AddProduct> {
                       Padding(
                         padding: const EdgeInsets.all(10),
                         child: TextFormField(
+                          autovalidateMode: AutovalidateMode.onUserInteraction,
                           textCapitalization: TextCapitalization.characters,
                           controller: skuController,
                           onChanged: (value) {
@@ -122,6 +124,7 @@ class _AddProductState extends ConsumerState<AddProduct> {
                       Padding(
                         padding: const EdgeInsets.all(10),
                         child: TextFormField(
+                          autovalidateMode: AutovalidateMode.onUserInteraction,
                           textCapitalization: TextCapitalization.characters,
                           controller: locationController,
                           validator: ((value) {
@@ -141,6 +144,8 @@ class _AddProductState extends ConsumerState<AddProduct> {
                       Padding(
                         padding: const EdgeInsets.all(10),
                         child: TextFormField(
+                          inputFormatters: [FilteringTextInputFormatter.digitsOnly],
+                          autovalidateMode: AutovalidateMode.onUserInteraction,
                           controller: barcodeController,
                           onChanged: (value) {
                             void clearSku = skuController.clear();
@@ -198,12 +203,12 @@ class _AddProductState extends ConsumerState<AddProduct> {
                       Padding(
                         padding: const EdgeInsets.all(10),
                         child: TextFormField(
+                          inputFormatters: [FilteringTextInputFormatter.digitsOnly],
+                          autovalidateMode: AutovalidateMode.onUserInteraction,
                           controller: quantityController,
                           validator: ((value) {
                             if (value!.isEmpty) {
                               return 'Enter a quantity';
-                            } else if (value.contains(RegExp('[A-Za-z]'))) {
-                              return 'Enter just a number';
                             } else {
                               return null;
                             }
@@ -258,7 +263,7 @@ class _AddProductState extends ConsumerState<AddProduct> {
                             sku: skuController.text,
                             location: locationController.text,
                             barcode: barcodeController.text,
-                            quantity: int.parse(quantityController.text),
+                            quantity: (quantityController.text != '') ? int.parse(quantityController.text) : 0,
                             photo1: itemCount >= 1 ? await getPhotoUrl(1) : '',
                             photo2: itemCount >= 2 ? await getPhotoUrl(2) : '',
                             photo3: itemCount >= 3 ? await getPhotoUrl(3) : '',
