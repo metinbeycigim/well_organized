@@ -10,3 +10,6 @@ const selectedItemColor = Color.fromRGBO(28, 56, 121, 1);
 const buttonColor = Color.fromRGBO(28, 56, 121, 1);
 const inputLabelColor =  Color.fromRGBO(28, 56, 121, 1);
 const borderColor =  Color.fromRGBO(28, 56, 121, 1);
+const toastBackgroundColor =  Color.fromRGBO(28, 56, 121, 1);
+const toastTextColor = Color.fromRGBO(234, 227, 210, 1);
+
