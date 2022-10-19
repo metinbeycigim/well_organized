@@ -46,6 +46,7 @@ class EbayApi {
         msg: e.message.toString(),
         textColor: toastTextColor,
         backgroundColor: toastBackgroundColor,
+        toastLength: Toast.LENGTH_LONG,
       );
       print(e.message);
       rethrow;
