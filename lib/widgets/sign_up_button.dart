@@ -11,7 +11,6 @@ class SignUpButton extends StatelessWidget {
     required this.emailController,
     required this.passwordController,
   }) : super(key: key);
-
   
   final TextEditingController emailController;
   final TextEditingController passwordController;

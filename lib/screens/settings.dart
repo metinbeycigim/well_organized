@@ -16,6 +16,7 @@ import '../models/app_product_model.dart';
 class Settings extends ConsumerWidget {
   const Settings({super.key});
 
+
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final productsRef = ref.watch(FirebaseDatabaseService.firebaseProductListProvider);

@@ -13,7 +13,6 @@ class SignInButton extends StatelessWidget {
   }) : super(key: key);
 
   final TextEditingController emailController;
-
   final TextEditingController passwordController;
 
   @override

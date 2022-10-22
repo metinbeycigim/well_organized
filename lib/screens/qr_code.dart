@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
@@ -15,6 +16,13 @@ class QrCode extends ConsumerStatefulWidget {
 class _QrCodeState extends ConsumerState<QrCode> {
   final TextEditingController _textEditingController = TextEditingController();
   final _formKey = GlobalKey<FormState>();
+  late AsyncValue<QuerySnapshot<Map<String, dynamic>>> productRef;
+
+  @override
+  void didChangeDependencies() {
+    productRef = ref.watch(FirebaseDatabaseService.firebaseProductListProvider);
+    super.didChangeDependencies();
+  }
 
   @override
   void dispose() {
@@ -24,8 +32,6 @@ class _QrCodeState extends ConsumerState<QrCode> {
 
   @override
   Widget build(BuildContext context) {
-    final productRef = ref.watch(FirebaseDatabaseService.firebaseProductListProvider);
-
     return GestureDetector(
       onTap: () => FocusManager.instance.primaryFocus?.unfocus(),
       child: Scaffold(

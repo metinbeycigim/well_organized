@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_barcode_scanner/flutter_barcode_scanner.dart';
@@ -25,7 +26,7 @@ class _AddProductState extends ConsumerState<AddProduct> {
   final TextEditingController quantityController = TextEditingController();
   final _formKey = GlobalKey<FormState>();
 
-  void clearTextFields() {
+    void clearTextFields() {
     productNameController.clear();
     skuController.clear();
     locationController.clear();
@@ -45,7 +46,7 @@ class _AddProductState extends ConsumerState<AddProduct> {
 
   @override
   Widget build(BuildContext context) {
-    final productsRef = ref.watch(FirebaseDatabaseService.firebaseProductListProvider);
+    final  productsRef = ref.watch(FirebaseDatabaseService.firebaseProductListProvider);
     final ValueNotifier<String> buttonState = ValueNotifier('Add Product');
 
     return productsRef.when(

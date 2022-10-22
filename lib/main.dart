@@ -32,7 +32,6 @@ class _MyAppState extends ConsumerState<MyApp> {
       initialLocation: userStream.value == null ? '/login' : '/',
       routes: Routes().routes,
     );
-
     return MaterialApp.router(
       routerConfig: router,
       // home: userStream.value == null ? const LoginScreen() : const HomeScreen(),
