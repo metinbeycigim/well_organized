@@ -5,7 +5,7 @@ import 'package:well_organized/screens/home_screen.dart';
 import 'package:well_organized/screens/login_screen.dart';
 import 'package:well_organized/screens/product_list.dart';
 import 'package:well_organized/screens/qr_code.dart';
-import 'package:well_organized/services/qr_print.dart';
+import 'package:well_organized/screens/qr_print.dart';
 
 class Routes extends ChangeNotifier {
   List<GoRoute> get routes => [

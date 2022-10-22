@@ -38,6 +38,6 @@ class EbayApi {
 }
 
 final ebayApiProvider = Provider<EbayApi>((ref) => EbayApi());
-final ebayProductProvider = FutureProvider.family<EbayProductModel, String>((ref, upc) async {
+final ebayProductProvider = FutureProvider.family.autoDispose<EbayProductModel, String>((ref, upc) async {
   return ref.watch(ebayApiProvider).getProductDataEbay(upc);
 });

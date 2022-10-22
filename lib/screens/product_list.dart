@@ -15,7 +15,14 @@ class ProductList extends ConsumerStatefulWidget {
 class _ProductListState extends ConsumerState<ProductList> {
   final TextEditingController _controller = TextEditingController();
   List<QueryDocumentSnapshot<Map<String, dynamic>>> listViewData = [];
+  late AsyncValue<QuerySnapshot<Map<String, dynamic>>> productsRef;
 
+  @override
+  void didChangeDependencies() {
+    productsRef = ref.watch(FirebaseDatabaseService.firebaseProductListProvider);
+    super.didChangeDependencies();
+  }
+  
   @override
   void dispose() {
     _controller.dispose();
@@ -24,8 +31,6 @@ class _ProductListState extends ConsumerState<ProductList> {
 
   @override
   Widget build(BuildContext context) {
-    final productsRef = ref.watch(FirebaseDatabaseService.firebaseProductListProvider);
-
     return Scaffold(
       appBar: AppBar(
         title: const Text('Product List'),

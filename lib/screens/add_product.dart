@@ -295,7 +295,6 @@ class _AddProductState extends ConsumerState<AddProduct> {
                         child: ValueListenableBuilder(
                           valueListenable: buttonState,
                           builder: (_, String value, __) {
-                            print(value);
                             return Text(value, style: const TextStyle(color: Colors.white, fontSize: 25));
                           },
                         ),
