@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:go_router/go_router.dart';
 import 'package:intl/intl.dart';
 import 'package:syncfusion_flutter_xlsio/xlsio.dart' hide Column;
@@ -78,12 +79,12 @@ class Settings extends ConsumerWidget {
                 }
               }))
           .then((_) {
-        return ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(
-            content: Text('Excel file uploaded successfully'),
-            duration: Duration(seconds: 2),
-          ),
-        );
+        return  Fluttertoast.showToast(
+        msg: 'Excel file uploaded successfully',
+        textColor: toastTextColor,
+        backgroundColor: toastBackgroundColor,
+        toastLength: Toast.LENGTH_LONG,
+      );
       });
     }
 

@@ -1,7 +1,10 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:well_organized/services/firebase_database_service.dart';
+
+import '../constants/app_colors.dart';
 
 class FirebaseAuthService {
   FirebaseAuth get firebaseAuthInstance => FirebaseAuth.instance;
@@ -11,11 +14,11 @@ class FirebaseAuthService {
     try {
       await firebaseAuthInstance.signInWithEmailAndPassword(email: email, password: password);
     } on FirebaseAuthException catch (e) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(
-          content: Text(e.message.toString()),
-          duration: const Duration(seconds: 3),
-        ),
+      Fluttertoast.showToast(
+        msg: e.message.toString(),
+        textColor: toastTextColor,
+        backgroundColor: toastBackgroundColor,
+        toastLength: Toast.LENGTH_LONG,
       );
       print(e.message);
     }
@@ -34,11 +37,11 @@ class FirebaseAuthService {
       final userName = firebaseAuthInstance.currentUser as User;
       await FirebaseDatabaseService().addUser(userName);
     } on FirebaseAuthException catch (e) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(
-          content: Text(e.message.toString()),
-          duration: const Duration(seconds: 3),
-        ),
+      Fluttertoast.showToast(
+        msg: e.message.toString(),
+        textColor: toastTextColor,
+        backgroundColor: toastBackgroundColor,
+        toastLength: Toast.LENGTH_LONG,
       );
     }
   }

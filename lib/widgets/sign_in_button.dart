@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:well_organized/services/firebase_auth_service.dart';
+
+import '../constants/app_colors.dart';
 
 class SignInButton extends StatelessWidget {
   const SignInButton({
@@ -19,12 +22,12 @@ class SignInButton extends StatelessWidget {
       onPressed: () async {
         emailController.text.isNotEmpty
             ? await FirebaseAuthService().signIn(emailController.text.trim(), passwordController.text.trim(), context)
-            : ScaffoldMessenger.of(context).showSnackBar(
-                const SnackBar(
-                  content: Text('Please enter a valid email address'),
-                  duration: Duration(seconds: 3),
-                ),
-              );
+            :  Fluttertoast.showToast(
+        msg: 'Please enter a valid email address',
+        textColor: toastTextColor,
+        backgroundColor: toastBackgroundColor,
+        toastLength: Toast.LENGTH_LONG,
+      );
       },
       child: const Text(
         'Login',

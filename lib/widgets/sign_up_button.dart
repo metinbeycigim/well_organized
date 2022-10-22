@@ -1,6 +1,9 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:well_organized/services/firebase_auth_service.dart';
+
+import '../constants/app_colors.dart';
 
 class SignUpButton extends StatelessWidget {
   const SignUpButton({
@@ -20,12 +23,12 @@ class SignUpButton extends StatelessWidget {
         try {
           await FirebaseAuthService().signUp(emailController.text.trim(), passwordController.text.trim(), context);
         } on FirebaseAuthException catch (e) {
-          ScaffoldMessenger.of(context).showSnackBar(
-            SnackBar(
-              content: Text('$e'),
-              duration: const Duration(seconds: 3),
-            ),
-          );
+           Fluttertoast.showToast(
+        msg: e.message.toString(),
+        textColor: toastTextColor,
+        backgroundColor: toastBackgroundColor,
+        toastLength: Toast.LENGTH_LONG,
+      );
         }
       },
       child: const Text(
