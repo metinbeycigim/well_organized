@@ -53,6 +53,7 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                   Padding(
                     padding: const EdgeInsets.all(10),
                     child: TextFormField(
+                      textInputAction: TextInputAction.next,
                       controller: emailController,
                       keyboardType: TextInputType.emailAddress,
                       autocorrect: false,
@@ -66,6 +67,7 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                   Padding(
                     padding: const EdgeInsets.all(10),
                     child: TextFormField(
+                      textInputAction: TextInputAction.done,
                       controller: passwordController,
                       autocorrect: false,
                       obscureText: isObscure,

@@ -63,7 +63,7 @@ class _QrCodeState extends ConsumerState<QrCode> {
                 ),
               ),
             ),
-            if (_textEditingController.text.length > 11)
+            if (_textEditingController.text.length >= 11)
               productRef.when(
                   data: (data) {
                     List<AppProductModel> productList = [];
