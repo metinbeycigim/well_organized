@@ -17,7 +17,9 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
   final TextEditingController emailController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
   final _formKey = GlobalKey<FormState>();
-  bool isObscure = true;
+  final passwordVisibilityProvider = StateProvider<bool>((ref) => true);
+  final signInControllerProvider = StateProvider<bool>((ref) => true);
+
   bool isSignIn = true;
 
   @override
@@ -29,6 +31,12 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
 
   @override
   Widget build(BuildContext context) {
+    StateController<bool> passwordProviderStateController = ref.watch(passwordVisibilityProvider.state);
+    bool isObscure = passwordProviderStateController.state;
+
+    StateController<bool> signInProviderStateController = ref.watch(signInControllerProvider.state);
+    bool isSignIn = signInProviderStateController.state;
+
     return SafeArea(
       child: GestureDetector(
         onTap: () => FocusManager.instance.primaryFocus?.unfocus(),
@@ -76,9 +84,7 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                         suffixIcon: InkWell(
                           child:
                               isObscure ? const Icon(Icons.visibility_sharp) : const Icon(Icons.visibility_off_sharp),
-                          onTap: () => setState(() {
-                            isObscure = !isObscure;
-                          }),
+                          onTap: () => passwordProviderStateController.update((state) => state = !state),
                         ),
                         labelText: 'Password',
                         hintText: 'Enter your secure password',
@@ -115,11 +121,12 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                           text: 'here',
                           style: const TextStyle(color: backgroundColor, backgroundColor: buttonColor),
                           recognizer: TapGestureRecognizer()
-                            ..onTap = () => setState(() {
-                                  isSignIn = !isSignIn;
-                                  emailController.clear();
-                                  passwordController.clear();
-                                }),
+                            ..onTap = () {
+                              signInProviderStateController.update((state) => state = !state);
+                              passwordProviderStateController.state = true;
+                              emailController.clear();
+                              passwordController.clear();
+                            },
                         )
                       ],
                     ),
