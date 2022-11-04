@@ -30,41 +30,42 @@ class _MyAppState extends ConsumerState<MyApp> {
     final userStream = ref.watch(FirebaseAuthService.authStateProvider);
     final GoRouter router = GoRouter(
       initialLocation: userStream.value == null ? '/login' : '/',
-      routes: Routes().routes,
+      routes: Routes.instance.routes,
     );
     return MaterialApp.router(
       routerConfig: router,
       // home: userStream.value == null ? const LoginScreen() : const HomeScreen(),
       theme: ThemeData(
-          canvasColor: widgetBackgroundColor,
+          canvasColor: AppColors.widgetBackgroundColor,
           inputDecorationTheme: const InputDecorationTheme(
-              labelStyle: TextStyle(color: inputLabelColor),
+              labelStyle: TextStyle(color: AppColors.inputLabelColor),
               enabledBorder: OutlineInputBorder(
-                  borderSide: BorderSide(color: borderColor), borderRadius: BorderRadius.all(Radius.circular(15)))),
+                  borderSide: BorderSide(color: AppColors.borderColor),
+                  borderRadius: BorderRadius.all(Radius.circular(15)))),
           bottomNavigationBarTheme: const BottomNavigationBarThemeData(
-            selectedItemColor: selectedItemColor,
-            unselectedItemColor: unselectedItemColor,
+            selectedItemColor: AppColors.selectedItemColor,
+            unselectedItemColor: AppColors.unselectedItemColor,
             selectedIconTheme: IconThemeData(size: 40),
             selectedLabelStyle: TextStyle(fontWeight: FontWeight.bold, fontSize: 15),
           ),
-          scaffoldBackgroundColor: backgroundColor,
+          scaffoldBackgroundColor: AppColors.backgroundColor,
           elevatedButtonTheme: ElevatedButtonThemeData(
             style: ButtonStyle(
-                backgroundColor: MaterialStateProperty.resolveWith((states) => buttonColor),
-                foregroundColor: MaterialStateProperty.resolveWith((states) => buttonIconColor)),
+                backgroundColor: MaterialStateProperty.resolveWith((states) => AppColors.buttonColor),
+                foregroundColor: MaterialStateProperty.resolveWith((states) => AppColors.buttonIconColor)),
           ),
           textTheme: GoogleFonts.montserratTextTheme(),
           appBarTheme: AppBarTheme(
-              iconTheme: const IconThemeData(color: buttonColor),
+              iconTheme: const IconThemeData(color: AppColors.buttonColor),
               shape: const RoundedRectangleBorder(
                 borderRadius: BorderRadius.only(
                   bottomLeft: Radius.circular(20),
                   bottomRight: Radius.circular(20),
                 ),
               ),
-              backgroundColor: widgetBackgroundColor,
+              backgroundColor: AppColors.widgetBackgroundColor,
               titleTextStyle: GoogleFonts.montserrat(
-                color: titleTextColor,
+                color: AppColors.titleTextColor,
                 fontSize: 25,
                 fontWeight: FontWeight.w600,
               ))),

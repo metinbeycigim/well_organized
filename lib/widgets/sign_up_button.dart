@@ -24,8 +24,8 @@ class SignUpButton extends StatelessWidget {
         } on FirebaseAuthException catch (e) {
            Fluttertoast.showToast(
         msg: e.message.toString(),
-        textColor: toastTextColor,
-        backgroundColor: toastBackgroundColor,
+        textColor: AppColors.toastTextColor,
+        backgroundColor: AppColors.toastBackgroundColor,
         toastLength: Toast.LENGTH_LONG,
       );
         }

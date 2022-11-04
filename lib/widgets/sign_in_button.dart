@@ -23,8 +23,8 @@ class SignInButton extends StatelessWidget {
             ? await FirebaseAuthService().signIn(emailController.text.trim(), passwordController.text.trim(), context)
             :  Fluttertoast.showToast(
         msg: 'Please enter a valid email address',
-        textColor: toastTextColor,
-        backgroundColor: toastBackgroundColor,
+        textColor: AppColors.toastTextColor,
+        backgroundColor: AppColors.toastBackgroundColor,
         toastLength: Toast.LENGTH_LONG,
       );
       },

@@ -7,7 +7,11 @@ import 'package:well_organized/screens/product_list.dart';
 import 'package:well_organized/screens/qr_code.dart';
 import 'package:well_organized/screens/qr_print.dart';
 
-class Routes extends ChangeNotifier {
+@immutable
+class Routes {
+  const Routes._();
+  static get instance => const Routes._();
+
   List<GoRoute> get routes => [
         GoRoute(
           name: 'home',

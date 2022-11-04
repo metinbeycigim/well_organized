@@ -1,14 +1,17 @@
 import 'dart:convert';
 
-class EbayProductModel {
-  String href;
-  int total;
-  String next;
-  int limit;
-  int offset;
-  List<ItemSummary> itemSummaries;
+import 'package:flutter/cupertino.dart';
 
-  EbayProductModel(
+@immutable
+class EbayProductModel {
+  final String href;
+  final int total;
+  final String next;
+  final int limit;
+  final int offset;
+  final List<ItemSummary> itemSummaries;
+
+  const EbayProductModel(
     this.href,
     this.total,
     this.next,

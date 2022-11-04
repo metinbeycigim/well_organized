@@ -98,7 +98,7 @@ class _EbayProductsState extends ConsumerState<EbayProducts> {
                                       ),
                                       const Divider(
                                         thickness: 1,
-                                        color: textColor,
+                                        color: AppColors.textColor,
                                         indent: 70,
                                         endIndent: 70,
                                       ),

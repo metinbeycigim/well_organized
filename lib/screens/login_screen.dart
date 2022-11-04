@@ -111,15 +111,15 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                         isSignIn
                             ? const TextSpan(
                                 text: 'If you do not have an account click ',
-                                style: TextStyle(color: buttonColor),
+                                style: TextStyle(color: AppColors.buttonColor),
                               )
                             : const TextSpan(
                                 text: 'If you have an account click ',
-                                style: TextStyle(color: buttonColor),
+                                style: TextStyle(color: AppColors.buttonColor),
                               ),
                         TextSpan(
                           text: 'here',
-                          style: const TextStyle(color: backgroundColor, backgroundColor: buttonColor),
+                          style: const TextStyle(color:AppColors. backgroundColor, backgroundColor: AppColors.buttonColor),
                           recognizer: TapGestureRecognizer()
                             ..onTap = () {
                               signInProviderStateController.update((state) => state = !state);
@@ -127,7 +127,16 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                               emailController.clear();
                               passwordController.clear();
                             },
-                        )
+                        ),
+                        isSignIn
+                            ? const TextSpan(
+                                text: ' to sign up',
+                                style: TextStyle(color: AppColors.buttonColor),
+                              )
+                            : const TextSpan(
+                                text: ' to login',
+                                style: TextStyle(color: AppColors.buttonColor),
+                              ),
                       ],
                     ),
                   )

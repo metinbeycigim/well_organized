@@ -82,8 +82,8 @@ class Settings extends ConsumerWidget {
           .then((_) {
         return  Fluttertoast.showToast(
         msg: 'Excel file uploaded successfully',
-        textColor: toastTextColor,
-        backgroundColor: toastBackgroundColor,
+        textColor: AppColors.toastTextColor,
+        backgroundColor: AppColors.toastBackgroundColor,
         toastLength: Toast.LENGTH_LONG,
       );
       });
@@ -100,7 +100,7 @@ class Settings extends ConsumerWidget {
               padding: const EdgeInsets.all(8.0),
               child: Text(
                 'signed in as ${userName!.toUpperCase()}',
-                style: const TextStyle(color: titleTextColor),
+                style: const TextStyle(color: AppColors.titleTextColor),
               ),
             ),
           ),

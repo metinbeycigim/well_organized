@@ -1,16 +1,19 @@
 import 'dart:convert';
 
+import 'package:flutter/cupertino.dart';
+
+@immutable
 class AppProductModel {
-  String userName;
-  String productName;
-  String sku;
-  String location;
-  String barcode;
-  int quantity;
-  String? photo1;
-  String? photo2;
-  String? photo3;
-  AppProductModel({
+  final String userName;
+  final String productName;
+  final String sku;
+  final String location;
+  final String barcode;
+  final int quantity;
+  final String? photo1;
+  final String? photo2;
+  final String? photo3;
+  const AppProductModel({
     required this.userName,
     required this.productName,
     required this.sku,

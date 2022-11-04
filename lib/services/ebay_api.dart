@@ -44,8 +44,8 @@ class EbayApi {
     } on PlatformException catch (e) {
       Fluttertoast.showToast(
         msg: e.message.toString(),
-        textColor: toastTextColor,
-        backgroundColor: toastBackgroundColor,
+        textColor: AppColors.toastTextColor,
+        backgroundColor: AppColors.toastBackgroundColor,
         toastLength: Toast.LENGTH_LONG,
       );
       print(e.message);
