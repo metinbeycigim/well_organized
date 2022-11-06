@@ -38,10 +38,13 @@ class _MyAppState extends ConsumerState<MyApp> {
       theme: ThemeData(
           canvasColor: AppColors.widgetBackgroundColor,
           inputDecorationTheme: const InputDecorationTheme(
+              focusedBorder: OutlineInputBorder(
+                borderSide: BorderSide(color: AppColors.borderColor),
+              ),
               labelStyle: TextStyle(color: AppColors.inputLabelColor),
               enabledBorder: OutlineInputBorder(
                   borderSide: BorderSide(color: AppColors.borderColor),
-                  borderRadius: BorderRadius.all(Radius.circular(15)))),
+                  borderRadius: BorderRadius.all(Radius.circular(10)))),
           bottomNavigationBarTheme: const BottomNavigationBarThemeData(
             selectedItemColor: AppColors.selectedItemColor,
             unselectedItemColor: AppColors.unselectedItemColor,

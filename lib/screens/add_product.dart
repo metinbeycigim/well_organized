@@ -1,4 +1,3 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_barcode_scanner/flutter_barcode_scanner.dart';
@@ -26,12 +25,13 @@ class _AddProductState extends ConsumerState<AddProduct> {
   final TextEditingController quantityController = TextEditingController();
   final _formKey = GlobalKey<FormState>();
 
-    void clearTextFields() {
+  void clearTextFields() {
     productNameController.clear();
     skuController.clear();
     locationController.clear();
     barcodeController.clear();
     quantityController.clear();
+    setState(() {});
   }
 
   @override
@@ -46,7 +46,7 @@ class _AddProductState extends ConsumerState<AddProduct> {
 
   @override
   Widget build(BuildContext context) {
-    final  productsRef = ref.watch(FirebaseDatabaseService.firebaseProductListProvider);
+    final productsRef = ref.watch(FirebaseDatabaseService.firebaseProductListProvider);
     final ValueNotifier<String> buttonState = ValueNotifier('Add Product');
 
     return productsRef.when(
@@ -56,6 +56,7 @@ class _AddProductState extends ConsumerState<AddProduct> {
             final product = AppProductModel.fromMap(snapshot.data());
             productList.add(product);
           }
+
           return GestureDetector(
             onTap: () => FocusManager.instance.primaryFocus?.unfocus(),
             child: Scaffold(
@@ -73,7 +74,6 @@ class _AddProductState extends ConsumerState<AddProduct> {
                       Padding(
                         padding: const EdgeInsets.all(10),
                         child: TextFormField(
-                          autovalidateMode: AutovalidateMode.onUserInteraction,
                           textCapitalization: TextCapitalization.words,
                           controller: productNameController,
                           validator: ((value) {
@@ -93,7 +93,6 @@ class _AddProductState extends ConsumerState<AddProduct> {
                       Padding(
                         padding: const EdgeInsets.all(10),
                         child: TextFormField(
-                          autovalidateMode: AutovalidateMode.onUserInteraction,
                           textCapitalization: TextCapitalization.characters,
                           controller: skuController,
                           onChanged: (value) {
@@ -125,7 +124,6 @@ class _AddProductState extends ConsumerState<AddProduct> {
                       Padding(
                         padding: const EdgeInsets.all(10),
                         child: TextFormField(
-                          autovalidateMode: AutovalidateMode.onUserInteraction,
                           textCapitalization: TextCapitalization.characters,
                           controller: locationController,
                           validator: ((value) {
@@ -146,33 +144,33 @@ class _AddProductState extends ConsumerState<AddProduct> {
                         padding: const EdgeInsets.all(10),
                         child: TextFormField(
                           inputFormatters: [FilteringTextInputFormatter.digitsOnly],
-                          autovalidateMode: AutovalidateMode.onUserInteraction,
                           controller: barcodeController,
                           onChanged: (value) {
-                            void clearSku = skuController.clear();
-                            void clearLocation = locationController.clear();
-                            void clearProductName = productNameController.clear();
-                            for (var product in productList) {
-                              if (product.barcode == value) {
-                                productNameController.text = product.productName;
-                                skuController.text = product.sku;
-                                locationController.text = product.location;
-                              } else {
-                                clearLocation;
-                                clearSku;
-                                clearProductName;
+                            setState(() {
+                              void clearSku = skuController.clear();
+                              void clearLocation = locationController.clear();
+                              void clearProductName = productNameController.clear();
+                              for (var product in productList) {
+                                if (product.barcode == value) {
+                                  productNameController.text = product.productName;
+                                  skuController.text = product.sku;
+                                  locationController.text = product.location;
+                                } else {
+                                  clearLocation;
+                                  clearSku;
+                                  clearProductName;
+                                }
                               }
-                            }
-                            productList.any((element) => element.barcode == value.toUpperCase())
-                                ? buttonState.value = 'Update Product'
-                                : buttonState.value = 'Add Product';
+                              productList.any((element) => element.barcode == value.toUpperCase())
+                                  ? buttonState.value = 'Update Product'
+                                  : buttonState.value = 'Add Product';
+                            });
                           },
                           validator: ((value) {
                             if (value!.isEmpty) {
                               return 'Enter a barcode';
-                            } else {
-                              return null;
                             }
+                            return null;
                           }),
                           decoration: InputDecoration(
                             suffixIcon: InkWell(
@@ -205,7 +203,6 @@ class _AddProductState extends ConsumerState<AddProduct> {
                         padding: const EdgeInsets.all(10),
                         child: TextFormField(
                           inputFormatters: [FilteringTextInputFormatter.digitsOnly],
-                          autovalidateMode: AutovalidateMode.onUserInteraction,
                           controller: quantityController,
                           validator: ((value) {
                             if (value!.isEmpty) {
@@ -214,8 +211,14 @@ class _AddProductState extends ConsumerState<AddProduct> {
                               return null;
                             }
                           }),
-                          decoration: const InputDecoration(
-                            border: OutlineInputBorder(),
+                          decoration: InputDecoration(
+                            suffix: (productList
+                                    .where((element) => element.barcode == barcodeController.text)
+                                    .isNotEmpty)
+                                ? Text(
+                                    '${productList.where((element) => element.barcode == barcodeController.text).first.quantity} pc(s) at location')
+                                : const Text(''),
+                            border: const OutlineInputBorder(),
                             labelText: 'Quantity',
                             hintText: 'Enter the quantity',
                           ),
@@ -223,13 +226,12 @@ class _AddProductState extends ConsumerState<AddProduct> {
                         ),
                       ),
                       Padding(
-                        padding: const EdgeInsets.all(10),
-                        child: AddImageButton(
-                          formKey: _formKey,
-                          imageRef: FirebaseStorageService(),
-                          skuController: skuController,
-                        ),
-                      ),
+                          padding: const EdgeInsets.all(10),
+                          child: AddImageButton(
+                            formKey: _formKey,
+                            imageRef: FirebaseStorageService(),
+                            skuController: skuController,
+                          )),
                       verticalSpace(20),
                       ElevatedButton(
                         style: ElevatedButton.styleFrom(
