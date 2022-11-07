@@ -2,7 +2,6 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:fluttertoast/fluttertoast.dart';
-import 'package:go_router/go_router.dart';
 import 'package:intl/intl.dart';
 import 'package:syncfusion_flutter_xlsio/xlsio.dart' hide Column;
 import 'package:well_organized/constants/app_colors.dart';
@@ -15,7 +14,6 @@ import '../models/app_product_model.dart';
 
 class Settings extends ConsumerWidget {
   const Settings({super.key});
-
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -80,12 +78,12 @@ class Settings extends ConsumerWidget {
                 }
               }))
           .then((_) {
-        return  Fluttertoast.showToast(
-        msg: 'Excel file uploaded successfully',
-        textColor: AppColors.toastTextColor,
-        backgroundColor: AppColors.toastBackgroundColor,
-        toastLength: Toast.LENGTH_LONG,
-      );
+        return Fluttertoast.showToast(
+          msg: 'Excel file uploaded successfully',
+          textColor: AppColors.toastTextColor,
+          backgroundColor: AppColors.toastBackgroundColor,
+          toastLength: Toast.LENGTH_LONG,
+        );
       });
     }
 
@@ -121,19 +119,6 @@ class Settings extends ConsumerWidget {
                 ),
                 onPressed: generateExcel,
                 child: const Text('Export Product List'),
-              ),
-            ),
-            Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: ElevatedButton(
-                style: ElevatedButton.styleFrom(
-                  minimumSize: const Size(250, 50),
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(15),
-                  ),
-                ),
-                onPressed: () => context.push('/qrCode'),
-                child: const Text('QR Code'),
               ),
             ),
             verticalSpace(100),

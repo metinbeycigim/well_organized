@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_barcode_scanner/flutter_barcode_scanner.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:go_router/go_router.dart';
 import 'package:well_organized/services/firebase_auth_service.dart';
 import 'package:well_organized/services/firebase_database_service.dart';
 import 'package:well_organized/services/firebase_storage_service.dart';
@@ -226,7 +227,7 @@ class _AddProductState extends ConsumerState<AddProduct> {
                         ),
                       ),
                       Padding(
-                          padding: const EdgeInsets.all(10),
+                          padding: const EdgeInsets.fromLTRB(0, 10, 0, 0),
                           child: AddImageButton(
                             formKey: _formKey,
                             imageRef: FirebaseStorageService(),
@@ -302,6 +303,17 @@ class _AddProductState extends ConsumerState<AddProduct> {
                           },
                         ),
                       ),
+                      verticalSpace(20),
+                      ElevatedButton(
+                        onPressed: () => context.push('/qrCode'),
+                        style: ElevatedButton.styleFrom(
+                          minimumSize: const Size(250, 50),
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(15),
+                          ),
+                        ),
+                        child: const Text('QR Code', style: TextStyle(color: Colors.white, fontSize: 25)),
+                      )
                     ],
                   ),
                 ),
